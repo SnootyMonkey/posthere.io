@@ -35,9 +35,6 @@ body {
   min-width: 1000px;
 }
 
-body {
-  padding-top: 50px;
-}
 .navbar-title {
     margin-top: 5px;
     font-size: 2em;
@@ -53,7 +50,9 @@ body {
     margin: 15px;
 }
 .starter-template {
-  padding: 120px 15px 0;
+  padding: 60px 15px 0;
+}
+.home-template {
   text-align: center;
 }
 .upper-form-group {
@@ -85,4 +84,8 @@ body {
 
 #cta-group a {
   text-decoration: underline
+}
+
+.result-group a {
+  text-decoration: underline;
 }
