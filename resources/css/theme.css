@@ -9,7 +9,34 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   min-width: 1000px;
+  font-size: 1.6em;
+  background: url('../images/gray_jean.png');
 }
+
+a, .glyphicon-question-sign {
+  color: #e62f17;
+}
+
+a:hover, .glyphicon-question-sign:hover {
+  color: #8A1C0E;
+}
+
+.btn-path {
+  background-repeat: repeat-x;
+  border-color: #8A1C0E;
+  background-image: linear-gradient(to bottom,#e62f17 0,#8A1C0E 100%);
+  background-color: #e62f17;
+  color: white;
+}
+
+.btn-path:hover {
+  background-repeat: repeat-x;
+  border-color: #8A1C0E;
+  background-image: linear-gradient(to bottom,#8A1C0E 0,#e62f17 100%);
+  background-color: #e62f17;
+  color: white;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
