@@ -46,6 +46,7 @@ table {background-color: #fff;}
 }
 
 .footer {
+  font-size: 21px;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -71,18 +72,18 @@ table {background-color: #fff;}
 }
 
 .navbar-title {
-    margin-top: 5px;
-    font-size: 2em;
-    margin-bottom: 15px;
+  margin-top: 5px;
+  font-size: 2em;
+  margin-bottom: 15px;
 }
 .navbar-subtitle {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 .navbar-image {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 .navbar-right {
-    margin: 15px;
+  margin: 15px;
 }
 .starter-template {
   padding: 60px 15px 0;
@@ -92,10 +93,10 @@ table {background-color: #fff;}
   font-size: 21px;
 }
 .upper-form-group {
-    margin: 15px;
+  margin: 15px;
 }
 .lower-form-group {
-    margin-bottom: 45px;
+  margin-bottom: 45px;
 }
 
 .container-group {
@@ -131,8 +132,16 @@ table {background-color: #fff;}
     width: 175px;
 }
 
+#built-by-group {
+  font-size: 21px;
+}
+
 #built-by-group img {
     width: 50px;
+}
+
+#cta-group {
+  font-size: 21px;
 }
 
 #cta-group a {
@@ -141,6 +150,10 @@ table {background-color: #fff;}
 
 .result-group a {
   text-decoration: underline;
+}
+
+.empty-results {
+  margin: 45px 0;
 }
 
 .result-timestamp {
