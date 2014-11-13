@@ -1,0 +1,63 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  text-align: center;
+}
+
+.footer a {
+    margin: 0 15px;
+    text-decoration: underline;
+}
+
+body {
+  padding-top: 50px;
+}
+.navbar-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+.navbar-subtitle {
+    font-size: 0.8em;
+}
+.navbar-right {
+    margin: 15px;
+}
+.starter-template {
+  padding: 120px 15px 0;
+  text-align: center;
+}
+.upper-form-group {
+    margin: 15px;
+}
+.lower-form-group {
+    margin-bottom: 45px;
+}
+
+.container-group {
+    margin: 45px 0;
+}
+
+#testimonial-group ul li {
+    padding: 0 50px;
+}
+
+#testimonial-group ul li p {
+    width: 175px;
+}
+
+#built-by-group img {
+    width: 50px;
+}

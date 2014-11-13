@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sticky Footer Navbar Template for Bootstrap</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">    
+
+    <!-- Custom styles for this template -->
+    <link href="css/theme.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <div class='navbar-title'>posthere.io</div>
+            <div class='navbar-subtitle'>Debug Your POST Requests!</div>
+          </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse pull-right navbar-right">
+          <a href='/' class="btn btn-success">Fork me on GitHub</a>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="starter-template">
+        <p class="lead">POST to this URL, then visit it in your browser to see what you posted! <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></p>
+
+        <div id='form-group' class='container-group'>
+          <form role='form' class='form-inline'>
+            <div class='upper-form-group'>
+              <div class='form-group'>
+                <label class='sr-only' for='urlMethodInput'>URL Method</label>
+                <select class='form-control' id='urlMethodInput'>
+                  <option>https</option>
+                  <option>http</option>
+                </select>
+              </div>
+
+              ://posthere.io/
+
+              <div class='form-group'>
+                <label class='sr-only' for='urlUUIDInput'>UUID</label>
+                <input type='text' class='form-control' id='urlUUIDInput' placeholder='1234-AB-5678'>
+              </div>
+            </div>
+
+            <div class='lower-form-group'>
+              returning a status of 
+
+              <div class='form-group'>
+                <label class='sr-only' for='urlResponseStatus'>Response Status</label>
+                <select class='form-control' id='urlResponseStatus'>
+                  <option>200</option>
+                  <option>404</option>
+                  <option>500</option>
+                </select>
+              </div>
+            </div>
+          </form>
+
+          <p><a href='/' class="btn btn-success">Copy My URL!</a></p>
+          <p>https://posthere.io/1234-AB-5678</p>
+        </div>
+
+        <div id='testimonial-group' class='container-group'>
+          <ul class="list-inline">
+            <li>
+              <img src='http://placehold.it/50x50'/>
+              <p>A really great testimonial and stuff goes here</p>
+            </li>
+
+            <li>
+              <img src='http://placehold.it/50x50'/>
+              <p>A really great testimonial and stuff goes here</p>
+            </li>
+
+            <li>
+              <img src='http://placehold.it/50x50'/>
+              <p>A really great testimonial and stuff goes here</p>
+            </li>
+          </ul>
+        </div>
+
+        <div id='built-by-group' class='container-group'>
+          <p>Built in <img src='images/clojure-icon.gif'> by the fine folks at <img src='images/path-icon.png'></p>
+        </div>
+
+        <div id='cta-group' class='container-group'>
+          <p>You're using post.here.io to test your code?  Then you probably want to <a href='https://path.com/about#jobs'>work for us!</a></p>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+    <footer class="footer">
+      <div class="container">
+        <a href='/privacy'>Privacy</a>
+        <a href='/Terms of Use'>Terms of Use</a>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
