@@ -28,6 +28,8 @@ a:hover, .glyphicon-question-sign:hover {
 }
 
 table {background-color: #fff;}
+.borderless {background-color: transparent;}
+.borderless td, .borderless th {border: none; border-top: none !important; padding: 5px 30px !important;}
 
 .btn-path {
   background-repeat: repeat-x;
