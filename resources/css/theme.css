@@ -3,10 +3,12 @@
 html {
   position: relative;
   min-height: 100%;
+  min-width: 1000px;
 }
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  min-width: 1000px;
 }
 .footer {
   position: absolute;
@@ -17,9 +19,20 @@ body {
   text-align: center;
 }
 
+.form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
 .footer a {
     margin: 0 15px;
     text-decoration: underline;
+}
+
+.container {
+  width: 970px !important;
+  min-width: 1000px;
 }
 
 body {
