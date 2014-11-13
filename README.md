@@ -8,21 +8,21 @@ Wouldn’t it be nice to be able to instantly see what your code POSTed at any t
 
 Decide if you want to use HTTP or HTTPs, and come up with a string that makes sense for the POST you’re attempting, and viola! 
 
-    **https**://posthere.io/**test-my-twitter-code**
+**https**://posthere.io/**test-my-twitter-code**
 
-    **http**://posthere.io/**a-webhook-callback-test**
+**http**://posthere.io/**a-webhook-callback-test**
 
-    **http**://posthere.io/**another-webhook-callback-test?api=123**
+**http**://posthere.io/**another-webhook-callback-test?api=123**
 
 After POSTing your JSON, XML, or form fields, point your web browser at the same URL and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
 
 Need to simulate different HTTP responses to your POST, to ensure your code can handle them? It’s easy:
 
-    **https**://posthere.io/**201**/**test-my-twitter-code**
+**https**://posthere.io/**201**/**test-my-twitter-code**
 
-    **http**://posthere.io/**500**/**a-webhook-callback-test**
+**http**://posthere.io/**500**/**a-webhook-callback-test**
 
-    **http**://posthere.io/**404**/another-webhook-callback-test?api=123
+**http**://posthere.io/**404**/another-webhook-callback-test?api=123
 
 Don’t trust us with your test data? It’s open source! Check the code and verify we don’t do anything nefarious, or host it yourself internally.
 
@@ -32,7 +32,7 @@ Need more features? Fork it!
 
 99.9% of users should use [PostHere.io](http://posthere.io/) by just going to the [website](http://posthere.io/).
 
-If you want to host it internally yourself, or you want to hack on the Clojure/ClojureScript code, you'll need to install Java, and [Leiningen](http://leiningen.org/).
+If you want to host it internally yourself, or you want to hack on the Clojure/ClojureScript code, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
 Then you can build the ClojureScript code:
 
