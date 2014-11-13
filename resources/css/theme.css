@@ -11,6 +11,12 @@ body {
   min-width: 1000px;
   font-size: 1.6em;
   background: url('../images/gray_jean.png');
+  font-family: 'Quattrocento Sans', sans-serif;
+  /* font-family: 'Oswald', sans-serif; */
+}
+
+hr {
+  border-top: 1px solid #ccc;
 }
 
 a, .glyphicon-question-sign {
@@ -20,6 +26,8 @@ a, .glyphicon-question-sign {
 a:hover, .glyphicon-question-sign:hover {
   color: #8A1C0E;
 }
+
+table {background-color: #fff;}
 
 .btn-path {
   background-repeat: repeat-x;
@@ -115,4 +123,8 @@ a:hover, .glyphicon-question-sign:hover {
 
 .result-group a {
   text-decoration: underline;
+}
+
+.result-timestamp {
+  font-size: 0.8em;
 }
