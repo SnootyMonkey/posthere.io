@@ -86,9 +86,10 @@ table {background-color: #fff;}
 }
 .starter-template {
   padding: 60px 15px 0;
+  text-align: center;
 }
 .home-template {
-  text-align: center;
+  font-size: 21px;
 }
 .upper-form-group {
     margin: 15px;
@@ -98,11 +99,28 @@ table {background-color: #fff;}
 }
 
 .container-group {
-    margin: 45px 0;
+  margin: 45px 0;
+}
+
+#form-group {
+  width: 500px;
+  margin: 45px auto;
+  background: #f5f5f5; 
+  background: -moz-linear-gradient(top,  #f5f5f5 0%, #efefef 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* IE10+ */
+  background: linear-gradient(top,  #f5f5f5 0%,#efefef 100%); /* W3C */
+  -pie-background: linear-gradient(top,  #f5f5f5 0%,#efefef 100%); 
+  box-shadow: 0px 0px 1px 1px white inset, 0px 23px 21px -33px #000;
+  border-radius: 7px;
+  border:1px solid #d8d8d8;
 }
 
 #testimonial-group {
   margin: 100px 0;
+  font-size: 16px
 }
 
 #testimonial-group ul li {
