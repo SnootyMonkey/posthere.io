@@ -20,10 +20,10 @@
         <text>by%20the%20fine%20folks%20at</text>
       </controlProperties>
     </control>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="614" y="983" w="-1" h="-1" measuredW="594" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="614" y="983" w="-1" h="-1" measuredW="596" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <size>16</size>
-        <text>You%27re%20using%20posthere.io%20to%20test%20your%20code%3F%20Then%20you%20probably%20want%20to%20%5Bwork%20for%20us%5D%21</text>
+        <text>You%27re%20using%20PostHere.io%20to%20test%20your%20code%3F%20Then%20you%20probably%20want%20to%20%5Bwork%20for%20us%5D%21</text>
         <underline>false</underline>
       </controlProperties>
     </control>
@@ -38,10 +38,10 @@
       </controlProperties>
     </control>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Icon" x="575" y="130" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="8" locked="false" isInGroup="-1"/>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="632" y="125" w="-1" h="-1" measuredW="137" measuredH="36" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="632" y="125" w="-1" h="-1" measuredW="142" measuredH="36" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <size>28</size>
-        <text>posthere.io</text>
+        <text>PostHere.io</text>
       </controlProperties>
     </control>
     <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="632" y="159" w="-1" h="-1" measuredW="173" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
