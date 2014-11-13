@@ -49,10 +49,10 @@
         <text>Debug%20Your%20POST%20Requests%21</text>
       </controlProperties>
     </control>
-    <control controlID="50" controlTypeID="com.balsamiq.mockups::Label" x="575" y="251" w="-1" h="-1" measuredW="418" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Label" x="575" y="251" w="-1" h="-1" measuredW="400" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <size>16</size>
-        <text>No%20recent%20results%20for%3A%20*https%3A//posthere.io/1234-AB-5678*</text>
+        <text>Recent%20results%20for%3A%20*https%3A//posthere.io/1234-AB-5678*</text>
       </controlProperties>
     </control>
     <control controlID="51" controlTypeID="com.balsamiq.mockups::HRule" x="575" y="290" w="679" h="-1" measuredW="100" measuredH="10" zOrder="12" locked="false" isInGroup="-1">
