@@ -50,6 +50,10 @@ body {
     margin: 45px 0;
 }
 
+#testimonial-group {
+  margin: 100px 0;
+}
+
 #testimonial-group ul li {
     padding: 0 50px;
 }
@@ -60,4 +64,8 @@ body {
 
 #built-by-group img {
     width: 50px;
+}
+
+#cta-group a {
+  text-decoration: underline
 }
