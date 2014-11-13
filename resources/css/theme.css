@@ -26,11 +26,15 @@ body {
   padding-top: 50px;
 }
 .navbar-title {
+    margin-top: 5px;
     font-size: 2em;
     margin-bottom: 15px;
 }
 .navbar-subtitle {
     font-size: 0.8em;
+}
+.navbar-image {
+    margin-right: 15px;
 }
 .navbar-right {
     margin: 15px;
