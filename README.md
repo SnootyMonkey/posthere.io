@@ -26,7 +26,7 @@ Need to simulate different HTTP responses to your POST, to ensure your code can 
 
 Don’t trust us with your test data? It’s open source! Check the code and verify we don’t do anything nefarious, or host it yourself internally.
 
-Need more features? Fork it!
+Need more features? [Fork it](https://github.com/path/posthere.io/fork)!
 
 ## Usage
 
