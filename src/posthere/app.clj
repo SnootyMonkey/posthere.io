@@ -48,7 +48,7 @@
 
 (defn start [port]
   (run-server app {:port port :join? false})
-  (println (str "\nPostHere.io: Server running on port - " port ", hot-reload - " hot-reload)))
+  (println (str "\nPOSThere.io: Server running on port - " port ", hot-reload - " hot-reload)))
 
 (defn -main []
   (start 3000))

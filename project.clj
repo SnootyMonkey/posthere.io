@@ -89,7 +89,7 @@
 
   :aliases {
     "midje" ["with-profile" "qa" "midje"] ; run all tests
-    "run!" ["with-profile" "prod" "run"] ; start a PostHere.io server in production
+    "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "ancient" ["with-profile" "dev" "do" "ancient" ":allow-qualified," "ancient" ":plugins" ":allow-qualified"] ; check for out of date dependencies
   }
