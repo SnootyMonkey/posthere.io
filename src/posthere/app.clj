@@ -15,19 +15,23 @@
 (defn template-for [name] (str "../resources/html/" name))
 
 ; Results page work
-(deftemplate results-page (template-for "results.html") [results] 
+(deftemplate results-page (template-for "results.html") [results, uuid] 
   [:head :title] (html-content (str "POSThere.io - Results"))
 
   ; any idea how we would clean this up?
-  [:#results] (if (> (count results) 0) 
-                #(do 
+  [:#results] (if (not-empty results) 
+                (do->
                   (remove-attr :style)
                   (html-content (str results))))
-  [:#empty-results] (if (> (count results) 0) nil))
+  [:#empty-results] (if (not-empty results)
+                      nil
+                      (append " "))
+  [:#empty-results :.uuid-value] (if (empty results)
+                                    (html-content (str uuid))))
 
 (defn- results-view [uuid]
   (let [results (requests-for uuid)]
-    (apply str (results-page results))))
+    (apply str (results-page [] uuid))))
 
 ; POST results
 (defn- post-results [uuid, request-hash]
