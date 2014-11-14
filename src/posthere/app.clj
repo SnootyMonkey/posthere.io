@@ -51,7 +51,9 @@
         (update-request-body-too-big uuid request-hash)
 
         ; wow, it's not too big, let's just save it
-        (save-request uuid (assoc request-hash :body body))))))
+        (save-request uuid (assoc request-hash :body body)))))
+
+  (str "Post response to " uuid " with request" request-hash))
 
 (defroutes approutes
   ; GET requests

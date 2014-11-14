@@ -49,9 +49,7 @@
         request-uuid (uuid) ;; new UUID for this request
         request-entry (request-entry-for request-uuid)
         request-key (request-key-for request-uuid)
-        clean-request (dissoc request :async-channel :body :websocket? :remote-addr :params :route-params :headers :server-port :content-length :content-type :character-encoding, :uri, :server-name, :query-string, :scheme)]
-
-    (println clean-request)
+        clean-request (dissoc request :async-channel)]
     
     ;; Save the POST request to the list for this URL UUID
     (wcar*
