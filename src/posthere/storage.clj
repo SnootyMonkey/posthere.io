@@ -51,6 +51,8 @@
   [url-uuid request]
   (def clean_request (dissoc request :async-channel))
 
+  (println clean_request)
+
   (let [url-key (url-key-for url-uuid)
         request-uuid (uuid) ;; new UUID for this request
         request-entry (request-entry-for request-uuid)
