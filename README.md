@@ -1,8 +1,8 @@
-# PostHere.io
+# POSThere.io
 
-[PostHere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
+[POSThere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
 
-As a developer, if your code is POSTing to someone else’s code… it can be hard to iterate and validate your code without the burden of test mocking (tedious and not a complete test) or servicing your own POST requests (wasted code and effort).
+As a developer, if your code is POSTing to someone else’s code, either to their API, or via a web-hook from your own API… it can be hard to iterate and validate your code without the burden of test mocking (tedious and not a complete test) or servicing your own POST requests (wasted code and effort).
 
 Wouldn’t it be nice to be able to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
@@ -28,9 +28,10 @@ Don’t trust us with your test data? It’s open source! Check the code and ver
 
 Need more features? [Fork it](https://github.com/path/posthere.io/fork)!
 
+
 ## Usage
 
-99.9% of users should use [PostHere.io](http://posthere.io/) by just going to the [website](http://posthere.io/).
+99.9% of users should use [POSThere.io](http://posthere.io/) by just going to the [website](http://posthere.io/).
 
 If you want to host it internally yourself, or you want to hack on the Clojure/ClojureScript code, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
@@ -46,7 +47,7 @@ And you can start a development server:
 lein run 
 ```
 
-Then you can visit your very own PostHere.io in your browser at [http://localhost:3000/](http://localhost:3000/).
+Then you can visit your very own POSThere.io in your browser at [http://localhost:3000/](http://localhost:3000/).
 
 ## Testing
 
@@ -56,8 +57,23 @@ To run the tests:
 lein midje
 ```
 
+
+## Development and Contributing
+
+If you'd like to enhance POSThere.io, please fork [POSThere.io on GitHub](https://github.com/path/posthere.io). If you'd like to contribute back your enhancements (awesome!), please submit your pull requests to the `dev` branch. We promise to look at every pull request and incorporate it, or at least provide feedback on why if we won't.
+
+* Do your best to conform to the coding style that's here... We like it.
+* Use 2 soft spaces for indentation.
+* Don't leave trailing spaces after lines.
+* Don't leave trailing new lines at the end of files.
+* Write comments.
+* Write tests.
+* Don't submit über pull requests, keep your changes atomic.
+* Have fun!
+
+
 ## License
 
-posthere.io is distributed under the [Mozilla Public License v2.0](http://www.mozilla.org/MPL/2.0/).
+POSThere.io is distributed under the [Mozilla Public License v2.0](http://www.mozilla.org/MPL/2.0/).
 
 Copyright © 2014 Path, Inc.
