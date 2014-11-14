@@ -18331,9 +18331,23 @@ jayq.core.ajax_m = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyw
 }, new cljs.core.Keyword(null, "zero", "zero", -858964576), cljs.core.identity], null);
 var posthere = {update_uuid_value:function(a) {
   return jayq.core.$.call(null, "#urlUUIDInputDisplay").text(jayq.core.$.call(null, a).val());
+}, uuid:function() {
+  var a = function() {
+    return cljs.core.rand_int.call(null, 16).toString(16);
+  };
+  return new cljs.core.UUID((new goog.string.StringBuffer(a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), "-", a.call(null), a.call(null), a.call(null), a.call(null), "-4", a.call(null), a.call(null), a.call(null), "-", function() {
+    return(8 | 3 & cljs.core.rand_int.call(null, 15)).toString(16);
+  }.call(null), a.call(null), a.call(null), a.call(null), "-", a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null), a.call(null))).toString());
+}, short_uuid:function() {
+  return clojure.string.join.call(null, "-", cljs.core.take.call(null, 3, cljs.core.rest.call(null, clojure.string.split.call(null, posthere.uuid.call(null), /-/))));
+}, set_base_uuid:function() {
+  posthere.base_uuid = posthere.short_uuid.call(null);
+  jayq.core.$.call(null, "#urlUUIDInput").val(posthere.base_uuid);
+  return jayq.core.$.call(null, "#urlUUIDInputDisplay").text(posthere.base_uuid);
 }, update_selected_http_method:function(a) {
   return jayq.core.$.call(null, "#urlMethodInputDisplay").text(jayq.core.$.call(null, a).val());
 }, init:function() {
+  posthere.set_base_uuid.call(null);
   jayq.core.bind.call(null, jayq.core.$.call(null, "#urlUUIDInput"), new cljs.core.Keyword(null, "keyup", "keyup", -794526927), function() {
     return posthere.update_uuid_value.call(null, this);
   });
