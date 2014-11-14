@@ -1,7 +1,9 @@
 (ns posthere.storage
   "Store and read POST requests to/from Redis."
-  (:require [taoensso.carmine :as car]
+  (:require [clojure.string :as s]
+            [taoensso.carmine :as car]
             [clj-time.core :as t]
+            [clj-time.format :as f]
             [posthere.util.uuid :refer (uuid)]))
 
 ;; Storage constants
@@ -14,11 +16,30 @@
 (def request-separator "|")
 (defn url-key-for [url-uuid] (str url-key url-uuid))
 (defn request-key-for [request-uuid] (str request-key request-uuid))
-(defn- request-entry-for [request-uuid] (str (t/now) request-separator request-uuid))
+(defn- request-entry-for [request-uuid] (str (t/plus (t/now) (t/hours 24)) request-separator request-uuid))
 
 ;; Redis connection
 (def server-conn {:pool {} :spec {:host "127.0.0.1" :port 6379}}) ; See `wcar` docstring for opts
 (defmacro wcar* [& body] `(car/wcar server-conn ~@body))
+
+(defn parse-request-entry [request-entry]
+  (s/split request-entry (re-pattern (str "\\" request-separator))))
+
+(defn time-stamp-from-entry [request-entry]
+  (first (parse-request-entry request-entry)))
+
+(defn uuid-from-entry [request-entry]
+  (last (parse-request-entry request-entry)))
+
+(defn not-expired? [request-entry]
+  (not (t/before? (f/parse (time-stamp-from-entry request-entry)) (t/now))))
+
+(defn request-for [request-uuid]
+  (if-let [request (wcar* (car/get (request-key-for request-uuid)))]
+    request
+    false))
+
+;; Public
 
 (defn save-request
   "Store the request made to a UUID in Redis for up to 24h."
@@ -45,4 +66,8 @@
 
 (defn requests-for
   "Read the POST requests stored for a UUID from Redis."
-  [uuid])
+  [url-uuid]
+  (let [request-list (wcar*(car/lrange (url-key-for url-uuid) 0 request-storage-count)) ; Read list from Redis
+        unexpired-request-list (filter not-expired? request-list)
+        unexpired-requests (map uuid-from-entry unexpired-request-list)]
+    (vec (map request-for unexpired-requests))))
