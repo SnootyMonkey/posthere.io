@@ -10,14 +10,14 @@
 
 (defonce hot-reload (or (env :hot-reload) false))
 
-; Should we move this out?  The only real modification will ever happen
-; for the results page, but it might be cleaner...
-(deftemplate results-page "posthere/templates/results.html" [] 
+(defn template-for [name] (str "../resources/html/" name))
+
+(deftemplate results-page (template-for "results.html") [] 
   [:head :title] (html-content (str "POSThere.io - Results")))
 
 (defn- results-view []
   (apply str (results-page)))
-; Results page work
+  ; Results page work
 
 (defroutes approutes
   (GET "/:uuid" [uuid] (results-view))

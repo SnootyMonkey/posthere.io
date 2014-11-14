@@ -20,8 +20,10 @@
     [ring/ring-core "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Web Server http://http-kit.org/
     [compojure "1.2.1"] ; Web routing https://github.com/weavejester/compojure
+    [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
+    [com.taoensso/carmine "2.7.1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [clj-time "0.8.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [enlive "1.1.5"] ; Django-esque templating system for clojure
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
