@@ -26,7 +26,7 @@
 
   <body>
 
-    <a href="https://github.com/path/posthere.io/fork" target='_blank'><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/github-fork.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/path/posthere.io/fork" target='_blank'><img style="position: absolute; top: 0; right: 0; border: 0;" src="/assets/images/github-fork.png" alt="Fork me on GitHub"></a>
 
     <nav class="navbar navbar-top" role="navigation">
       <div class="container">
@@ -52,119 +52,136 @@
           </div>
         </div>
 
-        <div class='result-group clearfix'>
-          <div>
-            <div class='clearfix'>
-              <div class='col-md-1'><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
-              <div class='col-md-3 text-left'><strong>28 seconds ago</strong></div>
-              <div class='col-md-4 text-center'><strong>JSON</strong></div>
-              <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
-            </div>
-
-            <div>
+        <div id='empty-results'>
+          <div class='result-group clearfix'>
+            <div class='empty-results'>
               <div class='col-md-1'>&nbsp;</div>
               <div class='col-md-11 text-left text-muted'>
-                <span class='result-timestamp'>11:52:45 UTC November 13, 2014</span>
-              </div>
-            </div>
-          </div>
-
-          <div class='clearfix'>
-            <div class='col-md-1'>&nbsp;</div>
-            <div class='col-md-7'>
-              <table class='table table-bordered'>
-                <tbody>
-                  <tr>
-                    <th>foo</th>
-                    <td>
-                      <table class='table table-bordered'>
-                        <tbody>
-                          <tr>
-                            <th>0</th>
-                            <td>1</td>
-                          </tr>
-                          <tr>
-                            <th>1</th>
-                            <td>2</td>
-                          </tr>
-                          <tr>
-                            <th>2</th>
-                            <td>3</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>bar</th>
-                    <td>baz</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class='col-md-4'>
-              <table class='table table-bordered'>
-                <tbody>
-                  <tr>
-                    <th>bar</th>
-                    <td>baz</td>
-                  </tr>
-                  <tr>
-                    <th>bar</th>
-                    <td>baz</td>
-                  </tr>
-                  <tr>
-                    <th>bar</th>
-                    <td>baz</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div>
-            <div class='col-md-1'>&nbsp;</div>
-            <div class='col-md-11'>
-              <a href='/'>raw JSON</a>
-              <hr/>
-            </div>
-          </div>
-        </div>
-
-        <div class='result-group clearfix'>
-          <div>
-            <div class='clearfix'>
-              <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
-              <div class='col-md-3 text-left'>4 minutes ago</div>
-              <div class='col-md-4 text-center'><strong>XML</strong></div>
-              <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
-            </div>
-
-            <div>
-              <div class='col-md-1'>&nbsp;</div>
-              <div class='col-md-11 text-left text-muted'>
-                <span class='result-timestamp'>11:49:45 UTC November 13, 2014</span>
-                <hr/>
+                <p>You think you POSTed something here, but don't see anything?  Chances are, it's not me, it's you.<p>
+                <p>Try these cURL examples to see that everything is working OK with this POSThere.io URL:</p>
+                <p><code>curl -X POST ... https://posthere.io/1234-AB-5678</code></p>
+                <p><code>curl -X POST ... https://posthere.io/1234-AB-5678</code></p>
+                <p><code>curl -X POST ... https://posthere.io/1234-AB-5678</code></p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class='result-group clearfix'>
-          <div>
+        <div id='results' style='display: none;'>
+          <div class='result-group clearfix'>
+            <div>
+              <div class='clearfix'>
+                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+                <div class='col-md-3 text-left'><strong>28 seconds ago</strong></div>
+                <div class='col-md-4 text-center'><strong>JSON</strong></div>
+                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
+              </div>
+
+              <div>
+                <div class='col-md-1'>&nbsp;</div>
+                <div class='col-md-11 text-left text-muted'>
+                  <span class='result-timestamp'>11:52:45 UTC November 13, 2014</span>
+                </div>
+              </div>
+            </div>
+
             <div class='clearfix'>
-              <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
-              <div class='col-md-3 text-left'>2 hours ago</div>
-              <div class='col-md-4 text-center'><strong>FORM</strong></strong></div>
-              <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
+              <div class='col-md-1'>&nbsp;</div>
+              <div class='col-md-7'>
+                <table class='table table-bordered'>
+                  <tbody>
+                    <tr>
+                      <th>foo</th>
+                      <td>
+                        <table class='table table-bordered'>
+                          <tbody>
+                            <tr>
+                              <th>0</th>
+                              <td>1</td>
+                            </tr>
+                            <tr>
+                              <th>1</th>
+                              <td>2</td>
+                            </tr>
+                            <tr>
+                              <th>2</th>
+                              <td>3</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>bar</th>
+                      <td>baz</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class='col-md-4'>
+                <table class='table table-bordered'>
+                  <tbody>
+                    <tr>
+                      <th>bar</th>
+                      <td>baz</td>
+                    </tr>
+                    <tr>
+                      <th>bar</th>
+                      <td>baz</td>
+                    </tr>
+                    <tr>
+                      <th>bar</th>
+                      <td>baz</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <div>
               <div class='col-md-1'>&nbsp;</div>
-              <div class='col-md-11 text-left text-muted'>
-                <span class='result-timestamp'>09:49:45 UTC November 13, 2014</span>
+              <div class='col-md-11'>
+                <a href='/'>raw JSON</a>
                 <hr/>
+              </div>
+            </div>
+          </div>
+
+          <div class='result-group clearfix'>
+            <div>
+              <div class='clearfix'>
+                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
+                <div class='col-md-3 text-left'>4 minutes ago</div>
+                <div class='col-md-4 text-center'><strong>XML</strong></div>
+                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
+              </div>
+
+              <div>
+                <div class='col-md-1'>&nbsp;</div>
+                <div class='col-md-11 text-left text-muted'>
+                  <span class='result-timestamp'>11:49:45 UTC November 13, 2014</span>
+                  <hr/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='result-group clearfix'>
+            <div>
+              <div class='clearfix'>
+                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
+                <div class='col-md-3 text-left'>2 hours ago</div>
+                <div class='col-md-4 text-center'><strong>FORM</strong></strong></div>
+                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
+              </div>
+
+              <div>
+                <div class='col-md-1'>&nbsp;</div>
+                <div class='col-md-11 text-left text-muted'>
+                  <span class='result-timestamp'>09:49:45 UTC November 13, 2014</span>
+                  <hr/>
+                </div>
               </div>
             </div>
           </div>
