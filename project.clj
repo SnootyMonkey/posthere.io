@@ -21,6 +21,7 @@
     [http-kit "2.1.19"] ; Web Server http://http-kit.org/
     [compojure "1.2.1"] ; Web routing https://github.com/weavejester/compojure
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
+    [enlive "1.1.5"] ; Django-esque templating system for clojure
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
@@ -103,7 +104,7 @@
       :source-paths ["src/posthere/cljs"] ; CLJS source code path
       ;; Google Closure (CLS) options configuration
       :compiler {
-        :output-to "resources/js/posthere.js" ; generated JS script filename
+        :output-to "resources/public/js/posthere.js" ; generated JS script filename
         :optimizations :simple ; JS optimization directive
         :pretty-print true ; generated JS code prettyfication
       }}]
