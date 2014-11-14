@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>POSThere.io</title>
+    <title>POSThere.io - Debug all the POST requests</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -37,11 +37,7 @@
           <a class="navbar-brand" href="#">
             <div>
               <div class='pull-left'>
-                <img src='http://placehold.it/60x60'/ class='navbar-image'>
-              </div>
-              <div class='pull-left'>
-                <div class='navbar-title'>POSThere.io</div>
-                <div class='navbar-subtitle'>Debug Your POST Requests!</div>
+                <img src='./images/posthere.io.tagline.png'/ class='navbar-image'>
               </div>
             </div>
           </a>
@@ -51,7 +47,9 @@
 
     <div class="container">
       <div class="starter-template home-template">
-        <p class="lead">POST to this URL, then visit it in your browser to see exactly what you posted! <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></p>
+        <h2>Not sure what your code is POSTing?</h1>
+        <p class="lead">Simply point your API client or web-hook to the provided URL,<br>
+        then open it in your browser to see exactly what you posted!</p>
 
         <div id='form-group' class='container-group'>
           <form role='form' class='form-inline'>
@@ -73,7 +71,7 @@
             </div>
 
             <div class='lower-form-group'>
-              returning a status of 
+              <span class='text-muted'>returning an HTTP status of</span>
 
               <div class='form-group'>
                 <label class='sr-only' for='urlResponseStatus'>Response Status</label>
@@ -86,9 +84,15 @@
             </div>
           </form>
 
-          <p><a href='/' class="btn btn-danger">Copy My URL!</a></p>
           <p class='post-url'>https://posthere.io/1234-AB-5678</p>
+          <p><a href='/' class="btn btn-danger">Copy My URL</a></p>
         </div>
+
+      <div id='learn-group' class="container-group">
+        <a href='.'>Example results</a>
+        <a href='.'>What can I POST?</a>
+        <a href='.'>Learn more</a>
+      </div>
 
         <div id='testimonial-group' class='container-group'>
           <table class='table borderless'>
@@ -119,7 +123,6 @@
     <footer class="footer">
       <div class="container">
         <span>© 2014 Path, Inc.</span>
-        <a href='/faq'>FAQ</a>
         <a href='/privacy'>Privacy</a>
         <a href='/Terms of Use'>Terms of Use</a>
       </div>
