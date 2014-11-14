@@ -8,7 +8,7 @@
               [org.httpkit.server :refer (run-server)]
               [environ.core :refer (env)]))
 
-(defonce hot-reload (or (env :hot-reload) false))
+(defonce hot-reload (or (env :hot-reload) true))
 
 (defn template-for [name] (str "../resources/html/" name))
 
@@ -31,7 +31,7 @@
   ; GET requests
   (GET "/:uuid" [uuid] (results-view))
   (GET "/:status/:uuid" [status, uuid] (results-view))
-  (GET "/" [] (str "Home From Nginx"))
+  (GET "/" [] (str "Home from http-kit"))
 
   ; POST requests
   (POST "/:uuid" [uuid] (post-results uuid 200))
@@ -43,7 +43,7 @@
 
 (def app
   (if hot-reload
-    (reload/wrap-reload approutes)
+    (reload/wrap-reload #'approutes)
     approutes))
 
 (defn start [port]
