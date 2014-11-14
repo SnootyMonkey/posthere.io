@@ -12,17 +12,32 @@
 
 (defn template-for [name] (str "../resources/html/" name))
 
+; Results page work
 (deftemplate results-page (template-for "results.html") [] 
   [:head :title] (html-content (str "POSThere.io - Results")))
 
 (defn- results-view []
   (apply str (results-page)))
-  ; Results page work
+; Results page work
+
+; POST results
+(defn- post-results [uuid, status]
+  (try
+    (str "Post from " uuid " for status " status)
+    (catch Exception e (str "caught exception: " (.getMessage e)))))
+; POST results
 
 (defroutes approutes
+  ; GET requests
   (GET "/:uuid" [uuid] (results-view))
-  (GET "/:status/:uuid" [status, uuid] (str "Foo"))
-  (GET "/" [] (str "Home"))
+  (GET "/:status/:uuid" [status, uuid] (results-view))
+  (GET "/" [] (str "Home From Nginx"))
+
+  ; POST requests
+  (POST "/:uuid" [uuid] (post-results uuid 200))
+  (POST "/:status/:uuid" [status, uuid] (post-results uuid status))
+
+  ; Standard requests
   (route/resources "/assets/")
   (route/not-found "Page Not Found"))
 
