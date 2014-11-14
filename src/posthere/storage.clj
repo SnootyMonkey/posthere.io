@@ -39,14 +39,6 @@
     request
     false))
 
-(defn request-with-slurped-body [request]
-  ; (println (:body request))
-  ; (println (slurp (:body request)))
-  ; (println (read (:body request)))
-  (if (contains? request :body)
-    (assoc request :body (slurp (:body request)))
-    request))
-
 ;; Public
 
 (defn save-request
@@ -57,7 +49,7 @@
         request-uuid (uuid) ;; new UUID for this request
         request-entry (request-entry-for request-uuid)
         request-key (request-key-for request-uuid)
-        clean-request (request-with-slurped-body (dissoc request :async-channel :websocket?))]
+        clean-request (dissoc request :async-channel :body :websocket? :remote-addr :params :route-params :headers :server-port :content-length :content-type :character-encoding, :uri, :server-name, :query-string, :scheme)]
 
     (println clean-request)
     
