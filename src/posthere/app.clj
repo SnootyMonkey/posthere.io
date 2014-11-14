@@ -10,7 +10,7 @@
               [environ.core :refer (env)]
               [posthere.storage :refer [save-request, requests-for]]))
 
-(defonce hot-reload (or (env :hot-reload) true))
+(defonce hot-reload (or (env :hot-reload) false))
 
 (defn template-for [name] (str "../resources/html/" name))
 
