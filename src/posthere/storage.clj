@@ -39,11 +39,18 @@
     request
     false))
 
+(defn request-with-slurped-body [request]
+  (if (contains? request :body)
+    (assoc request :body (slurp (request :body)))
+    request))
+
 ;; Public
 
 (defn save-request
   "Store the request made to a UUID in Redis for up to 24h."
   [url-uuid request]
+  (def clean_request (dissoc request :async-channel))
+
   (let [url-key (url-key-for url-uuid)
         request-uuid (uuid) ;; new UUID for this request
         request-entry (request-entry-for request-uuid)
@@ -54,7 +61,7 @@
       (car/multi) ;; transaction
         (car/lpush url-key request-entry) ;; push the request onto the list
         (car/expire url-key day) ;; renew the list expiration
-        (car/set request-key request) ;; store the request
+        (car/set request-key (request-with-slurped-body clean_request)) ;; store the request
         (car/expire request-key day) ;; expire the request
       (car/exec)) ;; execute transaction
 

@@ -22,7 +22,7 @@
   [:#results] (if (not-empty results) 
                 (do->
                   (remove-attr :style)
-                  (html-content (str results))))
+                  (html-content results)))
   [:#empty-results] (if (not-empty results)
                       nil
                       (append ""))
@@ -30,13 +30,27 @@
 
 (defn- results-view [uuid]
   (let [results (requests-for uuid)]
-    (apply str (results-page [] uuid))))
+    (doseq [item results] (prn item))
+    (apply str (results-page results uuid))))
 
-; POST results
+(defn- update-request-body-too-big [uuid, request-hash]
+  (save-request 
+    uuid 
+    (assoc (dissoc request-hash :body) :overflow true)))
+
 (defn- post-results [uuid, request-hash]
-  (save-request uuid request-hash)
-  (str "Post from " uuid " with request-hash " request-hash))
-; POST results
+  ; if our content length is greater than 1MB
+  (if (> (read-string ((request-hash :headers) "content-length")) (* 1024 1024))
+    ; greater than 1MB
+    (update-request-body-too-big uuid request-hash)
+
+    ; less than 1MB, but we don't believe them
+    (if (> (count (slurp (request-hash :body))) (* 1024 1024))
+      ; checked the content body, it's too big.  liars.
+      (update-request-body-too-big uuid request-hash)
+
+      ; wow, it's not too big, let's just save it
+        (save-request uuid request-hash))))
 
 (defroutes approutes
   ; GET requests
@@ -45,8 +59,8 @@
 
   ; POST requests
   (POST "/:uuid" [uuid :as request]
-    (let [body (:body request)]
-      (post-results uuid (slurp body))))
+    (let [body request]
+      (post-results uuid request)))
 
   ; Standard requests
   (route/resources "/assets/")
