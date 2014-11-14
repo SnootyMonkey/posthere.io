@@ -12,17 +12,17 @@ Decide if you want to use HTTP or HTTPs, and come up with a string that makes se
 
 **http**://posthere.io/**a-webhook-callback-test**
 
-**http**://posthere.io/**another-webhook-callback-test?api=123**
+**http**://posthere.io/**another-webhook-callback-test/with/complexity?api=123**
 
 After POSTing your JSON, XML, or form fields, point your web browser at the same URL and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
 
 Need to simulate different HTTP responses to your POST, to ensure your code can handle them? It’s easy:
 
-**https**://posthere.io/**201**/**test-my-twitter-code**
+**https**://posthere.io/**test-my-twitter-code**?status=**201**
 
-**http**://posthere.io/**500**/**a-webhook-callback-test**
+**http**://posthere.io/**a-webhook-callback-test**?status=**500**
 
-**http**://posthere.io/**404**/another-webhook-callback-test?api=123
+**http**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
 Don’t trust us with your test data? It’s open source! Check the code and verify we don’t do anything nefarious, or host it yourself internally.
 
