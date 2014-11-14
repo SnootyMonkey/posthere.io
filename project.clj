@@ -24,6 +24,7 @@
     [com.taoensso/carmine "2.7.1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.8.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
+    [json-html "0.2.4"] ; DOM generation library for JSON https://github.com/yogthos/json-html
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq

@@ -1,7 +1,8 @@
 (ns posthere.app
   "PostHere.io web application."
   (:gen-class)
-    (:use [net.cgrand.enlive-html])
+    (:use     [net.cgrand.enlive-html]
+              [json-html.core])
     (:require [ring.middleware.reload :as reload]
               [compojure.core :refer :all]
               [compojure.route :as route]
@@ -16,22 +17,22 @@
 ; Results page work
 (deftemplate results-page (template-for "results.html") [results] 
   [:head :title] (html-content (str "POSThere.io - Results"))
-  [:#results] (if (< (count results) 1) (html-content (str "Foo")))
-  [:#empty-results] [:#results] (if (< (count results) 1) nil))
 
-; storing is easy:  (save-request url-uuid request-hash)
-; reading them back is easy:  (requests-for url-uuid)
+  ; any idea how we would clean this up?
+  [:#results] (if (> (count results) 0) 
+                #(do 
+                  (remove-attr :style)
+                  (html-content (str results))))
+  [:#empty-results] (if (> (count results) 0) nil))
 
 (defn- results-view [uuid]
   (let [results (requests-for uuid)]
     (apply str (results-page results))))
-; Results page work
 
 ; POST results
-(defn- post-results [uuid, status]
-  (try
-    (str "Post from " uuid " for status " status)
-    (catch Exception e (str "caught exception: " (.getMessage e)))))
+(defn- post-results [uuid, request-hash]
+  (save-request uuid request-hash)
+  (str "Post from " uuid " with request-hash " request-hash))
 ; POST results
 
 (defroutes approutes
@@ -42,7 +43,7 @@
   ; POST requests
   (POST "/:uuid" [uuid :as request]
     (let [body (:body request)]
-      (post-results (slurp body) uuid)))
+      (post-results uuid (slurp body))))
 
   ; Standard requests
   (route/resources "/assets/")
