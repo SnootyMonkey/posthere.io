@@ -23,6 +23,7 @@
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
   ]
 
   :plugins [
@@ -104,7 +105,7 @@
       :compiler {
         :output-to "resources/js/posthere.js" ; generated JS script filename
         :optimizations :simple ; JS optimization directive
-        :pretty-print false ; generated JS code prettyfication
+        :pretty-print true ; generated JS code prettyfication
       }}]
   }
 
