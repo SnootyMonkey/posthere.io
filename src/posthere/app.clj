@@ -25,9 +25,8 @@
                   (html-content (str results))))
   [:#empty-results] (if (not-empty results)
                       nil
-                      (append " "))
-  [:#empty-results :.uuid-value] (if (empty results)
-                                    (html-content (str uuid))))
+                      (append ""))
+  [:.uuid-value] (html-content (str uuid)))
 
 (defn- results-view [uuid]
   (let [results (requests-for uuid)]
