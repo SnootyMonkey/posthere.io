@@ -9,6 +9,12 @@
             [posthere.capture-request :refer (post-response-body)]
             [posthere.storage :refer (requests-for)]))
 
+(def string-body "I'm a little teapot.")
+(def json-body "{\"lyric\": \"I'm a little teapot.\"}")
+(def xml-body "<song><lyric>I'm a little teapot.</lyric></song>")
+
+(def query-params "foo=bar&ferrets=evolved")
+
 (defn url-for [url-uuid]
   (str "/" url-uuid))
 
@@ -69,18 +75,20 @@
     
     (fact "without a body"
       (let [url-uuid (uuid)
-            url (url-for (str url-uuid "?foo=bar&ferrets=evolved"))
+            url (url-for (str url-uuid "?" query-params))
             request (request :post url)
             response (app request)]
-        (:query-string (first (requests-for url-uuid))) => "foo=bar&ferrets=evolved"))
+        (:query-string (first (requests-for url-uuid))) => query-params))
     
     (fact "with a body"
       (let [url-uuid (uuid)
-          url (url-for (str url-uuid "?foo=bar&ferrets=evolved"))
+          url (url-for (str url-uuid "?" query-params))
           request (request :post url)
-          body (body request "I'm a little teapot.")
+          body (body request string-body)
           response (app body)]
-        (:query-string (first (requests-for url-uuid))) => "foo=bar&ferrets=evolved")))
+        (:query-string (first (requests-for url-uuid))) => query-params)))
+
+  ; POST saves form fields
 
   ; POST saves BODY content
   (facts "body is saved"
@@ -89,25 +97,26 @@
       (let [url-uuid (uuid)
             url (url-for url-uuid)
             request (request :post url)
-            body (body request "I'm a little teapot.")
+            body (body request string-body)
             response (app body)]
-          (:body (first (requests-for url-uuid))) => "I'm a little teapot."))
-
-    (fact "XML body is saved"
-      (let [url-uuid (uuid)
-            url (url-for url-uuid)
-            request (request :post url)
-            body (body request "<song><lyric>I'm a little teapot.</lyric></song>")
-            response (app body)]
-          (:body (first (requests-for url-uuid))) => "<song><lyric>I'm a little teapot.</lyric></song>"))
+          (:body (first (requests-for url-uuid))) => string-body))
 
     (fact "JSON body is saved"
       (let [url-uuid (uuid)
             url (url-for url-uuid)
             request (request :post url)
-            body (body request "{\"lyric\": \"I'm a little teapot.\"}")
+            body (body request json-body)
             response (app body)]
-          (:body (first (requests-for url-uuid))) => "{\"lyric\": \"I'm a little teapot.\"}"))))
+          (:body (first (requests-for url-uuid))) => json-body))
+
+    (fact "XML body is saved"
+      (let [url-uuid (uuid)
+            url (url-for url-uuid)
+            request (request :post url)
+            body (body request xml-body)
+            response (app body)]
+          (:body (first (requests-for url-uuid))) => xml-body))))
+
 
 (future-facts "about giant POSTs getting partially saved"
 
