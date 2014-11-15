@@ -68,123 +68,6 @@
         </div>
 
         <div id='results' style='display: none;'>
-          <div class='result-group clearfix'>
-            <div>
-              <div class='clearfix'>
-                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
-                <div class='col-md-3 text-left'><strong>28 seconds ago</strong></div>
-                <div class='col-md-4 text-center'><strong>JSON</strong></div>
-                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
-              </div>
-
-              <div>
-                <div class='col-md-1'>&nbsp;</div>
-                <div class='col-md-11 text-left text-muted'>
-                  <span class='result-timestamp'>11:52:45 UTC November 13, 2014</span>
-                </div>
-              </div>
-            </div>
-
-            <div class='clearfix'>
-              <div class='col-md-1'>&nbsp;</div>
-              <div class='col-md-7'>
-                <table class='table table-bordered'>
-                  <tbody>
-                    <tr>
-                      <th>foo</th>
-                      <td>
-                        <table class='table table-bordered'>
-                          <tbody>
-                            <tr>
-                              <th>0</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th>1</th>
-                              <td>2</td>
-                            </tr>
-                            <tr>
-                              <th>2</th>
-                              <td>3</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>bar</th>
-                      <td>baz</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class='col-md-4'>
-                <table class='table table-bordered'>
-                  <tbody>
-                    <tr>
-                      <th>bar</th>
-                      <td>baz</td>
-                    </tr>
-                    <tr>
-                      <th>bar</th>
-                      <td>baz</td>
-                    </tr>
-                    <tr>
-                      <th>bar</th>
-                      <td>baz</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div>
-              <div class='col-md-1'>&nbsp;</div>
-              <div class='col-md-11'>
-                <a href='/'>raw JSON</a>
-                <hr/>
-              </div>
-            </div>
-          </div>
-
-          <div class='result-group clearfix'>
-            <div>
-              <div class='clearfix'>
-                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
-                <div class='col-md-3 text-left'>4 minutes ago</div>
-                <div class='col-md-4 text-center'><strong>XML</strong></div>
-                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
-              </div>
-
-              <div>
-                <div class='col-md-1'>&nbsp;</div>
-                <div class='col-md-11 text-left text-muted'>
-                  <span class='result-timestamp'>11:49:45 UTC November 13, 2014</span>
-                  <hr/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='result-group clearfix'>
-            <div>
-              <div class='clearfix'>
-                <div class='col-md-1'><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
-                <div class='col-md-3 text-left'>2 hours ago</div>
-                <div class='col-md-4 text-center'><strong>FORM</strong></strong></div>
-                <div class='col-md-4 text-right'>Status: <strong>200</strong></div>
-              </div>
-
-              <div>
-                <div class='col-md-1'>&nbsp;</div>
-                <div class='col-md-11 text-left text-muted'>
-                  <span class='result-timestamp'>09:49:45 UTC November 13, 2014</span>
-                  <hr/>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div id='built-by-group' class='container-group'>
@@ -207,6 +90,8 @@
       </div>
     </footer>
 
+    <span id='data'>
+    </span>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -215,5 +100,82 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled handlebars -->
+    <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v2.0.0.js"></script>
+
+    <script id="result-template" type="text/x-handlebars-template">
+      <div class='result-group clearfix'>
+        <div>
+          <div class='clearfix'>
+            <div class='col-md-1'><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+            <div class='col-md-3 text-left'><strong>{{timeago}}</strong></div>
+            <div class='col-md-4 text-center'><strong>{{content_type}}</strong></div>
+            <div class='col-md-4 text-right'>Status: <strong>{{status_result}}</strong></div>
+          </div>
+
+          <div>
+            <div class='col-md-1'>&nbsp;</div>
+            <div class='col-md-11 text-left text-muted'>
+              <span class='result-timestamp'>{{timestamp}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class='clearfix'>
+          <div class='col-md-1'>&nbsp;</div>
+          <div class='col-md-7'>
+            <table class='table table-bordered body-table'>
+              <tbody>
+                <tr>
+                  <td colspan='2' class='text-center'>Body</td>
+                </tr>
+                {{#each results}}
+                  <tr>
+                    <th>{{@key}}</th>
+                    <td>{{this}}</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+
+          <div class='col-md-4'>
+            <table class='table table-bordered header-table'>
+              <tbody>
+                <tr>
+                  <th colspan='2' class='text-center'>Headers</th>
+                </tr>
+                {{#each headers}}
+                  <tr>
+                    <th>{{@key}}</th>
+                    <td>{{this}}</td>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class='col-md-1'>&nbsp;</div>
+          <div class='col-md-11'>
+            <a href='/'>raw JSON</a>
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type='text/javascript'>
+      var source = $("#result-template").html();
+      var template = Handlebars.compile(source);
+
+      for (var i = 0; i < resultData.length; i++) {
+        // todo; parse according to type, setup the actual time ago / content type / status / timestamp
+        data = {timeago: "28 seconds", content_type: "JSON", status_result: 200, timestamp: "11/11/11", results: JSON.parse(resultData[i].body), headers: resultData[i].headers}
+        var html = template(data);
+        $("#results").append(html);
+      }
+    </script>
   </body>
 </html>
