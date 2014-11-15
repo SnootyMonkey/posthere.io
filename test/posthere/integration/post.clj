@@ -46,18 +46,68 @@
         (t/after? timestamp (t/minus (t/now) (t/seconds 10))) => true ; after 10 secs ago
         (t/before? timestamp (t/now)) => true)) ; before now
 
-  ; POST saves headers
-
-  ; POST saves GET attributes
-
-  ; POST saves BODY content
-  (fact "body is saved"
+  (fact "headers are saved"
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
+          headers (-> request
+            (header "user-agent" "ring-mock")
+            (header "accept" "inevitability/death")
+            (header "content-type" "delicious/cake")
+            (header "content-length" "42")
+            (header "super-bowl" "Buccaneers"))
+          response (app headers)
+          request-headers (:headers (first (requests-for url-uuid)))]
+      request-headers => (contains {"user-agent" "ring-mock"})
+      request-headers => (contains {"accept" "inevitability/death"})
+      request-headers => (contains {"content-type" "delicious/cake"})
+      request-headers => (contains {"content-length" "42"})
+      request-headers => (contains {"super-bowl" "Buccaneers"})))
+
+  ; POST saves query parameters
+  (facts "query-string is saved"
+    
+    (fact "without a body"
+      (let [url-uuid (uuid)
+            url (url-for (str url-uuid "?foo=bar&ferrets=evolved"))
+            request (request :post url)
+            response (app request)]
+        (:query-string (first (requests-for url-uuid))) => "foo=bar&ferrets=evolved"))
+    
+    (fact "with a body"
+      (let [url-uuid (uuid)
+          url (url-for (str url-uuid "?foo=bar&ferrets=evolved"))
+          request (request :post url)
           body (body request "I'm a little teapot.")
           response (app body)]
-        (:body (first (requests-for url-uuid))) => "I'm a little teapot.")))
+        (:query-string (first (requests-for url-uuid))) => "foo=bar&ferrets=evolved")))
+
+  ; POST saves BODY content
+  (facts "body is saved"
+
+    (fact "string body is saved"
+      (let [url-uuid (uuid)
+            url (url-for url-uuid)
+            request (request :post url)
+            body (body request "I'm a little teapot.")
+            response (app body)]
+          (:body (first (requests-for url-uuid))) => "I'm a little teapot."))
+
+    (fact "XML body is saved"
+      (let [url-uuid (uuid)
+            url (url-for url-uuid)
+            request (request :post url)
+            body (body request "<song><lyric>I'm a little teapot.</lyric></song>")
+            response (app body)]
+          (:body (first (requests-for url-uuid))) => "<song><lyric>I'm a little teapot.</lyric></song>"))
+
+    (fact "JSON body is saved"
+      (let [url-uuid (uuid)
+            url (url-for url-uuid)
+            request (request :post url)
+            body (body request "{\"lyric\": \"I'm a little teapot.\"}")
+            response (app body)]
+          (:body (first (requests-for url-uuid))) => "{\"lyric\": \"I'm a little teapot.\"}"))))
 
 (future-facts "about giant POSTs getting partially saved"
 

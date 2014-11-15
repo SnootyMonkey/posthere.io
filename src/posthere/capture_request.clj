@@ -34,6 +34,7 @@
     (assoc request :body (slurp (:body request)))
     (dissoc request :body)))
 
+; TODO parse the query string so we can easily present those name/value pairs too
 (defn capture-request
   "Save the processed request, respond to the POST."
   [url-uuid request]
