@@ -21,15 +21,13 @@
   [:.result-group any-node] (replace-vars replacements))
 
 (deftemplate results-page (template-for "results.html") [results, uuid] 
-  [:head :title] (html-content (str "POSThere.io - Results"))
 
-  ; any idea how we would clean this up?
   [:#results] (if (not-empty results) 
                   (remove-attr :style))
   
   [:#empty-results] (if (not-empty results)
-                      nil
-                      (append (str "")))
+                      nil ; clear out the empty results copy
+                      (append (str ""))) ;; no-op
 
   [:#data] (if (not-empty results)
               (html-content (str "<script type='text/javascript'>var resultData = " (json/write-str results) "</script>"))
@@ -54,12 +52,12 @@
       ; greater than 1MB
       (update-request-body-too-big uuid request-hash)
 
-      ; less than 1MB, but we don't believe them
+      ; less than 1MB, but check to be sure
       (if (> (count (slurp (request-hash :body))) (* 1024 1024))
         ; checked the content body, it's too big.  liars.
         (update-request-body-too-big uuid request-hash)
 
-        ; wow, it's not too big, let's just save it
+        ; not too big, so save it
         (save-request uuid (assoc request-hash :body body)))))
 
   (str "Post response to " uuid " with request" request-hash))

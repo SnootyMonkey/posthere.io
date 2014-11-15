@@ -1,4 +1,4 @@
-# POSThere.io
+# POSThere.io - Debug all the POST requests!
 
 [POSThere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
 
@@ -24,14 +24,16 @@ Need to simulate different HTTP responses to your POST, to ensure your code can 
 
 **http**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
-Don’t trust us with your test data? It’s open source! Check the code and verify we don’t do anything nefarious, or host it yourself internally.
+Don’t trust us with your test data? No need to, it’s open source! Check the code and verify we don’t do anything nefarious, or run it yourself [internally](run-it-yourself), or on [Heroku](#run-it-on-heroku).
 
-Need more features? [Fork it](https://github.com/path/posthere.io/fork)!
+Need more features? [Fork it](https://github.com/path/posthere.io/fork)! It’s all [well-tested]() Clojure and ClojureScript. Send us a [pull request](#development-and-contributing) when you're done.
 
 
 ## Usage
 
 99.9% of users should use [POSThere.io](http://posthere.io/) by just going to the [website](http://posthere.io/).
+
+### Run it Yourself
 
 If you want to host it internally yourself, or you want to hack on the Clojure/ClojureScript code, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
@@ -48,6 +50,10 @@ lein run
 ```
 
 Then you can visit your very own POSThere.io in your browser at [http://localhost:3000/](http://localhost:3000/).
+
+### Run it on Heroku
+
+TBD.
 
 ## Testing
 
