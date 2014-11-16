@@ -23,6 +23,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>    
+
     <script src="/assets/js/posthere.js"></script>
   </head>
 
@@ -98,9 +103,6 @@
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
@@ -170,15 +172,16 @@
     </script>
 
     <script type='text/javascript'>
-      var source = $("#result-template").html();
-      var template = Handlebars.compile(source);
+      posthere.setup_results()
+      // var source = $("#result-template").html();
+      // var template = Handlebars.compile(source);
 
-      for (var i = 0; i < resultData.length; i++) {
-        // todo; parse according to type, setup the actual time ago / content type / status / timestamp
-        data = {timeago: "28 seconds", content_type: "JSON", status_result: 200, timestamp: "11/11/11", results: JSON.parse(resultData[i].body), headers: resultData[i].headers}
-        var html = template(data);
-        $("#results").append(html);
-      }
+      // for (var i = 0; i < resultData.length; i++) {
+      //   // todo; parse according to type, setup the actual time ago / content type / status / timestamp
+      //   data = {timeago: "28 seconds", content_type: "JSON", status_result: 200, timestamp: "11/11/11", results: JSON.parse(resultData[i].body), headers: resultData[i].headers}
+      //   var html = template(data);
+      //   $("#results").append(html);
+      // }
     </script>
   </body>
 </html>
