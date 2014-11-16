@@ -50,14 +50,51 @@
     (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
 
 ; results page
-(hiccups/defhtml result-template [results]
-  [:div#results
-    (doseq [result results]
-      [:div.result-group.clearfix 
-        [:div
-          [:div.clearfix
-            [:div.col-md-1
-              [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]]]])])
+(hiccups/defhtml result-header [result]
+  [:div
+      [:div.clearfix
+        [:div.col-md-1
+          [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]
+        [:div.col-md-3.text-left
+          [:strong "Replace With Timeago"]]
+        [:div.col-md-4.text-center
+          [:strong "Replace with Content Type"]]
+        [:div.col-md-4.text-right
+          (list "Status:" [:strong "Result"])]]
+
+      [:div
+        [:div.col-md-1 ""]
+        [:div.col-md-11.text-left.text-muted 
+          [:span.result-timestamp (.-timestamp result)]]]])
+
+(hiccups/defhtml result-table [result]
+  [:div "Results"])
+
+(defn row-for [key val]
+  (html
+    [:tr
+      [:th key]
+      [:td val]]))
+
+(defn header-table [result]
+  (let [headers (js->clj (.-headers result))]
+    (.log js/console (keys headers))
+    (reduce [] #(conj %1 (row-for %2 (get headers %2)) (keys headers)))))
+
+(hiccups/defhtml result-headers [result]
+  [:div.col-md-4
+    [:table.table.table-bordered.header-table
+      [:tbody
+        [:tr
+          [:th.text-center {:colspan 2} "Headers"]]
+        (header-table result)]]])
+
+(hiccups/defhtml result-template [result]
+  [:div.result-group.clearfix 
+    (result-header result)
+    (result-table result)
+    (result-headers result)])
 
 (defn ^:export setup-results []
-  (.log js/console resultData))
+  (doseq [result js/resultData]
+    (.append ($ "#results") (result-template result))))
