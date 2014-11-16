@@ -1,8 +1,11 @@
 (ns posthere
   "POSThere.io Cljs"
+    (:require-macros [hiccups.core :as hiccups])
     (:require   [jayq.core :refer ($ css html bind ajax)]
-                [clojure.string :as s]))
+                [clojure.string :as s]
+                [hiccups.runtime :as hiccupsrt]))
 
+; index page
 (defn- update-uuid-value
     [selector]
     (.text ($ "#urlUUIDInputDisplay") (.val ($ selector))))
@@ -45,3 +48,16 @@
     (set-base-uuid)
     (bind ($ "#urlUUIDInput") :keyup (fn [] (this-as this (update-uuid-value this))))
     (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
+
+; results page
+(hiccups/defhtml result-template [results]
+  [:div#results
+    (doseq [result results]
+      [:div.result-group.clearfix 
+        [:div
+          [:div.clearfix
+            [:div.col-md-1
+              [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]]]])])
+
+(defn ^:export setup-results []
+  (.log js/console resultData))

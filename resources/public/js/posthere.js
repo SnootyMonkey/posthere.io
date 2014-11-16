@@ -16696,6 +16696,65 @@ clojure.string.escape = function(a, b) {
     e += 1;
   }
 };
+var hiccups = {runtime:{}};
+hiccups.runtime.re_tag = /([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/;
+hiccups.runtime.character_escapes = new cljs.core.PersistentArrayMap(null, 4, '\x26 \x26amp; \x3c \x26lt; \x3e \x26gt; " \x26quot;'.split(" "), null);
+hiccups.runtime.container_tags = new cljs.core.PersistentHashSet(null, new cljs.core.PersistentArrayMap(null, 33, ["table", null, "canvas", null, "body", null, "h3", null, "dt", null, "label", null, "fieldset", null, "form", null, "em", null, "option", null, "h2", null, "h4", null, "style", null, "span", null, "script", null, "ol", null, "dd", null, "a", null, "head", null, "textarea", null, "i", null, "div", null, "b", null, "h5", null, "pre", null, "ul", null, "iframe", null, "strong", null, "html", 
+null, "h1", null, "li", null, "dl", null, "h6", null], null), null);
+hiccups.runtime.as_str = function(a) {
+  return a instanceof cljs.core.Keyword || a instanceof cljs.core.Symbol ? cljs.core.name.call(null, a) : "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(a);
+};
+hiccups.runtime._STAR_html_mode_STAR_ = new cljs.core.Keyword(null, "xml", "xml", -1170142052);
+hiccups.runtime.xml_mode_QMARK_ = function() {
+  return cljs.core._EQ_.call(null, hiccups.runtime._STAR_html_mode_STAR_, new cljs.core.Keyword(null, "xml", "xml", -1170142052));
+};
+hiccups.runtime.in_mode = function(a, b) {
+  var c = hiccups.runtime._STAR_html_mode_STAR_;
+  try {
+    return hiccups.runtime._STAR_html_mode_STAR_ = a, b.call(null);
+  } finally {
+    hiccups.runtime._STAR_html_mode_STAR_ = c;
+  }
+};
+hiccups.runtime.escape_html = function(a) {
+  return clojure.string.escape.call(null, hiccups.runtime.as_str.call(null, a), hiccups.runtime.character_escapes);
+};
+hiccups.runtime.h = hiccups.runtime.escape_html;
+hiccups.runtime.end_tag = function() {
+  return hiccups.runtime.xml_mode_QMARK_.call(null) ? " /\x3e" : "\x3e";
+};
+hiccups.runtime.xml_attribute = function(a, b) {
+  return " " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.as_str.call(null, a)) + '\x3d"' + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.escape_html.call(null, b)) + '"';
+};
+hiccups.runtime.render_attribute = function(a) {
+  var b = cljs.core.nth.call(null, a, 0, null);
+  a = cljs.core.nth.call(null, a, 1, null);
+  return!0 === a ? hiccups.runtime.xml_mode_QMARK_.call(null) ? hiccups.runtime.xml_attribute.call(null, b, b) : " " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.as_str.call(null, b)) : cljs.core.not.call(null, a) ? "" : hiccups.runtime.xml_attribute.call(null, b, a);
+};
+hiccups.runtime.render_attr_map = function(a) {
+  return cljs.core.apply.call(null, cljs.core.str, cljs.core.sort.call(null, cljs.core.map.call(null, hiccups.runtime.render_attribute, a)));
+};
+hiccups.runtime.normalize_element = function(a) {
+  var b = cljs.core.nth.call(null, a, 0, null);
+  a = cljs.core.nthnext.call(null, a, 1);
+  if (!(b instanceof cljs.core.Keyword || b instanceof cljs.core.Symbol || "string" === typeof b)) {
+    throw "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(b) + " is not a valid tag name";
+  }
+  var c = cljs.core.re_matches.call(null, hiccups.runtime.re_tag, hiccups.runtime.as_str.call(null, b));
+  cljs.core.nth.call(null, c, 0, null);
+  var b = cljs.core.nth.call(null, c, 1, null), d = cljs.core.nth.call(null, c, 2, null), c = cljs.core.nth.call(null, c, 3, null), d = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "id", "id", -1388402092), d, new cljs.core.Keyword(null, "class", "class", -2030961996), cljs.core.truth_(c) ? clojure.string.replace.call(null, c, ".", " ") : null], null), c = cljs.core.first.call(null, a);
+  return cljs.core.map_QMARK_.call(null, c) ? new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [b, cljs.core.merge.call(null, d, c), cljs.core.next.call(null, a)], null) : new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [b, d, a], null);
+};
+hiccups.runtime.render_element = function(a) {
+  var b = hiccups.runtime.normalize_element.call(null, a);
+  a = cljs.core.nth.call(null, b, 0, null);
+  var c = cljs.core.nth.call(null, b, 1, null), b = cljs.core.nth.call(null, b, 2, null);
+  return cljs.core.truth_(cljs.core.truth_(b) ? b : hiccups.runtime.container_tags.call(null, a)) ? "\x3c" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(a) + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.render_attr_map.call(null, c)) + "\x3e" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.render_html.call(null, b)) + "\x3c/" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(a) + "\x3e" : "\x3c" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(a) + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.render_attr_map.call(null, 
+  c)) + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.end_tag.call(null));
+};
+hiccups.runtime.render_html = function render_html(b) {
+  return cljs.core.vector_QMARK_.call(null, b) ? hiccups.runtime.render_element.call(null, b) : cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.str, cljs.core.map.call(null, render_html, b)) : hiccups.runtime.as_str.call(null, b);
+};
 cljs.reader = {};
 cljs.reader.PushbackReader = function() {
   return{};
@@ -18356,3 +18415,34 @@ var posthere = {update_uuid_value:function(a) {
   });
 }};
 goog.exportSymbol("posthere.init", posthere.init);
+posthere.result_template = function(a) {
+  return "" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(function() {
+    var b;
+    a: {
+      b = cljs.core.seq.call(null, a);
+      for (var c = null, d = 0, e = 0;;) {
+        if (e < d) {
+          cljs.core._nth.call(null, c, e), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.result-group.clearfix", "div.result-group.clearfix", 1167248795), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div", "div", 1057191632), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.clearfix", "div.clearfix", 
+          1775605822), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.col-md-1", "div.col-md-1", 45581582), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span.glyphicon-glypicon-chevron-down", "span.glyphicon-glypicon-chevron-down", -1589170542), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "aria-hidden", "aria-hidden", 399337029), "true"], 
+          null)], null)], null)], null)], null)], null), e += 1;
+        } else {
+          if (b = cljs.core.seq.call(null, b)) {
+            c = b, cljs.core.chunked_seq_QMARK_.call(null, c) ? (b = cljs.core.chunk_first.call(null, c), e = cljs.core.chunk_rest.call(null, c), c = b, d = cljs.core.count.call(null, b), b = e) : (cljs.core.first.call(null, c), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.result-group.clearfix", "div.result-group.clearfix", 1167248795), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
+            "div", "div", 1057191632), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.clearfix", "div.clearfix", 1775605822), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "div.col-md-1", "div.col-md-1", 45581582), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span.glyphicon-glypicon-chevron-down", "span.glyphicon-glypicon-chevron-down", 
+            -1589170542), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "aria-hidden", "aria-hidden", 399337029), "true"], null)], null)], null)], null)], null)], null), b = cljs.core.next.call(null, c), c = null, d = 0), e = 0;
+          } else {
+            b = null;
+            break a;
+          }
+        }
+      }
+      b = void 0;
+    }
+    return cljs.core.map_QMARK_.call(null, b) ? "\x3cdiv" + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.render_attr_map.call(null, cljs.core.merge.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "id", "id", -1388402092), "results", new cljs.core.Keyword(null, "class", "class", -2030961996), null], null), b))) + "\x3e\x3c/div\x3e" : '\x3cdiv id\x3d"results"\x3e' + cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.render_html.call(null, b)) + 
+    "\x3c/div\x3e";
+  }());
+};
+posthere.setup_results = function() {
+  return console.log(posthere.resultData);
+};
+goog.exportSymbol("posthere.setup_results", posthere.setup_results);

@@ -20,6 +20,9 @@
   ; POST requests
   (POST "/:uuid" [uuid :as request] (capture-request uuid request))) ; Capture their POST request
 
+  ; Resource requests
+  (route/resources "/assets/")
+
 (def app
   (if hot-reload
     (reload/wrap-reload #'approutes)

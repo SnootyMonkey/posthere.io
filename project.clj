@@ -28,6 +28,7 @@
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
+    [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
 
   :plugins [
