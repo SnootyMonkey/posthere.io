@@ -56,19 +56,22 @@
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
-          headers (-> request
-            (header "user-agent" "ring-mock")
-            (header "accept" "inevitability/death")
-            (header "content-type" "delicious/cake")
-            (header "content-length" "42")
-            (header "super-bowl" "Buccaneers"))
+          ; name / value pairs to use as HTTP headers
+          name-values {
+            "user-agent" "ring-mock"
+            "accept" "inevitability/death"
+            "content-type" "delicious/cake"
+            "content-length" "42"
+            "super-bowl" "Buccaneers"
+          }
+          ; wrap the request in repeated calls to ring mock's header/3 function for each
+          ; header name/value pair
+          headers (reduce #(header %1 %2 (get name-values %2)) request (keys name-values))
           response (app headers)
           request-headers (:headers (first (requests-for url-uuid)))]
-      request-headers => (contains {"user-agent" "ring-mock"})
-      request-headers => (contains {"accept" "inevitability/death"})
-      request-headers => (contains {"content-type" "delicious/cake"})
-      request-headers => (contains {"content-length" "42"})
-      request-headers => (contains {"super-bowl" "Buccaneers"})))
+      ; verify storage contains each name/value header in the :headers map
+      (doseq [header-name (keys name-values)]
+        request-headers => (contains {header-name (get name-values header-name)}))))
 
   ; POST saves query parameters
   (facts "query-string is saved"
@@ -90,7 +93,7 @@
 
   ; POST saves form fields
 
-  ; POST saves BODY content
+  ; POST saves body content
   (facts "body is saved"
 
     (fact "string body is saved"
@@ -120,9 +123,9 @@
 
 (future-facts "about giant POSTs getting partially saved"
 
-  ; POST doesn't save BODY if content-length header > 1MB
+  ; POST doesn't save body if content-length header > 1MB
 
-  ; POST doesn't save BODY if content is > 1MB
+  ; POST doesn't save body if content is > 1MB
 
   )
 
@@ -134,4 +137,7 @@
 
   )
 
-(future-facts "GETs, PUTS, DELETEs don't get saved")
+(future-fact "other HTTP verbs don't get saved"
+
+  ; GET, PUT, DELETE, PATCH, FOO
+  )

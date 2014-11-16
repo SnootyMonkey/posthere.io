@@ -1,5 +1,5 @@
 (defproject posthere.io "0.1.0-SNAPSHOT"
-  :description "Debug Your POST Requests!"
+  :description "Debug all the POST Requests."
   :url "http://posthere.io/"
   :license {
     :name "Mozilla Public License v2.0"
@@ -76,7 +76,8 @@
                  '[clojure.stacktrace :refer (print-stack-trace)]
                  '[clojure.test :refer :all]
                  '[print.foo :refer :all]
-                 '[clj-time.format :as t]
+                 '[clj-time.core :as t]
+                 '[clj-time.format :as f]
                  '[clojure.string :as s])
       ]
     }]
