@@ -18,10 +18,10 @@
   (GET "/:uuid" [uuid] (results-view uuid)) ; Show them the results of their requests
   
   ; POST requests
-  (POST "/:uuid" [uuid :as request] (capture-request uuid request))) ; Capture their POST request
+  (POST "/:uuid" [uuid :as request] (capture-request uuid request)) ; Capture their POST request
 
   ; Resource requests
-  (route/resources "/assets/")
+  (route/resources "/assets/"))
 
 (def app
   (if hot-reload
