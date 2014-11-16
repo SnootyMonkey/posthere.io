@@ -1,10 +1,13 @@
 (ns posthere.capture-request
   "Capture the request to a particular URL in the storage so they can be retrieved later."
-  (:require [ring.util.response :refer (header response)]
+  (:require [ring.util.codec :refer (form-decode)]
+            [ring.util.response :refer (header response)]
             [posthere.storage :refer (save-request)]
             [clj-time.core :as t]))
 
 (def max-body-size (* 1024 1024)) ; 1 megabyte
+
+(def form-urlencoded "application/x-www-form-urlencoded")
 
 (defn post-response-body [url-uuid]
   (str "We got your POST request! View your results at: http://posthere.io/" url-uuid "\n"))
@@ -34,7 +37,15 @@
     (assoc request :body (slurp (:body request)))
     (dissoc request :body)))
 
-; TODO parse the query string so we can easily present those name/value pairs too
+(defn- parse-query-string [request] request)
+
+(defn- parse-form-fields
+  "Parse the form fields string into a map if the content type indicates the body is form encoded."
+  [request]
+  (if (= (:content-type request) form-urlencoded)
+    (assoc request :parsed-body (form-decode (:body request)))
+    request))
+
 (defn capture-request
   "Save the processed request, respond to the POST."
   [url-uuid request]
@@ -42,6 +53,8 @@
   (save-request url-uuid 
     (-> request
       (add-time-stamp)
-      (limit-body-request-size)))
+      (limit-body-request-size)
+      (parse-query-string)
+      (parse-form-fields)))
   ;; Respond to the HTTP client
   (post-response url-uuid))
