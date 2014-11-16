@@ -1,6 +1,7 @@
 (ns posthere.integration.post
   "Test POST handling by the posthere.io service."
   (:require [midje.sweet :refer :all]
+            [ring.util.codec :refer (form-encode)]
             [ring.mock.request :refer (request body content-type header)]
             [clj-time.format :as f]
             [clj-time.core :as t]
@@ -13,7 +14,21 @@
 (def json-body "{\"lyric\": \"I'm a little teapot.\"}")
 (def xml-body "<song><lyric>I'm a little teapot.</lyric></song>")
 
-(def query-params "foo=bar&ferrets=evolved")
+(def params {
+  "email" "jobs@path.com"
+  "password" "This1sMySup3rS3cr3tPassw0rdAndY0uCanN0tGuess1t"
+  "work-at" "Path"
+  "most-evolved" "ferrets"
+  "super-bowl" "Buccaneers"
+})
+
+(def header-values {
+  "user-agent" "ring-mock"
+  "accept" "inevitability/death"
+  "content-type" "delicious/cake"
+  "content-length" "42"
+  "super-bowl" "Buccaneers"
+})
 
 (defn url-for [url-uuid]
   (str "/" url-uuid))
@@ -56,44 +71,45 @@
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
-          ; name / value pairs to use as HTTP headers
-          name-values {
-            "user-agent" "ring-mock"
-            "accept" "inevitability/death"
-            "content-type" "delicious/cake"
-            "content-length" "42"
-            "super-bowl" "Buccaneers"
-          }
           ; wrap the request in repeated calls to ring mock's header/3 function for each
           ; header name/value pair
-          headers (reduce #(header %1 %2 (get name-values %2)) request (keys name-values))
+          headers (reduce #(header %1 %2 (get header-values %2)) request (keys header-values))
           response (app headers)
           request-headers (:headers (first (requests-for url-uuid)))]
       ; verify storage contains each name/value header in the :headers map
-      (doseq [header-name (keys name-values)]
-        request-headers => (contains {header-name (get name-values header-name)}))))
+      (doseq [header-name (keys header-values)]
+        request-headers => (contains {header-name (get header-values header-name)}))))
 
-  ; POST saves query parameters
   (facts "query-string is saved"
     
     (fact "without a body"
       (let [url-uuid (uuid)
-            url (url-for (str url-uuid "?" query-params))
+            query-string (form-encode query-params)
+            url (url-for (str url-uuid "?" query-string))
             request (request :post url)
             response (app request)]
-        (:query-string (first (requests-for url-uuid))) => query-params))
+        (:query-string (first (requests-for url-uuid))) => query-string))
     
     (fact "with a body"
       (let [url-uuid (uuid)
-          url (url-for (str url-uuid "?" query-params))
+            query-string (form-encode query-params)
+            url (url-for (str url-uuid "?" query-string))
+            request (request :post url)
+            body (body request string-body)
+            response (app body)]
+        (:query-string (first (requests-for url-uuid))) => query-string)))
+
+ (fact "url-encoded form fields are saved"
+    (let [url-uuid (uuid)
+          url (url-for url-uuid)
           request (request :post url)
-          body (body request string-body)
-          response (app body)]
-        (:query-string (first (requests-for url-uuid))) => query-params)))
+          body (body request params)
+          response (app body)
+          stored-request (first (requests-for url-uuid))]
+      (:content-type stored-request) => "application/x-www-form-urlencoded"
+      (:body stored-request) => (form-encode params)
+      (:parsed-body stored-request) => params))
 
-  ; POST saves form fields
-
-  ; POST saves body content
   (facts "body is saved"
 
     (fact "string body is saved"
