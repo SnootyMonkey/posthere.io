@@ -20,7 +20,7 @@
   ; POST requests
   (POST "/:uuid" [uuid :as request] (capture-request uuid request)) ; Capture their POST request
 
-  ; Resource requests
+  ; Resource requests (in development)
   (route/resources "/assets/"))
 
 (def app
