@@ -78,7 +78,7 @@
 
 (defn header-table [result]
   (let [headers (js->clj (.-headers result))]
-    (.log js/console (first (keys headers)))
+    (.log js/console (keys headers))
     (reduce [] #(conj %1 (row-for %2 (get headers %2)) (keys headers)))))
 
 (hiccups/defhtml result-headers [result]
