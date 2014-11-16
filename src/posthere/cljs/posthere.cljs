@@ -50,36 +50,40 @@
     (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
 
 ; results page
-(hiccups/defhtml result-header [result]
+(hiccups/defhtml result-table-header [result]
   [:div
-      [:div.clearfix
-        [:div.col-md-1
-          [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]
-        [:div.col-md-3.text-left
-          [:strong "Replace With Timeago"]]
-        [:div.col-md-4.text-center
-          [:strong "Replace with Content Type"]]
-        [:div.col-md-4.text-right
-          (list "Status:" [:strong "Result"])]]
+    [:div.clearfix
+      [:div.col-md-1
+        [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]
+      [:div.col-md-3.text-left
+        [:strong "Replace With Timeago"]]
+      [:div.col-md-4.text-center
+        [:strong "Replace with Content Type"]]
+      [:div.col-md-4.text-right
+        "Status: " [:strong "Result"]]]
 
-      [:div
-        [:div.col-md-1 ""]
-        [:div.col-md-11.text-left.text-muted 
-          [:span.result-timestamp (.-timestamp result)]]]])
+    [:div
+      [:div.col-md-1 ""]
+      [:div.col-md-11.text-left.text-muted 
+        [:span.result-timestamp (.-timestamp result)]]]])
 
-(hiccups/defhtml result-table [result]
-  [:div "Results"])
+(hiccups/defhtml row-for [key val]
+  [:tr 
+    [:td key]
+    [:td val]])
 
-(defn row-for [key val]
-  (html
-    [:tr
-      [:th key]
-      [:td val]]))
+(defn table-rows [entries]
+  (let [parsed-entries (js->clj entries)]
+    (reverse (reduce #(conj %1 (row-for %2 (get parsed-entries %2))) () (keys parsed-entries)))))
 
-(defn header-table [result]
-  (let [headers (js->clj (.-headers result))]
-    (.log js/console (keys headers))
-    (reduce [] #(conj %1 (row-for %2 (get headers %2)) (keys headers)))))
+(hiccups/defhtml params-table [result]
+  [:div.col-md-1 ""]
+  [:div.col-md-7
+    [:table.table.table-bordered.header-table
+      [:tbody
+        [:tr
+          [:th.text-center {:colspan 2} "Body"]]
+        (table-rows (.parse js/JSON (.-body result)))]]])
 
 (hiccups/defhtml result-headers [result]
   [:div.col-md-4
@@ -87,13 +91,19 @@
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Headers"]]
-        (header-table result)]]])
+        (table-rows (.-headers result))]]])
 
 (hiccups/defhtml result-template [result]
   [:div.result-group.clearfix 
-    (result-header result)
-    (result-table result)
-    (result-headers result)])
+    (result-table-header result)
+    [:div.clearfix
+      (params-table result)
+      (result-headers result)]
+    [:div
+      [:div.col-md-1 ""]
+      [:div.col-md-11
+        [:a {:href "/"} "raw Content Type"]
+        [:hr]]]])
 
 (defn ^:export setup-results []
   (doseq [result js/resultData]
