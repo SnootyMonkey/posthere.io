@@ -5,7 +5,8 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
-/.lein-*
+/.lein-env
+/.lein-repl-history
 /.nrepl-port
 .DS_Store
 posthere.js

@@ -28,10 +28,25 @@ Don’t trust us with your test data? No need to, it’s open source! Check the 
 
 Need more features? [Fork it](https://github.com/path/posthere.io/fork)! It’s all [well-tested]() Clojure and ClojureScript. Send us a [pull request](#development-and-contributing) when you're done.
 
-
 ## Usage
 
-99.9% of users should use [POSThere.io](http://posthere.io/) by just going to the [website](http://posthere.io/).
+99.9% of users should use [POSThere.io](http://posthere.io/) by just going to the [website](http://posthere.io/). The website will provide you with a unique URL, or you can customize it, and you can use the provided URL to test your API requests or webhook notifications.
+
+Once one or more requests have been made, simply visit the URL in your browser and you'll see a display of the requests that POSThere.io received.
+
+## Limits
+
+Given the nature of POSThere.io as a free, shared resource, there are some limits. You can certainly host your own copy and remove any of these limits if they are problematic:
+
+* POSThere.io captures the results of your POST requests, but does not capture GET, PUT, PATCH, or DELETE or any other HTTP requests.
+* The body of the request is limited to 1MB or less.
+* Only the last 100 requests per unique URL are captured.
+* Captured requests are only kept for 24 hours.
+* Single and multi-part file uploads are not supported.
+* Only JSON, XML and URL encoded form fields are rendered nicely, other data formats are not.
+* The response to the POST request is fixed and cannot be adjusted.
+* You can't request simulated timeout or delay to the request.
+* There's no API to programmatically retrieve the requests that were made.
 
 ### Run it Yourself
 
