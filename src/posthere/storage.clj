@@ -46,19 +46,19 @@
   [url-uuid request]
 
   (let [url-key (url-key-for url-uuid)
-        request-uuid (uuid) ;; new UUID for this request
+        request-uuid (uuid) ; new UUID for this request
         request-entry (request-entry-for request-uuid)
         request-key (request-key-for request-uuid)
         clean-request (dissoc request :async-channel)]
     
     ;; Save the POST request to the list for this URL UUID
     (wcar*
-      (car/multi) ;; transaction
-        (car/lpush url-key request-entry) ;; push the request onto the list
-        (car/expire url-key day) ;; renew the list expiration
-        (car/set request-key clean-request) ;; store the request
-        (car/expire request-key day) ;; expire the request
-      (car/exec)) ;; execute transaction
+      (car/multi) ; transaction
+        (car/lpush url-key request-entry) ; push the request onto the list
+        (car/expire url-key day) ; renew the list expiration
+        (car/set request-key clean-request) ; store the request
+        (car/expire request-key day) ; expire the request
+      (car/exec)) ; execute transaction
 
     ;; trim the request list if needed
     (if (> (wcar* (car/llen url-key)) request-storage-count)

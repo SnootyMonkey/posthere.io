@@ -6,7 +6,6 @@
 
 (defn- template-for [name] (str "../resources/html/" name))
 
-; Results page work
 (defsnippet result-rows (template-for "result-table.html")
   [:.result-group]
   [replacements]
@@ -29,5 +28,4 @@
 
 (defn results-view [uuid]
   (let [results (requests-for uuid)]
-    ; (doseq [item results] (prn (:headers item)))
     (apply str (results-page results uuid))))
