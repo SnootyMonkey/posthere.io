@@ -15,6 +15,7 @@
   :dependencies [
     ;; Server-side
     [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/core.incubator "0.1.3"] ; Functions proposed for inclusion in Clojure https://github.com/clojure/core.incubator
     [cheshire "5.3.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [ring/ring-devel "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.3.1"] ; Web application library https://github.com/ring-clojure/ring

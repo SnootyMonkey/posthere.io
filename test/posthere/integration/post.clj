@@ -1,13 +1,14 @@
 (ns posthere.integration.post
   "Test POST handling by the posthere.io service."
-  (:require [midje.sweet :refer :all]
+  (:require [clojure.string :as s]
+            [midje.sweet :refer :all]
             [ring.util.codec :refer (form-encode)]
             [ring.mock.request :refer (request body content-type header)]
             [clj-time.format :as f]
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
             [posthere.app :refer (app)]
-            [posthere.capture-request :refer (post-response-body)]
+            [posthere.capture-request :as capture :refer (post-response-body)]
             [posthere.storage :refer (requests-for)]))
 
 (def string-body "I'm a little teapot.")
@@ -30,17 +31,19 @@
   "super-bowl" "Buccaneers"
 })
 
+(def bad-status-codes [103 209 309 421 452 512])
+
 (defn url-for [url-uuid]
   (str "/" url-uuid))
 
 (facts "about POST responses"
 
-  (fact "default response status is a 200"
+  (fact "default response status is provided"
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
           response (app request)]
-      (:status response) => 200))
+      (:status response) => capture/default-http-status-code))
 
   (fact "response content-type is text/plain"
     (let [url-uuid (uuid)
@@ -84,7 +87,7 @@
     
     (fact "without a body"
       (let [url-uuid (uuid)
-            query-string (form-encode query-params)
+            query-string (form-encode params)
             url (url-for (str url-uuid "?" query-string))
             request (request :post url)
             response (app request)]
@@ -92,7 +95,7 @@
     
     (fact "with a body"
       (let [url-uuid (uuid)
-            query-string (form-encode query-params)
+            query-string (form-encode params)
             url (url-for (str url-uuid "?" query-string))
             request (request :post url)
             body (body request string-body)
@@ -145,15 +148,39 @@
 
   )
 
-(future-facts "about requested status getting used as the status"
+(facts "about requested status getting used as the status"
 
-  ; valid HTTP statuses get used as the status
+  (facts "valid HTTP statuses get used as the status"
+    (doseq [status capture/http-status-codes]
+      (let [url-uuid (uuid)
+            url (url-for (str url-uuid "?foo=bar&status=" status))
+            request (request :post url)
+            body (body request json-body)
+            response (app body)
+            stored-request (first (requests-for url-uuid))
+            body (:body stored-request)
+            parsed-body (:parsed-body stored-request)]
+        (:status response) => status ; responded with the requested status
+        (:status stored-request) => status ; stored the requested status
+        ;; Removed status from the other query string params
+        (doseq [value [body parsed-body]]
+          (or (s/blank? value) (not (.contains value (str status)))) => true))))
 
-  ; invalid HTTP statuses don't get used as the status
+  (facts "invalid HTTP statuses don't get used as the status"
+    (doseq [status bad-status-codes]
+      (let [url-uuid (uuid)
+            url (url-for (str url-uuid "?foo=bar&status=" status))
+            request (request :post url)
+            body (body request json-body)
+            response (app body)
+            stored-request (first (requests-for url-uuid))]
+        (:status response) => capture/default-http-status-code ; responded with the default status
+        (:status stored-request) => capture/default-http-status-code)))) ; stored the default status
 
-  )
-
-(future-fact "other HTTP verbs don't get saved"
-
-  ; GET, PUT, DELETE, PATCH, FOO
-  )
+(facts "GET, PUT, DELETE, PATCH, and FOO requests don't get saved"
+  (doseq [method [:get :put :delete :patch :foo]]
+    (let [url-uuid (uuid)
+          url (url-for url-uuid)
+          request (request method url)
+          response (app request)]
+      (empty? (requests-for url-uuid)) => true)))
