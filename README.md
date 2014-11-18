@@ -1,6 +1,5 @@
 ![Debug all the POST requests](./resources/public/images/x-all-the-y.png)  
 ![POSThere.io](./resources/public/images/POSThere.io.tagline.png)  
-[![Build Status](https://travis-ci.org/path/posthere.io.png?branch=master)](https://travis-ci.org/path/posthere.io)
 
 [POSThere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
 
@@ -78,7 +77,9 @@ TBD.
 
 ## Testing
 
-Tests are run in continous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/path/posthere.io).
+Tests are run in continous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/path/posthere.io):
+
+[![Build Status](https://travis-ci.org/path/posthere.io.png?branch=master)](https://travis-ci.org/path/posthere.io)
 
 To run the tests locally:
 
