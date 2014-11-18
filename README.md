@@ -68,7 +68,7 @@ And you can start a server:
 lein run!
 ```
 
-Then you can visit your very own POSThere.io in your browser at [http://localhost:3000/](http://localhost:3000/).
+Then you can visit your very own POSThere.io in your browser at: [http://localhost:3000/](http://localhost:3000/).
 
 ### Run it on Heroku
 
@@ -90,9 +90,9 @@ lein midje
 
 ## Development and Contributing
 
-Need more features? [Fork it](https://github.com/path/posthere.io/fork)! It’s all [well-tested](https://travis-ci.org/path/posthere.io) Clojure and ClojureScript. Send us a [pull request](#development-and-contributing) when you're done.
+Need more features? [Fork it!](https://github.com/path/posthere.io/fork) It’s [well-tested](https://travis-ci.org/path/posthere.io) Clojure and ClojureScript.
 
-If you'd like to enhance POSThere.io, please fork [POSThere.io on GitHub](https://github.com/path/posthere.io). If you'd like to contribute back your enhancements (awesome!), please submit your pull requests to the `dev` branch. We promise to look at every pull request and incorporate it, or at least provide feedback on why if we won't.
+If you'd like to contribute back your enhancements (awesome!), please submit your pull requests to the `dev` branch. We promise to look at every pull request and incorporate it, or at least provide feedback on why if we won't.
 
 * Do your best to conform to the coding style that's here... We like it.
 * Use 2 soft spaces for indentation.
@@ -101,6 +101,7 @@ If you'd like to enhance POSThere.io, please fork [POSThere.io on GitHub](https:
 * Write comments.
 * Write tests.
 * Don't submit über pull requests, keep your changes atomic.
+* Submit pull requests to the `dev` branch.
 * Have fun!
 
 
