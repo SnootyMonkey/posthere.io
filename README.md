@@ -90,7 +90,7 @@ lein midje
 
 ## Development and Contributing
 
-Need more features? [Fork it](https://github.com/path/posthere.io/fork)! It’s all [well-tested]() Clojure and ClojureScript. Send us a [pull request](#development-and-contributing) when you're done.
+Need more features? [Fork it](https://github.com/path/posthere.io/fork)! It’s all [well-tested](https://travis-ci.org/path/posthere.io) Clojure and ClojureScript. Send us a [pull request](#development-and-contributing) when you're done.
 
 If you'd like to enhance POSThere.io, please fork [POSThere.io on GitHub](https://github.com/path/posthere.io). If you'd like to contribute back your enhancements (awesome!), please submit your pull requests to the `dev` branch. We promise to look at every pull request and incorporate it, or at least provide feedback on why if we won't.
 
