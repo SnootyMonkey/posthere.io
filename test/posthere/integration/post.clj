@@ -9,11 +9,17 @@
             [posthere.util.uuid :refer (uuid)]
             [posthere.app :refer (app)]
             [posthere.capture-request :as capture :refer (post-response-body)]
-            [posthere.storage :refer (requests-for)]))
+            [posthere.storage :refer (requests-for)]
+            [cheshire.core :refer (parse-string generate-string)]
+            [clojure.data.xml :refer (parse-str indent-str)]))
 
 (def string-body "I'm a little teapot.")
+
 (def json-body "{\"lyric\": \"I'm a little teapot.\"}")
+(def pretty-json (generate-string (parse-string json-body) {:pretty true}))
+
 (def xml-body "<song><lyric>I'm a little teapot.</lyric></song>")
+(def pretty-xml (indent-str (parse-str xml-body)))
 
 (def params {
   "email" "jobs@path.com"
@@ -31,7 +37,8 @@
   "super-bowl" "Buccaneers"
 })
 
-(def bad-status-codes [103 209 309 421 452 512])
+(def bad-status-codes [103 209 309 421 452 512 "foo"])
+
 
 (defn url-for [url-uuid]
   (str "/" url-uuid))
@@ -113,7 +120,7 @@
       (:body stored-request) => (form-encode params)
       (:parsed-body stored-request) => params))
 
-  (facts "body is saved"
+  (facts "the body is saved"
 
     (fact "string body is saved"
       (let [url-uuid (uuid)
@@ -123,22 +130,77 @@
             response (app body)]
           (:body (first (requests-for url-uuid))) => string-body))
 
-    (fact "JSON body is saved"
-      (let [url-uuid (uuid)
+    (facts "when the body is JSON"
+
+      (fact "as pretty-printed when the content-type indicates it's JSON"
+        (doseq [mime-type capture/json-mime-types]
+          (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type mime-type)
+              body (body header json-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+            (:body stored-request) => pretty-json
+            (not (:invalid-body stored-request)) => true)))
+      
+      (fact "as pretty printed when they don't tell us the content-type"
+        (let [url-uuid (uuid)
             url (url-for url-uuid)
             request (request :post url)
             body (body request json-body)
-            response (app body)]
-          (:body (first (requests-for url-uuid))) => json-body))
+            response (app body)
+            stored-request (first (requests-for url-uuid))]
+          (:body stored-request) => pretty-json
+          (not (:invalid-body stored-request)) => true))
+      
+      (fact "as a string when the content-type says it's JSON but it's not"
+        (doseq [mime-type capture/json-mime-types]
+          (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type mime-type)
+              body (body header xml-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+            (:body stored-request) => xml-body
+            (:invalid-body stored-request) => true))))
 
-    (fact "XML body is saved"
-      (let [url-uuid (uuid)
+    (facts "when the body is XML"
+
+      (fact "as pretty-printed when the content-type indicates it's XML"
+        (doseq [mime-type capture/xml-mime-types]
+          (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type mime-type)
+              body (body header xml-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+            (:body stored-request) => pretty-xml
+            (not (:invalid-body stored-request)) => true)))
+      
+      (fact "as pretty printed when they don't tell us the content-type"
+        (let [url-uuid (uuid)
             url (url-for url-uuid)
             request (request :post url)
             body (body request xml-body)
-            response (app body)]
-          (:body (first (requests-for url-uuid))) => xml-body))))
-
+            response (app body)
+            stored-request (first (requests-for url-uuid))]
+          (:body stored-request) => pretty-xml
+          (not (:invalid-body stored-request)) => true))
+      
+      (fact "as a string when the content-type says it's XML but it's not"
+        (doseq [mime-type capture/xml-mime-types]
+          (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type mime-type)
+              body (body header json-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+            (:body stored-request) => json-body
+            (:invalid-body stored-request) => true))))))
 
 (future-facts "about giant POSTs getting partially saved"
 

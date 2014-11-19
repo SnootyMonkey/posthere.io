@@ -16,7 +16,8 @@
     ;; Server-side
     [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.incubator "0.1.3"] ; Functions proposed for inclusion in Clojure https://github.com/clojure/core.incubator
-    [cheshire "5.3.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [org.clojure/core.match "0.2.2"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
+    [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Web Server http://http-kit.org/
@@ -25,7 +26,8 @@
     [com.taoensso/carmine "2.7.1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.8.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [org.clojure/data.json "0.2.5"] ; Clojure Data to JSON library https://github.com/clojure/data.json
+    [cheshire "5.3.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Web Client-side
     [org.clojure/clojurescript "0.0-2371"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq

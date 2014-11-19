@@ -6,11 +6,13 @@
             [clj-time.format :as f]
             [posthere.util.uuid :refer (uuid)]))
 
-;; Storage constants
+;; ----- Storage constants -----
+
 (def day (* 60 60 24)) ; 1 day in seconds for Redis key expiration
 (def request-storage-count 100) ; Store up to 100 requests per URL
 
-;; Redis "schema"
+;; ----- Redis "Schema" -----
+
 (def url-key "url:")
 (def request-key "request:")
 (def request-separator "|")
@@ -18,9 +20,12 @@
 (defn request-key-for [request-uuid] (str request-key request-uuid))
 (defn- request-entry-for [request-uuid] (str (t/plus (t/now) (t/hours 24)) request-separator request-uuid))
 
-;; Redis connection
+;; ----- Redis connection -----
+
 (def server-conn {:pool {} :spec {:host "127.0.0.1" :port 6379}}) ; See `wcar` docstring for opts
 (defmacro wcar* [& body] `(car/wcar server-conn ~@body))
+
+;; ---- Internal -----
 
 (defn parse-request-entry [request-entry]
   (s/split request-entry (re-pattern (str "\\" request-separator))))
@@ -39,7 +44,7 @@
     request
     false))
 
-;; Public
+;; ----- Public -----
 
 (defn save-request
   "Store the request made to a UUID in Redis for up to 24h."
