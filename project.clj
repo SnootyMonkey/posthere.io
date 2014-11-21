@@ -103,7 +103,10 @@
 
   ;; ----- Code check configuration -----
 
-  :eastwood {:exclude-linters [:keyword-typos]}
+  :eastwood {
+    :exclude-linters [:keyword-typos]
+    :exclude-namespaces [posthere.integration.post posthere.unit.storage]
+  }
 
   ;; ----- ClojureScript -----
 

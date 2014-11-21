@@ -115,7 +115,7 @@
 ;; ----- Pretty Print Body -----
 
 (defun- json?
-  "Genorously determine if this mime-type is possibly JSON."
+  "Generously determine if this mime-type is possibly JSON."
   ([nil] false)
   ([content-type] 
     (let [base (first (s/split content-type #";"))]
@@ -124,7 +124,7 @@
         (re-find #"\+json" base))))) ; is some custom mime-type that uses JSON
   
 (defun- xml?
-  "Genorously determine if this mime-type is possibly XML."
+  "Generously determine if this mime-type is possibly XML."
   ([nil] false)
   ([content-type] 
     (let [base (first (s/split content-type #";"))]
@@ -132,36 +132,49 @@
         (contains? xml-mime-types base) ; is an XML mime-type seen out in the wild
         (re-find #"\+xml" base))))) ; is some custom mime-type that uses XML
 
+(defn- url-encoded? [content-type]
+  (= content-type form-urlencoded))
+
+(defn- pretty-print
+  "Try to parse the request body as XML if content-type is XML or not provided and it's not JSON"
+  [request content-type? pretty-print derived-content-type]
+  (let [content-type (content-type-for request)]
+    (if (or (content-type? content-type)
+            (and (s/blank? content-type) (s/blank? (:derived-content-type request))))
+      (try
+        ; pretty-print the body
+        (-> request 
+          (assoc :body (pretty-print request))
+          (assoc :derived-content-type derived-content-type))
+        (catch Exception e ; XML parsing failed
+          (if (s/blank? content-type) ; did they tell us it was XML?
+            request ; we were only guessing it might be XML, so leave it as is
+            (assoc request :invalid-body true)))) ; they told us it was XML, but it didn't parse
+      request))) ; content-type is not XML
+
 (defn- pretty-print-json
-  "Try to parse the JSON and re-encode it as a pretty-printed string"
   [request]
-  (try 
-    (assoc request :body (generate-string (parse-string (:body request)) {:pretty true}))
-    (catch Exception e ; JSON parsing failed
-      (if (content-type-for request)
-        (assoc request :invalid-body true) ; they told us it was JSON, but it didn't parse
-        request)))) ; we were only guessing it might be JSON, so leave it as is
+  (pretty-print
+    request
+    json?
+    (fn [request] (generate-string (parse-string (:body request)) {:pretty true}))
+    "JSON"))
 
 (defn- pretty-print-xml
-  "Try to parse the XML and re-encode it as a pretty-printed string"
   [request]
-  (try 
-    (assoc request :body (indent-str (parse-str (:body request))))
-    (catch Exception e ; XML parsing failed
-      (if (content-type-for request)
-        (assoc request :invalid-body true) ; they told us it was XML, but it didn't parse
-        request)))) ; we were only guessing it might be XML, so leave it as is
-
-
-(defn- pretty-print-body
-  "Replace a JSON or XML body with a pretty-printed version."
+  (pretty-print
+    request
+    xml?
+    (fn [request] (indent-str (parse-str (:body request))))
+    "XML"))
+ 
+ (defn- pretty-print-urlencoded
   [request]
-  (let [content-type (content-type-for request)]
-    (match [content-type]
-      [(_ :guard #(json? %))] (pretty-print-json request) ; pretty-print as JSON
-      [(_ :guard #(xml? %))] (pretty-print-xml request) ; pretty-print as XML
-      [(_ :guard #(s/blank? %))] (-> request (pretty-print-json) (pretty-print-xml)) ; attempt to pretty-print it
-      [_] request))) ; some other mime-type, so leave it alone
+  (pretty-print
+    request
+    url-encoded?
+    (fn [request] (form-decode (:body request)))
+    "URL ENCODED"))
 
 ;; ----- Parse URL Encoding -----
 
@@ -171,14 +184,6 @@
   (if-let [query-string (:query-string request)]
     (assoc request :parsed-query-string (form-decode query-string))
     request)) ; no query-string to parse
-
-;; TODO code this defensively in case the content-type lied
-(defn- parse-form-fields
-  "Parse the form fields string into a map if the content type indicates the body is form encoded."
-  [request]
-  (if (= (content-type-for request) form-urlencoded)
-    (assoc request :parsed-body (form-decode (:body request)))
-    request)) 
 
 ;; ----- Data flow: Incoming Request -> Processed Request -> Storage -> HTTP Response -----
 
@@ -191,8 +196,9 @@
       (add-time-stamp)
       (limit-body-request-size)
       (parse-query-string)
-      (parse-form-fields)
-      (pretty-print-body)
+      (pretty-print-json) ; handle the body data if it's JSON
+      (pretty-print-xml) ; handle the body data if it's XML
+      (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
       (handle-response-status))]
     ;; Save the request
     (save-request url-uuid processed-request)

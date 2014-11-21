@@ -117,8 +117,7 @@
           response (app body)
           stored-request (first (requests-for url-uuid))]
       (:content-type stored-request) => "application/x-www-form-urlencoded"
-      (:body stored-request) => (form-encode params)
-      (:parsed-body stored-request) => params))
+      (:body stored-request) => params))
 
   (facts "the body is saved"
 
