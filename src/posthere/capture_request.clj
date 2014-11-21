@@ -137,14 +137,14 @@
 
 (defn- pretty-print
   "Try to parse the request body as XML if content-type is XML or not provided and it's not JSON"
-  [request content-type? pretty-print derived-content-type]
+  [request content-type? pretty-printer derived-content-type]
   (let [content-type (content-type-for request)]
     (if (or (content-type? content-type)
             (and (s/blank? content-type) (s/blank? (:derived-content-type request))))
       (try
         ; pretty-print the body
         (-> request 
-          (assoc :body (pretty-print request))
+          (assoc :body (pretty-printer request))
           (assoc :derived-content-type derived-content-type))
         (catch Exception e ; XML parsing failed
           (if (s/blank? content-type) ; did they tell us it was XML?
