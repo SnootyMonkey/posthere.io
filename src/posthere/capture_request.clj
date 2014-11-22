@@ -30,6 +30,11 @@
   500 501 502 503 504 505 506 507 508 509 510 511 520 521 522 523 524 598 599
 })
 
+(def url-encoded "URL ENCODED")
+(def json-encoded "JSON")
+(def xml-encoded "XML")
+
+
 (def json-mime-types #{
   "application/json"
   "application/x-json"
@@ -114,6 +119,12 @@
 
 ;; ----- Pretty Print Body -----
 
+(defn- mark-url-encoded-invalid
+  [request]
+  (if (= (content-type-for request) form-urlencoded)
+    (assoc request :invalid-body true)
+    request))
+
 (defun- json?
   "Generously determine if this mime-type is possibly JSON."
   ([nil] false)
@@ -136,45 +147,61 @@
   (= content-type form-urlencoded))
 
 (defn- pretty-print
-  "Try to parse the request body as XML if content-type is XML or not provided and it's not JSON"
+  "Try to pretty-print the request body if content-type matches or is not provided
+   and it's content-type has not already been derived."
   [request content-type? pretty-printer derived-content-type]
   (let [content-type (content-type-for request)]
+    ;; If the content-type checking function passes, or the content-type is blank
+    ;; and we haven't aleady derived a content-type, then attempt to pretty print the
+    ;; content type using the pretty printer function
     (if (or (content-type? content-type)
             (and (s/blank? content-type) (s/blank? (:derived-content-type request))))
       (try
-        ; pretty-print the body
+        ; pretty-print the body and set the derived content type
         (-> request 
-          (assoc :body (pretty-printer request))
+          (assoc :body (pretty-printer))
           (assoc :derived-content-type derived-content-type))
-        (catch Exception e ; XML parsing failed
-          (if (s/blank? content-type) ; did they tell us it was XML?
-            request ; we were only guessing it might be XML, so leave it as is
-            (assoc request :invalid-body true)))) ; they told us it was XML, but it didn't parse
-      request))) ; content-type is not XML
+        (catch Exception e ; pretty printing failed
+          (if (s/blank? content-type) ; did they tell us it was this content-type?
+            request ; we were only guessing it might be, so leave it as is
+            (assoc request :invalid-body true)))) ; they told us it was this type, but it didn't parse
+      request))) ; content-type doesn't match
 
 (defn- pretty-print-json
   [request]
   (pretty-print
     request
     json?
-    (fn [request] (generate-string (parse-string (:body request)) {:pretty true}))
-    "JSON"))
+    (fn [] (generate-string (parse-string (:body request)) {:pretty true}))
+    json-encoded))
 
 (defn- pretty-print-xml
   [request]
   (pretty-print
     request
     xml?
-    (fn [request] (indent-str (parse-str (:body request))))
-    "XML"))
+    (fn [] (indent-str (parse-str (:body request))))
+    xml-encoded))
  
  (defn- pretty-print-urlencoded
   [request]
-  (pretty-print
-    request
-    url-encoded?
-    (fn [request] (form-decode (:body request)))
-    "URL ENCODED"))
+  (let [content-type (content-type-for request)
+        body-value (:body request)
+        body (if body-value body-value "")]
+    ;; Attempt form-urlencoded parsing if the body has an = and
+    ;; they indicate it's form-urlencoded by content-type, or there's
+    ;; no content-type. The pretty-print attempt won't do anything if
+    ;; its already been handled as JSON or XML.
+    (if (and 
+          (re-find #"=" body)
+          (or (= content-type form-urlencoded)
+              (s/blank? content-type)))
+      (pretty-print
+        request
+        url-encoded?
+        (fn [] (form-decode body))
+        url-encoded)
+      (mark-url-encoded-invalid request)))) ; potentially mark it as invalid URL encoded
 
 ;; ----- Parse URL Encoding -----
 
@@ -193,13 +220,13 @@
   ;; Process the request
   (let [processed-request 
     (-> request
-      (add-time-stamp)
-      (limit-body-request-size)
-      (parse-query-string)
+      (add-time-stamp) ; save the time of the request
+      (parse-query-string) ; handle any query string parameters
+      (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
       (pretty-print-json) ; handle the body data if it's JSON
       (pretty-print-xml) ; handle the body data if it's XML
       (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
-      (handle-response-status))]
+      (handle-response-status))] ; handle the requested states
     ;; Save the request
     (save-request url-uuid processed-request)
     ;; Respond to the HTTP client

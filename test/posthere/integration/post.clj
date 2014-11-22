@@ -1,5 +1,5 @@
 (ns posthere.integration.post
-  "Test POST handling by the posthere.io service."
+  "Test POST request handling by the POSThere.io service."
   (:require [clojure.string :as s]
             [midje.sweet :refer :all]
             [ring.util.codec :refer (form-encode)]
@@ -109,59 +109,100 @@
             response (app body)]
         (:query-string (first (requests-for url-uuid))) => query-string)))
 
- (fact "url-encoded form fields are saved"
-    (let [url-uuid (uuid)
-          url (url-for url-uuid)
-          request (request :post url)
-          body (body request params)
-          response (app body)
-          stored-request (first (requests-for url-uuid))]
-      (:content-type stored-request) => "application/x-www-form-urlencoded"
-      (:body stored-request) => params))
+  (facts "the body is saved with an appropriate derived content type"
 
-  (facts "the body is saved"
-
-    (fact "string body is saved"
+    (fact "when the body is a string"
       (let [url-uuid (uuid)
             url (url-for url-uuid)
             request (request :post url)
             body (body request string-body)
-            response (app body)]
-          (:body (first (requests-for url-uuid))) => string-body))
+            response (app body)
+            stored-request (first (requests-for url-uuid))]
+        (:derived-content-type stored-request) => nil
+        (get-in stored-request [:headers "content-type"]) => nil
+        (:body stored-request) => string-body
+        (not (:invalid-body stored-request)) => true))
+
+    (facts "when the body is URL encoded"
+     
+      (fact "as parsed when the content-type indicaties it's URL encoded"
+        (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type capture/form-urlencoded)
+              body (body header params)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+          (:derived-content-type stored-request) => capture/url-encoded
+          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (:body stored-request) => params
+          (not (:invalid-body stored-request)) => true))
+
+      (fact "as parsed when they don't tell us the content-type"
+        (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              body (body request params)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+          (:derived-content-type stored-request) => capture/url-encoded
+          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (:body stored-request) => params
+          (not (:invalid-body stored-request)) => true))
+
+      (fact "as a string when the content-type says it's URL encoded but it's not"
+        (let [url-uuid (uuid)
+              url (url-for url-uuid)
+              request (request :post url)
+              header (header request :content-type capture/form-urlencoded)
+              body (body header string-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+          (:derived-content-type stored-request) => nil
+          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (:body stored-request) => string-body
+          (:invalid-body stored-request) => true)))
+
 
     (facts "when the body is JSON"
 
       (fact "as pretty-printed when the content-type indicates it's JSON"
         (doseq [mime-type capture/json-mime-types]
           (let [url-uuid (uuid)
-              url (url-for url-uuid)
-              request (request :post url)
-              header (header request :content-type mime-type)
-              body (body header json-body)
-              response (app body)
-              stored-request (first (requests-for url-uuid))]
+                url (url-for url-uuid)
+                request (request :post url)
+                header (header request :content-type mime-type)
+                body (body header json-body)
+                response (app body)
+                stored-request (first (requests-for url-uuid))]
+            (:derived-content-type stored-request) => capture/json-encoded
+            (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-json
             (not (:invalid-body stored-request)) => true)))
       
-      (fact "as pretty printed when they don't tell us the content-type"
+      (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
-            url (url-for url-uuid)
-            request (request :post url)
-            body (body request json-body)
-            response (app body)
-            stored-request (first (requests-for url-uuid))]
+              url (url-for url-uuid)
+              request (request :post url)
+              body (body request json-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+          (:derived-content-type stored-request) => capture/json-encoded
+          (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-json
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's JSON but it's not"
         (doseq [mime-type capture/json-mime-types]
           (let [url-uuid (uuid)
-              url (url-for url-uuid)
-              request (request :post url)
-              header (header request :content-type mime-type)
-              body (body header xml-body)
-              response (app body)
-              stored-request (first (requests-for url-uuid))]
+                url (url-for url-uuid)
+                request (request :post url)
+                header (header request :content-type mime-type)
+                body (body header xml-body)
+                response (app body)
+                stored-request (first (requests-for url-uuid))]
+            (:derived-content-type stored-request) => nil
+            (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => xml-body
             (:invalid-body stored-request) => true))))
 
@@ -170,34 +211,40 @@
       (fact "as pretty-printed when the content-type indicates it's XML"
         (doseq [mime-type capture/xml-mime-types]
           (let [url-uuid (uuid)
-              url (url-for url-uuid)
-              request (request :post url)
-              header (header request :content-type mime-type)
-              body (body header xml-body)
-              response (app body)
-              stored-request (first (requests-for url-uuid))]
+                url (url-for url-uuid)
+                request (request :post url)
+                header (header request :content-type mime-type)
+                body (body header xml-body)
+                response (app body)
+                stored-request (first (requests-for url-uuid))]
+            (:derived-content-type stored-request) => capture/xml-encoded
+            (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml
             (not (:invalid-body stored-request)) => true)))
       
-      (fact "as pretty printed when they don't tell us the content-type"
+      (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
-            url (url-for url-uuid)
-            request (request :post url)
-            body (body request xml-body)
-            response (app body)
-            stored-request (first (requests-for url-uuid))]
+              url (url-for url-uuid)
+              request (request :post url)
+              body (body request xml-body)
+              response (app body)
+              stored-request (first (requests-for url-uuid))]
+          (:derived-content-type stored-request) => capture/xml-encoded
+          (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-xml
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's XML but it's not"
         (doseq [mime-type capture/xml-mime-types]
           (let [url-uuid (uuid)
-              url (url-for url-uuid)
-              request (request :post url)
-              header (header request :content-type mime-type)
-              body (body header json-body)
-              response (app body)
-              stored-request (first (requests-for url-uuid))]
+                url (url-for url-uuid)
+                request (request :post url)
+                header (header request :content-type mime-type)
+                body (body header json-body)
+                response (app body)
+                stored-request (first (requests-for url-uuid))]
+            (:derived-content-type stored-request) => nil
+            (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => json-body
             (:invalid-body stored-request) => true))))))
 
