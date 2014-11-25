@@ -1,9 +1,9 @@
-[![Debug all the POST requests](./resources/public/images/x-all-the-y.png)](http://posthere.io/)
+[![Debug all the POST requests](./resources/public/images/x-all-the-y.png)](http://posthere.io/)  
 [![POSThere.io](./resources/public/images/POSThere.io.tagline.png)](http://posthere.io/)
 
-[POSThere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
+[POSThere.io](http://posthere.io/) is a simple service for debugging API calls and web hooks. 
 
-When your code is POSTing to someone else’s code, either to their API, or via a web-hook you provide from your own API, it's hard to iterate and validate your code. Mocking the request is tedious and not a complete test, and servicing your own POST requests is wasted code and effort.
+When your code is POSTing to someone else’s, either to their API, or via a web-hook you provide from your own API, it's hard to iterate and validate your code. Mocking the request is tedious and not a complete test, and servicing your own POST requests is wasted code and effort.
 
 Wouldn’t it be nice to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
@@ -12,36 +12,36 @@ Wouldn’t it be nice to instantly see what your code POSTed at any time in as e
 
 You use [POSThere.io](http://posthere.io/) by going to the [website](http://posthere.io/). The website provides you with a unique URL to POST to, or you can customize it.
 
-Simply decide if you want to use HTTP or HTTPs, and use the unique default provided by the website or come up with a string that makes sense for the POST you’re attempting, and viola! 
+Simply decide if you want to use HTTP or HTTPs, and use the unique default URL provided by the website or come up with a string that makes sense for the POST you’re attempting, and viola! 
 
-  **https**://posthere.io/**test-my-twitter-code**
+  **http**://posthere.io/**test-my-twitter-code**
 
-  **http**://posthere.io/**a-webhook-callback-test**
+  **https**://posthere.io/**a-webhook-callback-test**
 
-  **http**://posthere.io/**another-webhook-callback-test/with/complexity?api=123**
+  **https**://posthere.io/**another-webhook-callback-test/with/complexity?api=123**
 
 After POSTing your JSON, XML, or form fields, open the same URL in your web browser and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
 
 Need to simulate different HTTP responses to your POST to ensure your code can handle them? It’s easy:
 
-  **https**://posthere.io/**test-my-twitter-code**?status=**201**
+  **http**://posthere.io/**test-my-twitter-code**?status=**201**
 
-  **http**://posthere.io/**a-webhook-callback-test**?status=**500**
+  **https**://posthere.io/**a-webhook-callback-test**?status=**500**
 
-  **http**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
+  **https**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
 If you need programmatic access to the results of your POST requests, make a GET request to the same URL.
 
-For JSON, do the programmatic equivalent in your language of this cURL request:
+For JSON, do the programmatic equivalent of this cURL request:
 
 ```console
-curl -X GET --header "Accept: application/json" **https**://posthere.io/**test-my-twitter-code**
+curl -X GET --header "Accept: application/json" http://posthere.io/test-my-twitter-code
 ```
 
-For XML, do the programmatic equivalent in your language of this cURL request:
+For XML, do the programmatic equivalent of this cURL request:
 
 ```console
-curl -X GET --header "Accept: application/xml" **https**://posthere.io/**test-my-twitter-code**
+curl -X GET --header "Accept: application/xml" http://posthere.io/test-my-twitter-code
 ```
 
 
@@ -51,8 +51,8 @@ Since POSThere.io as a free, shared resource, there are some limits. You can cer
 
 * [POSThere.io](http://posthere.io/) captures the results of your POST requests, but does not capture GET, PUT, PATCH, or DELETE or any other HTTP requests.
 * The body of the request is limited to 1MB or less, or the body value won't be shown.
-* Only up to the last 100 requests per unique URL are captured.
-* Captured requests are only kept for up to 24 hours.
+* Up to the last 100 requests per unique URL are captured.
+* Captured requests are kept for up to 24 hours.
 * Single and multi-part file uploads are not supported.
 * Only JSON, XML and URL encoded form fields are rendered nicely, other data formats are not.
 * The body of the response to the POST request is fixed and cannot be adjusted.
