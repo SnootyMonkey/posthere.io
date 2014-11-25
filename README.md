@@ -1,18 +1,18 @@
-![Debug all the POST requests](./resources/public/images/x-all-the-y.png)  
-![POSThere.io](./resources/public/images/POSThere.io.tagline.png)  
+[![Debug all the POST requests](./resources/public/images/x-all-the-y.png)](http://posthere.io/)
+[![POSThere.io](./resources/public/images/POSThere.io.tagline.png)](http://posthere.io/)
 
 [POSThere.io](http://posthere.io/) is a simple service for developers to help debug API calls and web hooks. 
 
-As a developer, if your code is POSTing to someone else’s code, either to their API, or via a web-hook from your own API… it can be hard to iterate and validate your code without the burden of test mocking (tedious and not a complete test) or servicing your own POST requests (wasted code and effort).
+When your code is POSTing to someone else’s code, either to their API, or via a web-hook you provide from your own API, it's hard to iterate and validate your code. Mocking the request is tedious and not a complete test, and servicing your own POST requests is wasted code and effort.
 
-Wouldn’t it be nice to be able to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
+Wouldn’t it be nice to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
 
 ## Usage
 
-99.9% of users should use [POSThere.io](http://posthere.io/) by just going to the [website](http://posthere.io/). The website will provide you with a unique URL, or you can customize it, and you can use the provided URL to test your API requests or webhook notifications.
+You use [POSThere.io](http://posthere.io/) by going to the [website](http://posthere.io/). The website provides you with a unique URL to POST to, or you can customize it.
 
-Decide if you want to use HTTP or HTTPs, and come up with a string that makes sense for the POST you’re attempting, and viola! 
+Simply decide if you want to use HTTP or HTTPs, and use the unique default provided by the website or come up with a string that makes sense for the POST you’re attempting, and viola! 
 
   **https**://posthere.io/**test-my-twitter-code**
 
@@ -20,9 +20,9 @@ Decide if you want to use HTTP or HTTPs, and come up with a string that makes se
 
   **http**://posthere.io/**another-webhook-callback-test/with/complexity?api=123**
 
-After POSTing your JSON, XML, or form fields, point your web browser at the same URL, and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
+After POSTing your JSON, XML, or form fields, open the same URL in your web browser and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
 
-Need to simulate different HTTP responses to your POST, to ensure your code can handle them? It’s easy:
+Need to simulate different HTTP responses to your POST to ensure your code can handle them? It’s easy:
 
   **https**://posthere.io/**test-my-twitter-code**?status=**201**
 
@@ -30,22 +30,33 @@ Need to simulate different HTTP responses to your POST, to ensure your code can 
 
   **http**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
-Once one or more requests have been made, simply visit the URL in your browser and you'll see a display of the requests that POSThere.io received.
+If you need programmatic access to the results of your POST requests, make a GET request to the same URL.
+
+For JSON, do the programmatic equivalent in your language of this cURL request:
+
+```console
+curl -X GET --header "Accept: application/json" **https**://posthere.io/**test-my-twitter-code**
+```
+
+For XML, do the programmatic equivalent in your language of this cURL request:
+
+```console
+curl -X GET --header "Accept: application/xml" **https**://posthere.io/**test-my-twitter-code**
+```
 
 
 ## Limits
 
-Given the nature of POSThere.io as a free, shared resource, there are some limits. You can certainly [host it yourself](#run-it-yourself) and remove any of these limits if they are problematic:
+Since POSThere.io as a free, shared resource, there are some limits. You can certainly [host it yourself](#run-it-yourself) and remove any of these limits if they are problematic:
 
 * [POSThere.io](http://posthere.io/) captures the results of your POST requests, but does not capture GET, PUT, PATCH, or DELETE or any other HTTP requests.
-* The body of the request is limited to 1MB or less.
-* Only the last 100 requests per unique URL are captured.
-* Captured requests are only kept for 24 hours.
+* The body of the request is limited to 1MB or less, or the body value won't be shown.
+* Only up to the last 100 requests per unique URL are captured.
+* Captured requests are only kept for up to 24 hours.
 * Single and multi-part file uploads are not supported.
 * Only JSON, XML and URL encoded form fields are rendered nicely, other data formats are not.
-* The response to the POST request is fixed and cannot be adjusted.
-* You can't request simulated timeout or delay to the request.
-* There's no API to programmatically retrieve the requests that were made.
+* The body of the response to the POST request is fixed and cannot be adjusted.
+* You can't request a simulated timeout or delay to the request.
 
 
 ## Run it Yourself
@@ -54,7 +65,7 @@ Don’t trust us with your test data? No need to, it’s open source! Check the 
 
 ### Internal Hosting
 
-If you want to host it internally yourself, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
+To host it yourself, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
 Then you can build the ClojureScript code:
 
@@ -62,7 +73,7 @@ Then you can build the ClojureScript code:
 lein cljsbuild once
 ```
 
-And you can start a server:
+And start a server:
 
 ```console
 lein run!
@@ -77,7 +88,7 @@ TBD.
 
 ## Testing
 
-Tests are run in continous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/path/posthere.io):
+Tests are run in continuous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/path/posthere.io):
 
 [![Build Status](https://travis-ci.org/path/posthere.io.png?branch=master)](https://travis-ci.org/path/posthere.io)
 
