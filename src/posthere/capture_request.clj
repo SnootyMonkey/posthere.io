@@ -148,7 +148,7 @@
 
 (defn- pretty-print
   "Try to pretty-print the request body if content-type matches or is not provided
-   and it's content-type has not already been derived."
+   and its content-type has not already been derived."
   [request content-type? pretty-printer derived-content-type]
   (let [content-type (content-type-for request)]
     ;; If the content-type checking function passes, or the content-type is blank
