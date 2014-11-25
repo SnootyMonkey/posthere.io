@@ -20,8 +20,8 @@
   ; POST requests
   (POST "/:uuid" [uuid :as request] (capture-request uuid request)) ; Capture their POST request
 
-  ; Resource requests (in development)
-  (route/resources "/assets/"))
+  ; Resource requests (in development only, otherwise handled by nginx)
+  (route/resources "/"))
 
 (def app
   (if hot-reload
