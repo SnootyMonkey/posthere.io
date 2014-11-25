@@ -130,5 +130,7 @@
     :reload-paths ["src"] ; work around issue https://github.com/weavejester/lein-ring/issues/68
   }
 
+  :resource-paths ["resources"]
+
   :main ^:skip-aot posthere.app
 )

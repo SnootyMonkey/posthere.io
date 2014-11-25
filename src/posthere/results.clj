@@ -4,12 +4,7 @@
             [cheshire.core :refer (generate-string)]
             [posthere.storage :refer [requests-for]]))
 
-(defn- template-for [name] (str "../resources/html/" name))
-
-(defsnippet result-rows (template-for "result-table.html")
-  [:.result-group]
-  [replacements]
-  [:.result-group enl/any-node] (enl/replace-vars replacements))
+(defn- template-for [name] (str "posthere/templates/" name))
 
 (deftemplate results-page (template-for "results.html") [results, uuid] 
 
