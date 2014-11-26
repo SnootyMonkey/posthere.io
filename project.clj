@@ -23,8 +23,8 @@
     [http-kit "2.1.19"] ; Web Server http://http-kit.org/
     [compojure "1.2.1"] ; Web routing https://github.com/weavejester/compojure
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.7.1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
-    [clj-time "0.8.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
+    [com.taoensso/carmine "2.8.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [clj-time "0.9.0-beta1"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.3.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
@@ -40,7 +40,7 @@
     [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
     [lein-bikeshed "0.1.8"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
     [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
-    [jonase/eastwood "0.1.5"] ; Clojure linter https://github.com/jonase/eastwood
+    [jonase/eastwood "0.2.0"] ; Clojure linter https://github.com/jonase/eastwood
     [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
     [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
     [lein-ancient "0.5.5"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
