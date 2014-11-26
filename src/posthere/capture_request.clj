@@ -110,6 +110,7 @@
 
 
 ;; TODO slurp is naive and will run out of memory on a large input stream
+;; TODO placeholder code, refactor this
 (defn- limit-body-request-size
   ""
   [request]
