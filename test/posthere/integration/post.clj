@@ -1,9 +1,10 @@
 (ns posthere.integration.post
   "Test POST request handling by the POSThere.io service."
   (:require [clojure.string :as s]
+            [clojure.core.incubator :refer (dissoc-in)]
             [midje.sweet :refer :all]
             [ring.util.codec :refer (form-encode)]
-            [ring.mock.request :refer (request body content-type header)]
+            [ring.mock.request :refer (request body content-type header content-length)]
             [clj-time.format :as f]
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
@@ -121,6 +122,7 @@
         (:derived-content-type stored-request) => nil
         (get-in stored-request [:headers "content-type"]) => nil
         (:body stored-request) => string-body
+        (not (:body-overflow stored-request)) => true
         (not (:invalid-body stored-request)) => true))
 
     (facts "when the body is URL encoded"
@@ -136,6 +138,7 @@
           (:derived-content-type stored-request) => capture/url-encoded
           (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
           (:body stored-request) => params
+          (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
 
       (fact "as parsed when they don't tell us the content-type"
@@ -148,6 +151,7 @@
           (:derived-content-type stored-request) => capture/url-encoded
           (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
           (:body stored-request) => params
+          (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
 
       (fact "as a string when the content-type says it's URL encoded but it's not"
@@ -161,6 +165,7 @@
           (:derived-content-type stored-request) => nil
           (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
           (:body stored-request) => string-body
+          (not (:body-overflow stored-request)) => true
           (:invalid-body stored-request) => true)))
 
 
@@ -178,6 +183,7 @@
             (:derived-content-type stored-request) => capture/json-encoded
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-json
+            (not (:body-overflow stored-request)) => true
             (not (:invalid-body stored-request)) => true)))
       
       (fact "as pretty-printed when they don't tell us the content-type"
@@ -190,6 +196,7 @@
           (:derived-content-type stored-request) => capture/json-encoded
           (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-json
+          (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's JSON but it's not"
@@ -204,6 +211,7 @@
             (:derived-content-type stored-request) => nil
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => xml-body
+            (not (:body-overflow stored-request)) => true
             (:invalid-body stored-request) => true))))
 
     (facts "when the body is XML"
@@ -220,6 +228,7 @@
             (:derived-content-type stored-request) => capture/xml-encoded
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml
+            (not (:body-overflow stored-request)) => true
             (not (:invalid-body stored-request)) => true)))
       
       (fact "as pretty-printed when they don't tell us the content-type"
@@ -232,6 +241,7 @@
           (:derived-content-type stored-request) => capture/xml-encoded
           (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-xml
+          (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's XML but it's not"
@@ -246,15 +256,42 @@
             (:derived-content-type stored-request) => nil
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => json-body
+            (not (:body-overflow stored-request)) => true
             (:invalid-body stored-request) => true))))))
 
-(future-facts "about giant POSTs getting partially saved"
+;; TODO can we get mock ring request to not provide a content-length? It seems to NPE
+;; if we dissoc it
+(facts "about giant POSTs getting partially saved"
 
-  ; POST doesn't save body if content-length header > 1MB
+  (facts "doesn't save the body if content-length header > max body size"
+    (let [url-uuid (uuid)
+          url (url-for url-uuid)
+          request (request :post url)
+          type-header (header request :content-type (first capture/xml-mime-types))
+          body (body type-header xml-body)
+          length-header (content-length body (+ capture/max-body-size 1))
+          response (app length-header)
+          stored-request (first (requests-for url-uuid))]
+      (:derived-content-type stored-request) => capture/too-big
+      (get-in stored-request [:headers "content-type"]) => (first capture/xml-mime-types)
+      (:body stored-request) => nil
+      (:body-overflow stored-request) => true
+      (not (:invalid-body stored-request)) => false))
 
-  ; POST doesn't save body if content is > 1MB
-
-  )
+  (facts "doesn't save the body if there is a lying content-length header, and the  content is > 1MB"
+    (let [url-uuid (uuid)
+          url (url-for url-uuid)
+          request (request :post url)
+          type-header (header request :content-type (first capture/xml-mime-types))
+          body (body type-header (apply str (take (+ capture/max-body-size 1) (repeat "x"))))
+          length-header (content-length body (- capture/max-body-size 1))
+          response (app length-header)
+          stored-request (first (requests-for url-uuid))]
+      (:derived-content-type stored-request) => capture/too-big
+      (get-in stored-request [:headers "content-type"]) => (first capture/xml-mime-types)
+      (:body stored-request) => nil
+      (:body-overflow stored-request) => true
+      (not (:invalid-body stored-request)) => false)))
 
 (facts "about requested status getting used as the status"
 

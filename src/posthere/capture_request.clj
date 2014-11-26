@@ -14,7 +14,7 @@
             [cheshire.core :refer (parse-string generate-string)]
             [clojure.data.xml :refer (parse-str indent-str)]))
 
-(def max-body-size (* 1024 1024)) ; 1 megabyte
+(def max-body-size 1000000) ; number of bytes in 1 megabyte for content-length header
 
 (def form-urlencoded "application/x-www-form-urlencoded")
 
@@ -33,7 +33,7 @@
 (def url-encoded "URL ENCODED")
 (def json-encoded "JSON")
 (def xml-encoded "XML")
-
+(def too-big "TOO BIG")
 
 (def json-mime-types #{
   "application/json"
@@ -102,20 +102,29 @@
     (assoc (dissoc request-hash :body) :body-overflow true)))
 
 (defn- content-length-OK?
-  "Check if the content length header is < max-body-size"
+  "Check if the content-length header is < max-body-size"
   [request]
   (let [content-length-header (read-string (get-in request [:headers "content-length"])) ; content-length header as int
         content-length (or content-length-header 0)] ; 0 if we have no content-length header
     (< content-length max-body-size)))
 
-;; TODO check body length after slurp
-;; TODO set overflow flags
+
+;; TODO slurp is naive and will run out of memory on a large input stream
 (defn- limit-body-request-size
   ""
   [request]
   (if (and (:body request) (content-length-OK? request))
-    (assoc request :body (slurp (:body request)))
-    (dissoc request :body)))
+    (let [body (slurp (:body request))]
+      (if (< (count (.getBytes body "UTF-8")) max-body-size)
+        (assoc request :body body)
+      (-> request
+        (dissoc :body)
+        (assoc :derived-content-type too-big)
+        (assoc :body-overflow true))))        
+    (-> request
+      (dissoc :body)
+      (assoc :derived-content-type too-big)
+      (assoc :body-overflow true))))
 
 ;; ----- Pretty Print Body -----
 
