@@ -1,9 +1,8 @@
 (ns posthere
   "POSThere.io Cljs"
-    (:require-macros [hiccups.core :as hiccups])
+    (:require-macros [hiccups.core :refer (defhtml)])
     (:require   [jayq.core :refer ($ css html bind ajax)]
-                [clojure.string :as s]
-                [hiccups.runtime :as hiccupsrt]))
+                [clojure.string :as s]))
 
 ; index page
 (defn- update-uuid-value
@@ -44,13 +43,15 @@
     [selector]
     (.text ($ "#urlMethodInputDisplay") (.val ($ selector))))
 
-(defn ^:export init []
-    (set-base-uuid)
-    (bind ($ "#urlUUIDInput") :keyup (fn [] (this-as this (update-uuid-value this))))
-    (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
+(declare row-for) ; HTML snippet coming later in the namespace
 
-; results page
-(hiccups/defhtml result-table-header [result]
+(defn table-rows [entries]
+  (let [parsed-entries (js->clj entries)]
+    (reverse (reduce #(conj %1 (row-for %2 (get parsed-entries %2))) () (keys parsed-entries)))))
+
+;; ----- Hiccup HTML snippets for the results page -----
+
+(defhtml result-table-header [result]
   [:div
     [:div.clearfix
       [:div.col-md-1
@@ -67,16 +68,12 @@
       [:div.col-md-11.text-left.text-muted 
         [:span.result-timestamp (.-timestamp result)]]]])
 
-(hiccups/defhtml row-for [key val]
+(defhtml row-for [key val]
   [:tr 
     [:td key]
     [:td val]])
 
-(defn table-rows [entries]
-  (let [parsed-entries (js->clj entries)]
-    (reverse (reduce #(conj %1 (row-for %2 (get parsed-entries %2))) () (keys parsed-entries)))))
-
-(hiccups/defhtml params-table [result]
+(defhtml params-table [result]
   [:div.col-md-1 ""]
   [:div.col-md-7
     [:table.table.table-bordered.header-table
@@ -85,7 +82,7 @@
           [:th.text-center {:colspan 2} "Body"]]
         (table-rows (.parse js/JSON (.-body result)))]]])
 
-(hiccups/defhtml result-headers [result]
+(defhtml result-headers [result]
   [:div.col-md-4
     [:table.table.table-bordered.header-table
       [:tbody
@@ -93,7 +90,7 @@
           [:th.text-center {:colspan 2} "Headers"]]
         (table-rows (.-headers result))]]])
 
-(hiccups/defhtml result-template [result]
+(defhtml result-template [result]
   [:div.result-group.clearfix 
     (result-table-header result)
     [:div.clearfix
@@ -104,6 +101,15 @@
       [:div.col-md-11
         [:a {:href "/"} "raw Content Type"]
         [:hr]]]])
+
+;; ----- Exported function for the home page -----
+
+(defn ^:export init []
+    (set-base-uuid)
+    (bind ($ "#urlUUIDInput") :keyup (fn [] (this-as this (update-uuid-value this))))
+    (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
+
+;; ----- Exported function for the results page -----
 
 (defn ^:export setup-results []
   (doseq [result js/resultData]
