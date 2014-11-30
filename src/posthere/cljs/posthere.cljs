@@ -55,6 +55,12 @@
   [string]
   (s/escape string {\< "&lt;", \> "&gt;" \& "&amp;"}))
 
+(defn- time-ago
+  "Use the momemnt.js library to return a human readable English string describing how long ago the request was made."
+  [result]
+  ; moment(timestamp).fromNow();
+  (.fromNow (js/moment. (aget result "timestamp"))))
+
 ;; ----- Hiccup HTML snippets for the results page -----
 
 (defhtml row-for
@@ -95,7 +101,7 @@
       ;; [:div.col-md-1
         ;; [:span.glyphicon-chevron-down {:aria-hidden "true"}]]]
       [:div.col-md-6.text-left
-        [:strong "Replace With Timeago"]]
+        [:strong (time-ago result)]]
       [:div.col-md-6.text-right
         "Status: " [:strong (aget result "status")]]]
     [:div
