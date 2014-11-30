@@ -2,7 +2,8 @@
   "POSThere.io Cljs"
     (:require-macros [hiccups.core :refer (defhtml)])
     (:require   [jayq.core :refer ($ css html bind ajax)]
-                [clojure.string :as s]))
+                [clojure.string :as s]
+                [hiccups.runtime :as hiccupsrt]))
 
 ; index page
 (defn- update-uuid-value
@@ -27,7 +28,7 @@
                (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f))))))
 
 (defn- short-uuid []
-  "Take the middle 3 sections of a Java UUID to make a shorter UUID.
+  "Take the middle 3 sections of a UUID to make a shorter UUID.
 
   Ex: f6f7-499f-b805
   "
