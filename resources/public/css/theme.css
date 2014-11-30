@@ -35,10 +35,6 @@ table {background-color: #fff;}
 .borderless {background-color: transparent;}
 .borderless td, .borderless th {border: none; border-top: none !important; padding: 5px 30px !important;}
 
-td.request-body {
-  text-align: left;
-}
-
 .btn-path {
   background-repeat: repeat-x;
   border-color: #8A1C0E;

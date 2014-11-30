@@ -70,8 +70,8 @@
     [:td key]
     [:td val]])
 
-(defhtml params-table
-  ""
+(defhtml body-table
+  "HTML for a 2 row table, containing a body label row and the body content that was POSTed."
   [result]
   [:div.col-md-8
     [:table.table.table-bordered.header-table
@@ -79,11 +79,12 @@
         [:tr
           [:th.text-center {:colspan 2} "Body"]]
         [:tr
-          [:td.request-body
-            (html-escape (aget result "body"))]]]]])
+          [:td.text-left
+            (html-escape (aget result "body"))]]]]
+    [:a.text-left {:href "/"} "raw"]])
 
-(defhtml result-headers
-  ""
+(defhtml headers-table
+  "HTML for a table with all the HTTP header name/value pairs."
   [result]
   [:div.col-md-4
     [:table.table.table-bordered.header-table
@@ -93,7 +94,7 @@
         (table-rows (.-headers result))]]])
 
 (defhtml result-table-header
-  "HTML for a table header with timestamp, content-type and status."
+  "HTML for a table header with timestamp and status."
   [result]
   [:div
     [:div.clearfix
@@ -116,11 +117,10 @@
     ;; Table header with general information about this request
     (result-table-header result)
     [:div.clearfix
-      (params-table result)
-      (result-headers result)]
+      (body-table result)
+      (headers-table result)]
     [:div
       [:div.col-md-12
-        [:a {:href "/"} "raw"]
         [:hr]]]])
 
 ;; ----- Exported function for the home page -----
