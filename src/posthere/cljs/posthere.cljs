@@ -46,44 +46,39 @@
 
 (declare row-for) ; HTML snippet coming later in the namespace
 
-(defn table-rows [entries]
+(defn- table-rows [entries]
   (let [parsed-entries (js->clj entries)]
     (reverse (reduce #(conj %1 (row-for %2 (get parsed-entries %2))) () (keys parsed-entries)))))
 
+(defn- html-escape 
+  "Make a string possibly containing HTML display literally rather than as intepreted HTML."
+  [string]
+  (s/escape string {\< "&lt;", \> "&gt;" \& "&amp;"}))
+
 ;; ----- Hiccup HTML snippets for the results page -----
 
-(defhtml result-table-header [result]
-  [:div
-    [:div.clearfix
-      [:div.col-md-1
-        [:span.glyphicon-glypicon-chevron-down {:aria-hidden "true"}]]
-      [:div.col-md-3.text-left
-        [:strong "Replace With Timeago"]]
-      [:div.col-md-4.text-center
-        [:strong "Replace with Content Type"]]
-      [:div.col-md-4.text-right
-        "Status: " [:strong "Result"]]]
-
-    [:div
-      [:div.col-md-1 ""]
-      [:div.col-md-11.text-left.text-muted 
-        [:span.result-timestamp (.-timestamp result)]]]])
-
-(defhtml row-for [key val]
+(defhtml row-for
+  ""
+  [key val]
   [:tr 
     [:td key]
     [:td val]])
 
-(defhtml params-table [result]
-  [:div.col-md-1 ""]
-  [:div.col-md-7
+(defhtml params-table
+  ""
+  [result]
+  [:div.col-md-8
     [:table.table.table-bordered.header-table
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Body"]]
-        (table-rows (.parse js/JSON (.-body result)))]]])
+        [:tr
+          [:td.request-body
+            (html-escape (aget result "body"))]]]]])
 
-(defhtml result-headers [result]
+(defhtml result-headers
+  ""
+  [result]
   [:div.col-md-4
     [:table.table.table-bordered.header-table
       [:tbody
@@ -91,16 +86,35 @@
           [:th.text-center {:colspan 2} "Headers"]]
         (table-rows (.-headers result))]]])
 
-(defhtml result-template [result]
-  [:div.result-group.clearfix 
+(defhtml result-table-header
+  "HTML for a table header with timestamp, content-type and status."
+  [result]
+  [:div
+    [:div.clearfix
+      ;; Put this back in if/when we add expand/collapse
+      ;; [:div.col-md-1
+        ;; [:span.glyphicon-chevron-down {:aria-hidden "true"}]]]
+      [:div.col-md-6.text-left
+        [:strong "Replace With Timeago"]]
+      [:div.col-md-6.text-right
+        "Status: " [:strong (aget result "status")]]]
+    [:div
+      [:div.col-md-12.text-left.text-muted 
+        [:span.result-timestamp (.-timestamp result)]]]])
+
+(defhtml result-template
+  "A block of HTML for each request that's been made to this URL."
+  [result]
+  ;; DIV container for the whole result
+  [:div.result-group.clearfix
+    ;; Table header with general information about this request
     (result-table-header result)
     [:div.clearfix
       (params-table result)
       (result-headers result)]
     [:div
-      [:div.col-md-1 ""]
-      [:div.col-md-11
-        [:a {:href "/"} "raw Content Type"]
+      [:div.col-md-12
+        [:a {:href "/"} "raw"]
         [:hr]]]])
 
 ;; ----- Exported function for the home page -----
