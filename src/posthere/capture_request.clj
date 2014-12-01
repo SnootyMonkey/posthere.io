@@ -156,6 +156,25 @@
 (defn- url-encoded? [content-type]
   (= content-type form-urlencoded))
 
+(defn- has-xml-declaration? [xml]
+  (re-find #"^<\?xml" xml))
+
+(defn- remove-xml-declaration [xml]
+  ;; split the XML at the end of the XML declaration
+  (let [parts (s/split xml #"\?>")]
+    ;; if all went well, we should have 2 parts
+    (if (= (count parts) 2)
+      (last parts) ; the 2nd part is the XML
+      xml))) ; things didn't go as expected with the split, so just return the original XML
+
+(defn pretty-print-xml-and-declaration [body]
+  "Determine if the XML already has a doc string, then pretty-print it, then yank off the doc string
+  if and only if it didn't have one to start with."
+  (let [pretty-xml (indent-str (parse-str body))]
+    (if (has-xml-declaration? body)
+      pretty-xml
+      (remove-xml-declaration pretty-xml))))
+
 (defn- pretty-print
   "Try to pretty-print the request body if content-type matches or is not provided
    and its content-type has not already been derived."
@@ -190,7 +209,7 @@
   (pretty-print
     request
     xml?
-    (fn [] (indent-str (parse-str (:body request))))
+    (fn [] (pretty-print-xml-and-declaration (:body request)))
     xml-encoded))
  
  (defn- pretty-print-urlencoded

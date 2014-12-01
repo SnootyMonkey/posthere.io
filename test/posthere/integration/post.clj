@@ -9,7 +9,7 @@
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
             [posthere.app :refer (app)]
-            [posthere.capture-request :as capture :refer (post-response-body)]
+            [posthere.capture-request :as capture :refer (post-response-body pretty-print-xml-and-declaration)]
             [posthere.storage :refer (requests-for)]
             [cheshire.core :refer (parse-string generate-string)]
             [clojure.data.xml :refer (parse-str indent-str)]))
@@ -20,7 +20,7 @@
 (def pretty-json (generate-string (parse-string json-body) {:pretty true}))
 
 (def xml-body "<song><lyric>I'm a little teapot.</lyric></song>")
-(def pretty-xml (indent-str (parse-str xml-body)))
+(def pretty-xml (pretty-print-xml-and-declaration xml-body))
 
 (def params {
   "email" "jobs@path.com"
