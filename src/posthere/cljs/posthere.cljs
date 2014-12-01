@@ -74,20 +74,20 @@
   "HTML for a 2 row table, containing a body label row and the body content that was POSTed."
   [result]
   [:div.col-md-8
-    [:table.table.table-bordered.header-table
+    [:table.table.table-bordered.result-table
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Body"]]
         [:tr
-          [:td.text-left
-            (html-escape (aget result "body"))]]]]
+          [:td.text-left [:pre [:code
+            (html-escape (aget result "body"))]]]]]]
     [:a.text-left {:href "/"} "raw"]])
 
 (defhtml headers-table
   "HTML for a table with all the HTTP header name/value pairs."
   [result]
   [:div.col-md-4
-    [:table.table.table-bordered.header-table
+    [:table.table.table-bordered.result-table
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Headers"]]
@@ -134,4 +134,5 @@
 
 (defn ^:export setup-results []
   (doseq [result js/resultData]
-    (.append ($ "#results") (result-template result))))
+    (.append ($ "#results") (result-template result)))
+  (.initHighlightingOnLoad js/hljs)) ; syntax highlight the results

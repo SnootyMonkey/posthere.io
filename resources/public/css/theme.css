@@ -35,6 +35,15 @@ table {background-color: #fff;}
 .borderless {background-color: transparent;}
 .borderless td, .borderless th {border: none; border-top: none !important; padding: 5px 30px !important;}
 
+table.result-table pre {
+  background-color: white;
+  color: white;
+  border: 0px;
+}
+
+table.result-table pre code {
+  background-color: white;
+}
 .btn-path {
   background-repeat: repeat-x;
   border-color: #8A1C0E;
