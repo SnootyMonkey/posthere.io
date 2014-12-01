@@ -167,9 +167,10 @@
       (last parts) ; the 2nd part is the XML
       xml))) ; things didn't go as expected with the split, so just return the original XML
 
-(defn pretty-print-xml-and-declaration [body]
+(defn pretty-print-xml-and-declaration
   "Determine if the XML already has a doc string, then pretty-print it, then yank off the doc string
   if and only if it didn't have one to start with."
+  [body]
   (let [pretty-xml (indent-str (parse-str body))]
     (if (has-xml-declaration? body)
       pretty-xml
