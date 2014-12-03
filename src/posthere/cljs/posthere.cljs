@@ -80,8 +80,7 @@
           [:th.text-center {:colspan 2} "Body"]]
         [:tr
           [:td.text-left [:pre [:code
-            (html-escape (aget result "body"))]]]]]]
-    [:a.text-left {:href "/"} "raw"]])
+            (html-escape (aget result "body"))]]]]]]])
 
 (defhtml headers-table
   "HTML for a table with all the HTTP header name/value pairs."
