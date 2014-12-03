@@ -167,13 +167,21 @@
       (last parts) ; the 2nd part is the XML
       xml))) ; things didn't go as expected with the split, so just return the original XML
 
+(defn- newline-after-xml-declaration [xml]
+  ;; split the XML at the end of the XML declaration
+  (let [parts (s/split xml #"\?>")]
+    ;; if all went well, we should have 2 parts
+    (if (= (count parts) 2)
+      (str (first parts) "?>\n" (last parts)) ; the 2nd part is the XML
+      xml))) ; things didn't go as expected with the split, so just return the original XML
+
 (defn pretty-print-xml-and-declaration
-  "Determine if the XML already has a doc string, then pretty-print it, then yank off the doc string
+  "Determine if the XML already has a declaration, then pretty-print it, then yank off the declaration
   if and only if it didn't have one to start with."
   [body]
   (let [pretty-xml (indent-str (parse-str body))]
     (if (has-xml-declaration? body)
-      pretty-xml
+      (newline-after-xml-declaration pretty-xml)
       (remove-xml-declaration pretty-xml))))
 
 (defn- pretty-print

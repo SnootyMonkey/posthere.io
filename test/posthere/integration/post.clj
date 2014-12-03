@@ -19,8 +19,12 @@
 (def json-body "{\"lyric\": \"I'm a little teapot.\"}")
 (def pretty-json (generate-string (parse-string json-body) {:pretty true}))
 
+(def xml-declaration "<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
 (def xml-body "<song><lyric>I'm a little teapot.</lyric></song>")
+(def xml-body-with-declaration (str xml-declaration "<song><lyric>I'm a little teapot.</lyric></song>"))
+
 (def pretty-xml (pretty-print-xml-and-declaration xml-body))
+(def pretty-xml-with-declaration (str xml-declaration "\n" (pretty-print-xml-and-declaration xml-body)))
 
 (def params {
   "email" "jobs@path.com"
@@ -229,7 +233,23 @@
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml
             (not (:body-overflow stored-request)) => true
-            (not (:invalid-body stored-request)) => true)))
+            (not (:invalid-body stored-request)) => true)
+          (let [url-uuid (uuid)
+                url (url-for url-uuid)
+                request (request :post url)
+                header (header request :content-type mime-type)
+                body (body header xml-body-with-declaration)
+                response (app body)
+                stored-request (first (requests-for url-uuid))]
+            (:derived-content-type stored-request) => capture/xml-encoded
+            (get-in stored-request [:headers "content-type"]) => mime-type
+            (:body stored-request) => pretty-xml-with-declaration
+            (not (:body-overflow stored-request)) => true
+            (not (:invalid-body stored-request)) => true)
+
+          )
+
+        )
       
       (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
