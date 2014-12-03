@@ -70,6 +70,20 @@
     [:td key]
     [:td val]])
 
+(defn body-table-map-content [body]
+  [:tr]) ; TODO Hiccup table of URL encoded name/values
+
+(defn- body-table-string-content [body]
+  [:tr
+    [:td.text-left [:pre [:code
+      (html-escape body)]]]])
+
+(defn- body-table-content [result]
+  (let [body (aget result "body")]
+    (if false ; TODO conditional if this is a JSON map
+      (body-table-map-content body)
+      (body-table-string-content body))))
+
 (defhtml body-table
   "HTML for a 2 row table, containing a body label row and the body content that was POSTed."
   [result]
@@ -78,9 +92,7 @@
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Body"]]
-        [:tr
-          [:td.text-left [:pre [:code
-            (html-escape (aget result "body"))]]]]]]])
+        (body-table-content result)]]])
 
 (defhtml headers-table
   "HTML for a table with all the HTTP header name/value pairs."
