@@ -46,9 +46,10 @@
 
 (declare row-for) ; HTML snippet coming later in the namespace
 
-(defn- table-rows [entries]
-  (let [parsed-entries (js->clj entries)]
-    (reverse (reduce #(conj %1 (row-for %2 (get parsed-entries %2))) () (keys parsed-entries)))))
+(defn- table-rows
+  "Turn a cljs map into name/value rows in a table with hiccup."
+  [entries]
+  (reduce #(conj %1 (row-for %2 (get entries %2))) () (keys entries)))
 
 (defn- html-escape 
   "Make a string possibly containing HTML display literally rather than as intepreted HTML."
@@ -70,18 +71,16 @@
     [:td key]
     [:td val]])
 
-(defn body-table-map-content [body]
-  [:tr]) ; TODO Hiccup table of URL encoded name/values
-
 (defn- body-table-string-content [body]
   [:tr
     [:td.text-left [:pre [:code
       (html-escape body)]]]])
 
 (defn- body-table-content [result]
-  (let [body (aget result "body")]
-    (if false ; TODO conditional if this is a JSON map
-      (body-table-map-content body)
+  (let [body (aget result "body")
+        cljs-body (js->clj body)]
+    (if (map? cljs-body)
+      (table-rows cljs-body)
       (body-table-string-content body))))
 
 (defhtml body-table
@@ -102,7 +101,7 @@
       [:tbody
         [:tr
           [:th.text-center {:colspan 2} "Headers"]]
-        (table-rows (.-headers result))]]])
+        (table-rows (js->clj (.-headers result)))]]])
 
 (defhtml result-table-header
   "HTML for a table header with timestamp and status."
