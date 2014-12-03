@@ -18,10 +18,10 @@
     [org.clojure/core.incubator "0.1.3"] ; Functions proposed for inclusion in Clojure https://github.com/clojure/core.incubator
     [org.clojure/core.match "0.2.2"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
-    [ring/ring-devel "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
-    [ring/ring-core "1.3.1"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-core "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Web Server http://http-kit.org/
-    [compojure "1.2.1"] ; Web routing https://github.com/weavejester/compojure
+    [compojure "1.2.2"] ; Web routing https://github.com/weavejester/compojure
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.8.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.9.0-beta1"] ; Clojure date/time library https://github.com/clj-time/clj-time
@@ -38,7 +38,7 @@
     [lein-ring "0.8.13"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-cljsbuild "1.0.3"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
-    [lein-bikeshed "0.1.8"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
+    [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
     [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
     [jonase/eastwood "0.2.0"] ; Clojure linter https://github.com/jonase/eastwood
     [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall

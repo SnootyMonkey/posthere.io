@@ -1,3 +1,4 @@
 cljsbuild
+enlive
 midje
 über
