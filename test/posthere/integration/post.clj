@@ -9,7 +9,8 @@
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
             [posthere.app :refer (app)]
-            [posthere.capture-request :as capture :refer (post-response-body pretty-print-xml-and-declaration)]
+            [posthere.capture-request :as capture :refer (post-response-body)]
+            [posthere.pretty-print :as pretty-print :refer (pretty-print-xml-and-declaration)]
             [posthere.storage :refer (requests-for)]
             [cheshire.core :refer (parse-string generate-string)]
             [clojure.data.xml :refer (parse-str indent-str)]))
@@ -135,12 +136,12 @@
         (let [url-uuid (uuid)
               url (url-for url-uuid)
               request (request :post url)
-              header (header request :content-type capture/form-urlencoded)
+              header (header request :content-type pretty-print/form-urlencoded)
               body (body header params)
               response (app body)
               stored-request (first (requests-for url-uuid))]
-          (:derived-content-type stored-request) => capture/url-encoded
-          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (:derived-content-type stored-request) => pretty-print/url-encoded
+          (get-in stored-request [:headers "content-type"]) => pretty-print/form-urlencoded
           (:body stored-request) => params
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
@@ -152,8 +153,8 @@
               body (body request params)
               response (app body)
               stored-request (first (requests-for url-uuid))]
-          (:derived-content-type stored-request) => capture/url-encoded
-          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (:derived-content-type stored-request) => pretty-print/url-encoded
+          (get-in stored-request [:headers "content-type"]) => pretty-print/form-urlencoded
           (:body stored-request) => params
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
@@ -162,12 +163,12 @@
         (let [url-uuid (uuid)
               url (url-for url-uuid)
               request (request :post url)
-              header (header request :content-type capture/form-urlencoded)
+              header (header request :content-type pretty-print/form-urlencoded)
               body (body header string-body)
               response (app body)
               stored-request (first (requests-for url-uuid))]
           (:derived-content-type stored-request) => nil
-          (get-in stored-request [:headers "content-type"]) => capture/form-urlencoded
+          (get-in stored-request [:headers "content-type"]) => pretty-print/form-urlencoded
           (:body stored-request) => string-body
           (not (:body-overflow stored-request)) => true
           (:invalid-body stored-request) => true)))
@@ -176,7 +177,7 @@
     (facts "when the body is JSON"
 
       (fact "as pretty-printed when the content-type indicates it's JSON"
-        (doseq [mime-type capture/json-mime-types]
+        (doseq [mime-type pretty-print/json-mime-types]
           (let [url-uuid (uuid)
                 url (url-for url-uuid)
                 request (request :post url)
@@ -184,7 +185,7 @@
                 body (body header json-body)
                 response (app body)
                 stored-request (first (requests-for url-uuid))]
-            (:derived-content-type stored-request) => capture/json-encoded
+            (:derived-content-type stored-request) => pretty-print/json-encoded
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-json
             (not (:body-overflow stored-request)) => true
@@ -197,14 +198,14 @@
               body (body request json-body)
               response (app body)
               stored-request (first (requests-for url-uuid))]
-          (:derived-content-type stored-request) => capture/json-encoded
+          (:derived-content-type stored-request) => pretty-print/json-encoded
           (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-json
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's JSON but it's not"
-        (doseq [mime-type capture/json-mime-types]
+        (doseq [mime-type pretty-print/json-mime-types]
           (let [url-uuid (uuid)
                 url (url-for url-uuid)
                 request (request :post url)
@@ -221,7 +222,7 @@
     (facts "when the body is XML"
 
       (fact "as pretty-printed when the content-type indicates it's XML"
-        (doseq [mime-type capture/xml-mime-types]
+        (doseq [mime-type pretty-print/xml-mime-types]
           (let [url-uuid (uuid)
                 url (url-for url-uuid)
                 request (request :post url)
@@ -229,7 +230,7 @@
                 body (body header xml-body)
                 response (app body)
                 stored-request (first (requests-for url-uuid))]
-            (:derived-content-type stored-request) => capture/xml-encoded
+            (:derived-content-type stored-request) => pretty-print/xml-encoded
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml
             (not (:body-overflow stored-request)) => true
@@ -241,7 +242,7 @@
                 body (body header xml-body-with-declaration)
                 response (app body)
                 stored-request (first (requests-for url-uuid))]
-            (:derived-content-type stored-request) => capture/xml-encoded
+            (:derived-content-type stored-request) => pretty-print/xml-encoded
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml-with-declaration
             (not (:body-overflow stored-request)) => true
@@ -258,14 +259,14 @@
               body (body request xml-body)
               response (app body)
               stored-request (first (requests-for url-uuid))]
-          (:derived-content-type stored-request) => capture/xml-encoded
+          (:derived-content-type stored-request) => pretty-print/xml-encoded
           (get-in stored-request [:headers "content-type"]) => nil
           (:body stored-request) => pretty-xml
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
       
       (fact "as a string when the content-type says it's XML but it's not"
-        (doseq [mime-type capture/xml-mime-types]
+        (doseq [mime-type pretty-print/xml-mime-types]
           (let [url-uuid (uuid)
                 url (url-for url-uuid)
                 request (request :post url)
@@ -287,13 +288,13 @@
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
-          type-header (header request :content-type (first capture/xml-mime-types))
+          type-header (header request :content-type (first pretty-print/xml-mime-types))
           body (body type-header xml-body)
           length-header (content-length body (+ capture/max-body-size 1))
           response (app length-header)
           stored-request (first (requests-for url-uuid))]
       (:derived-content-type stored-request) => capture/too-big
-      (get-in stored-request [:headers "content-type"]) => (first capture/xml-mime-types)
+      (get-in stored-request [:headers "content-type"]) => (first pretty-print/xml-mime-types)
       (:body stored-request) => nil
       (:body-overflow stored-request) => true
       (not (:invalid-body stored-request)) => false))
@@ -302,13 +303,13 @@
     (let [url-uuid (uuid)
           url (url-for url-uuid)
           request (request :post url)
-          type-header (header request :content-type (first capture/xml-mime-types))
+          type-header (header request :content-type (first pretty-print/xml-mime-types))
           body (body type-header (apply str (take (+ capture/max-body-size 1) (repeat "x"))))
           length-header (content-length body (- capture/max-body-size 1))
           response (app length-header)
           stored-request (first (requests-for url-uuid))]
       (:derived-content-type stored-request) => capture/too-big
-      (get-in stored-request [:headers "content-type"]) => (first capture/xml-mime-types)
+      (get-in stored-request [:headers "content-type"]) => (first pretty-print/xml-mime-types)
       (:body stored-request) => nil
       (:body-overflow stored-request) => true
       (not (:invalid-body stored-request)) => false)))

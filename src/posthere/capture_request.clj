@@ -3,22 +3,20 @@
   Capture the request to a particular URL in the storage so they can be retrieved later.
   Respond to the request.
   "
-  (:require [clojure.string :as s]
-            [clojure.core.incubator :refer (dissoc-in)]
+  (:require [clojure.core.incubator :refer (dissoc-in)]
             [clojure.core.match :refer (match)]
             [defun :refer (defun-)]
             [ring.util.codec :refer (form-decode)]
             [ring.util.response :refer (header response status)]
-            [posthere.storage :refer (save-request)]
             [clj-time.core :as t]
-            [cheshire.core :refer (parse-string generate-string)]
-            [clojure.data.xml :refer (parse-str indent-str)]))
+            [posthere.storage :refer (save-request)]
+            [posthere.pretty-print :refer (pretty-print-json pretty-print-xml pretty-print-urlencoded)]))
 
 (def max-body-size 1000000) ; number of bytes in 1 megabyte for content-length header
 
-(def form-urlencoded "application/x-www-form-urlencoded")
-
 (def default-http-status-code 200)
+
+(def too-big "TOO BIG")
 
 ;; http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 (def http-status-codes #{
@@ -30,35 +28,8 @@
   500 501 502 503 504 505 506 507 508 509 510 511 520 521 522 523 524 598 599
 })
 
-(def url-encoded "URL ENCODED")
-(def json-encoded "JSON")
-(def xml-encoded "XML")
-(def too-big "TOO BIG")
-
-(def json-mime-types #{
-  "application/json"
-  "application/x-json"
-  "application/javascript"
-  "application/x-javascript"
-  "text/json"
-  "text/x-json"
-  "text/javascript"
-  "text/x-javascript"
-  })
-
-(def xml-mime-types #{
-  "application/xml"
-  "application/xhtml+xml"
-  "application/rdf+xml"
-  "application/atom+xml"
-  "text/xml"
-  })
-
 (defn- add-time-stamp [request] 
   (assoc request :timestamp (str (t/now))))
-
-(defn- content-type-for [request]
-  (get-in request [:headers "content-type"]))
 
 ;; ----- HTTP Response -----
 
@@ -126,120 +97,6 @@
       (dissoc :body)
       (assoc :derived-content-type too-big)
       (assoc :body-overflow true))))
-
-;; ----- Pretty Print Body -----
-
-(defn- mark-url-encoded-invalid
-  [request]
-  (if (= (content-type-for request) form-urlencoded)
-    (assoc request :invalid-body true)
-    request))
-
-(defun- json?
-  "Generously determine if this mime-type is possibly JSON."
-  ([nil] false)
-  ([content-type] 
-    (let [base (first (s/split content-type #";"))]
-      (or
-        (contains? json-mime-types base) ; is a JSON mime-type seen out in the wild
-        (re-find #"\+json" base))))) ; is some custom mime-type that uses JSON
-  
-(defun- xml?
-  "Generously determine if this mime-type is possibly XML."
-  ([nil] false)
-  ([content-type] 
-    (let [base (first (s/split content-type #";"))]
-      (or
-        (contains? xml-mime-types base) ; is an XML mime-type seen out in the wild
-        (re-find #"\+xml" base))))) ; is some custom mime-type that uses XML
-
-(defn- url-encoded? [content-type]
-  (= content-type form-urlencoded))
-
-(defn- has-xml-declaration? [xml]
-  (re-find #"^<\?xml" xml))
-
-(defn- remove-xml-declaration [xml]
-  ;; split the XML at the end of the XML declaration
-  (let [parts (s/split xml #"\?>")]
-    ;; if all went well, we should have 2 parts
-    (if (= (count parts) 2)
-      (last parts) ; the 2nd part is the XML
-      xml))) ; things didn't go as expected with the split, so just return the original XML
-
-(defn- newline-after-xml-declaration [xml]
-  ;; split the XML at the end of the XML declaration
-  (let [parts (s/split xml #"\?>")]
-    ;; if all went well, we should have 2 parts
-    (if (= (count parts) 2)
-      (str (first parts) "?>\n" (last parts)) ; the 2nd part is the XML
-      xml))) ; things didn't go as expected with the split, so just return the original XML
-
-(defn pretty-print-xml-and-declaration
-  "Determine if the XML already has a declaration, then pretty-print it, then yank off the declaration
-  if and only if it didn't have one to start with."
-  [body]
-  (let [pretty-xml (indent-str (parse-str body))]
-    (if (has-xml-declaration? body)
-      (newline-after-xml-declaration pretty-xml)
-      (remove-xml-declaration pretty-xml))))
-
-(defn- pretty-print
-  "Try to pretty-print the request body if content-type matches or is not provided
-   and its content-type has not already been derived."
-  [request content-type? pretty-printer derived-content-type]
-  (let [content-type (content-type-for request)]
-    ;; If the content-type checking function passes, or the content-type is blank
-    ;; and we haven't aleady derived a content-type, then attempt to pretty print the
-    ;; content type using the pretty printer function
-    (if (or (content-type? content-type)
-            (and (s/blank? content-type) (s/blank? (:derived-content-type request))))
-      (try
-        ; pretty-print the body and set the derived content type
-        (-> request 
-          (assoc :body (pretty-printer))
-          (assoc :derived-content-type derived-content-type))
-        (catch Exception e ; pretty printing failed
-          (if (s/blank? content-type) ; did they tell us it was this content-type?
-            request ; we were only guessing it might be, so leave it as is
-            (assoc request :invalid-body true)))) ; they told us it was this type, but it didn't parse
-      request))) ; content-type doesn't match
-
-(defn- pretty-print-json
-  [request]
-  (pretty-print
-    request
-    json?
-    (fn [] (generate-string (parse-string (:body request)) {:pretty true}))
-    json-encoded))
-
-(defn- pretty-print-xml
-  [request]
-  (pretty-print
-    request
-    xml?
-    (fn [] (pretty-print-xml-and-declaration (:body request)))
-    xml-encoded))
- 
- (defn- pretty-print-urlencoded
-  [request]
-  (let [content-type (content-type-for request)
-        body-value (:body request)
-        body (if body-value body-value "")]
-    ;; Attempt form-urlencoded parsing if the body has an = and
-    ;; they indicate it's form-urlencoded by content-type, or there's
-    ;; no content-type. The pretty-print attempt won't do anything if
-    ;; its already been handled as JSON or XML.
-    (if (and 
-          (re-find #"=" body)
-          (or (= content-type form-urlencoded)
-              (s/blank? content-type)))
-      (pretty-print
-        request
-        url-encoded?
-        (fn [] (form-decode body))
-        url-encoded)
-      (mark-url-encoded-invalid request)))) ; potentially mark it as invalid URL encoded
 
 ;; ----- Parse URL Encoding -----
 
