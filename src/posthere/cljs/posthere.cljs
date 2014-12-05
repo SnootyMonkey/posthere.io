@@ -44,13 +44,6 @@
     [selector]
     (.text ($ "#urlMethodInputDisplay") (.val ($ selector))))
 
-(declare row-for) ; HTML snippet coming later in the namespace
-
-(defn- table-rows
-  "Turn a cljs map into name/value rows in a table with hiccup."
-  [entries]
-  (reduce #(conj %1 (row-for %2 (get entries %2))) () (keys entries)))
-
 (defn- html-escape 
   "Make a string possibly containing HTML display literally rather than as intepreted HTML."
   [string]
@@ -59,39 +52,60 @@
 (defn- time-ago
   "Use the momemnt.js library to return a human readable English string describing how long ago the request was made."
   [result]
-  ; moment(timestamp).fromNow();
   (.fromNow (js/moment. (aget result "timestamp"))))
+
+;; ----- Result Table Building Functions -----
+
+(defn- table-header [label]
+  [:tr [:th.text-center {:colspan 2} label]])
+
+(declare row-for) ; HTML snippet coming later in the namespace
+(defn- table-rows
+  "Turn a cljs map into name/value rows in a table with hiccup."
+  [entries]
+  (reduce #(conj %1 (row-for %2 (get entries %2))) () (keys entries)))
+
+(defn- string-content 
+  "A hiccup table row with only one data element, the <pre> and <code> HTML escaped content."
+  [content]
+  [:tr [:td.text-left {:colspan 2} [:pre [:code (html-escape content)]]]])
+
+(defn- map-content
+  "
+  Try to treat the content as a map, and create table rows of name/value pairs.
+  If it's not a map, just create a single row with the content as the only data in the row.
+  "
+  [content]
+  (let [cljs-content (js->clj content)]
+    (if (map? cljs-content)
+      (table-rows cljs-content)
+      (string-content content))))
 
 ;; ----- Hiccup HTML snippets for the results page -----
 
 (defhtml row-for
-  ""
+  "Hiccup HTML for a key/value row in a table."
   [key val]
   [:tr 
     [:td key]
     [:td val]])
 
-(defn- body-table-string-content [body]
-  [:tr
-    [:td.text-left [:pre [:code
-      (html-escape body)]]]])
-
-(defn- body-table-content [result]
-  (let [body (aget result "body")
-        cljs-body (js->clj body)]
-    (if (map? cljs-body)
-      (table-rows cljs-body)
-      (body-table-string-content body))))
-
 (defhtml body-table
-  "HTML for a 2 row table, containing a body label row and the body content that was POSTed."
+  "
+  HTML for a table, containing an optional query string row and the query string content
+  and a body label row and the body content that was POSTed.
+  "
   [result]
-  [:div.col-md-8
-    [:table.table.table-bordered.result-table
-      [:tbody
-        [:tr
-          [:th.text-center {:colspan 2} "Body"]]
-        (body-table-content result)]]])
+  (let [query-string (aget result "parsed-query-string")
+        body (aget result "body")]
+    [:div.col-md-8
+      (if (or query-string body)
+        [:table.table.table-bordered.result-table
+          [:tbody
+            (if query-string (table-header "Query String"))
+            (if query-string (map-content query-string))
+            (if body (table-header "Body"))
+            (if body (map-content body))]])]))
 
 (defhtml headers-table
   "HTML for a table with all the HTTP header name/value pairs."
