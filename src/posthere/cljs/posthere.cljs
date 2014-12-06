@@ -60,8 +60,8 @@
     ;; Relative times in the future make no sense for our case.
     ;; It just mean clocks are out of sync between our server
     ;; and the user's browser. Change future relative times, marked
-    ;; by the presence of "from", to "just now".
-    (if (re-find #"from" relative-time)
+    ;; by the presence of "in ", to "just now".
+    (if (re-find #"in " relative-time)
       "just now"
       relative-time)))
 
