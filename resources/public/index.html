@@ -61,8 +61,8 @@
           <form role='form' class='form-inline'>
             <div class='upper-form-group'>
               <div class='form-group'>
-                <label class='sr-only' for='urlMethodInput'>URL Method</label>
-                <select class='form-control' id='urlMethodInput'>
+                <label class='sr-only' for='url-scheme-input'>URL Method</label>
+                <select class='form-control' id='url-scheme-input'>
                   <option>https</option>
                   <option>http</option>
                 </select>
@@ -71,8 +71,8 @@
               <span class='text-muted'>://posthere.io/</span>
 
               <div class='form-group'>
-                <label class='sr-only' for='urlUUIDInput'>UUID</label>
-                <input type='text' class='form-control' id='urlUUIDInput' value='1234-AB-5678'>
+                <label class='sr-only' for='url-uuid-input'>UUID</label>
+                <input type='text' class='form-control' id='url-uuid-input' value='1234-AB-5678'>
               </div>
             </div>
 
@@ -80,8 +80,8 @@
               <span class='text-muted'>returning an HTTP status of:</span>
               <br>
               <div class='form-group'>
-                <label class='sr-only' for='urlResponseStatus'>Response Status</label>
-                <select class='form-control' id='urlStatusInput'>
+                <label class='sr-only' for='url-status-input'>Response Status</label>
+                <select class='form-control' id='url-status-input'>
                   <option value="100">100 - Continue</option>
                   <option value="101">101 - Switching Protocols</option>
                   <option value="102">102 - Processing</option>
@@ -167,11 +167,10 @@
             </div>
           </form>
 
-          <p class='post-url'><span id='urlMethodInputDisplay'>https</span>://posthere.io/<span id='urlUUIDInputDisplay'>1234-AB-5678</span><span id="urlStatusInputDisplay"></span></p>
-          <p><a href='/' class="btn btn-danger">Copy My URL!</a></p>
+          <p class='post-url'><a id='post-url' href='https://posthere.io/1234-AB-5678'>https://posthere.io/1234-AB-5678<a></p>
         </div>
 
-      <div id='learn-group' class="container-group">
+      <div id='learn-group' class='container-group'>
         <a href='.'>Example results</a>
         <a href='.'>What can I POST?</a>
         <a href='.'>Learn more</a>

@@ -110,7 +110,7 @@ table.result-table pre code {
   margin: 15px;
 }
 .lower-form-group {
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 
 .container-group {
@@ -138,7 +138,9 @@ table.result-table pre code {
   font-size: 0.8em;
 }
 
-.post-url {margin: 30px 0 10px;}
+p.post-url {margin: 10px 0 20px;}
+
+p.post-url a {text-decoration: underline;}
 
 #testimonial-group {
   margin: 60px 0;

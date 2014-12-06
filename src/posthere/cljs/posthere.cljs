@@ -31,29 +31,24 @@
   "
   (s/join "-" (take 3 (rest (s/split (uuid) #"-")))))
 
-(defn- update-uuid-value
-  "Change the UUID portion of the generated URL when the user edits the UUID."
+(defn- update-post-url
+  "Change the generated URL when any of the parts that make up the URL change."
   []
-  (.text ($ "#urlUUIDInputDisplay") (.val ($ "#urlUUIDInput"))))
+  (let [scheme (.val ($ "#url-scheme-input"))
+        uuid (.val ($ "#url-uuid-input"))
+        partial-url (str scheme "://posthere.io/" uuid)
+        status-setting (.val ($ "#url-status-input"))
+        status (if (= status-setting "200") "" (str "?status=" status-setting))
+        new-url (str partial-url status)
+        post-url-anchor ($ "#post-url")]
+    (.text post-url-anchor new-url)
+    (.attr post-url-anchor "href" partial-url)))
 
 (defn- set-base-uuid []
   "Generate and set a base UUID view for our page"
-  (def base_uuid (short-uuid))
-  (.val ($ "#urlUUIDInput") base_uuid)
-  (.text ($ "#urlUUIDInputDisplay") base_uuid))
-
-(defn- update-http-scheme
-  "Change the http/https scheme in the generated URL when the user changes the selection."
-  []
-  (.text ($ "#urlMethodInputDisplay") (.val ($ "#urlMethodInput"))))
-
-(defn- update-http-status
-  "Change the HTTP status in the generated URL when the user changes the selection."
-  []
-  (let [status (.val ($ "#urlStatusInput"))]
-    (if (= status "200")
-      (.text ($ "#urlStatusInputDisplay") "")
-      (.text ($ "#urlStatusInputDisplay") (str "?status=" status)))))
+  (let [base_uuid (short-uuid)]
+    (.val ($ "#url-uuid-input") base_uuid)
+    (update-post-url)))
   
 ;; ----- Data manipulation functions for presented results -----
 
@@ -143,9 +138,6 @@
   [result]
   [:div
     [:div.clearfix
-      ;; Put this back in if/when we add expand/collapse
-      ;; [:div.col-md-1
-        ;; [:span.glyphicon-chevron-down {:aria-hidden "true"}]]]
       [:div.col-md-6.text-left
         [:strong (time-ago result)]]
       [:div.col-md-6.text-right
@@ -171,10 +163,12 @@
 ;; ----- Exported function for the home page -----
 
 (defn ^:export init []
+  ;; Generate a unique UUID and set it in the POSTing URL
   (set-base-uuid)
-  (bind ($ "#urlUUIDInput") :keyup update-uuid-value)
-  (bind ($ "#urlMethodInput") :change update-http-scheme)
-  (bind ($ "#urlStatusInput") :change update-http-status))
+  ;; Bind changes of user selections to update the generated POSTing URL
+  (bind ($ "#url-uuid-input") :keyup update-post-url)
+  (bind ($ "#url-scheme-input") :change update-post-url)
+  (bind ($ "#url-status-input") :change update-post-url))
 
 ;; ----- Exported function for the results page -----
 
