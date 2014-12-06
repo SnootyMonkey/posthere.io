@@ -83,19 +83,24 @@
 
 (defn- string-content 
   "A hiccup table row with only one data element, the <pre> and <code> HTML escaped content."
-  [content]
-  [:tr [:td.text-left {:colspan 2} [:pre [:code (html-escape content)]]]])
+  [content result]
+  (let [derived-content-type (aget result "derived-content-type")
+        syntax-highlight (if derived-content-type derived-content-type "nohighlight")]
+    [:tr
+      [:td.text-left {:colspan 2}
+        [:pre
+          [:code {:class syntax-highlight} (html-escape content)]]]]))
 
 (defn- map-content
   "
   Try to treat the content as a map, and create table rows of name/value pairs.
   If it's not a map, just create a single row with the content as the only data in the row.
   "
-  [content]
+  [content result]
   (let [cljs-content (js->clj content)]
     (if (map? cljs-content)
       (table-rows cljs-content)
-      (string-content content))))
+      (string-content content result))))
 
 ;; ----- Hiccup HTML snippets for the results page -----
 
@@ -119,9 +124,9 @@
         [:table.table.table-bordered.result-table
           [:tbody
             (if query-string (table-header "Query String"))
-            (if query-string (map-content query-string))
+            (if query-string (map-content query-string result))
             (if body (table-header "Body"))
-            (if body (map-content body))]])]))
+            (if body (map-content body result))]])]))
 
 (defhtml headers-table
   "HTML for a table with all the HTTP header name/value pairs."

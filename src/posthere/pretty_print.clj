@@ -27,9 +27,9 @@
   "text/xml"
   })
 
-(def url-encoded "URL ENCODED")
-(def json-encoded "JSON")
-(def xml-encoded "XML")
+(def url-encoded "url-encoded")
+(def json-encoded "json")
+(def xml-encoded "xml")
 
 (defn- content-type-for [request]
   (get-in request [:headers "content-type"]))
