@@ -1,7 +1,7 @@
 (ns posthere
   "POSThere.io Cljs"
     (:require-macros [hiccups.core :refer (defhtml)])
-    (:require   [jayq.core :refer ($ css html bind ajax)]
+    (:require   [jayq.core :refer ($ bind)]
                 [clojure.string :as s]
                 [hiccups.runtime :as hiccupsrt]))
 
@@ -32,8 +32,9 @@
   (s/join "-" (take 3 (rest (s/split (uuid) #"-")))))
 
 (defn- update-uuid-value
-    [selector]
-    (.text ($ "#urlUUIDInputDisplay") (.val ($ selector))))
+  "Change the UUID portion of the generated URL when the user edits the UUID."
+  []
+  (.text ($ "#urlUUIDInputDisplay") (.val ($ "#urlUUIDInput"))))
 
 (defn- set-base-uuid []
   "Generate and set a base UUID view for our page"
@@ -41,10 +42,19 @@
   (.val ($ "#urlUUIDInput") base_uuid)
   (.text ($ "#urlUUIDInputDisplay") base_uuid))
 
-(defn- update-selected-http-method 
-    [selector]
-    (.text ($ "#urlMethodInputDisplay") (.val ($ selector))))
+(defn- update-http-scheme
+  "Change the http/https scheme in the generated URL when the user changes the selection."
+  []
+  (.text ($ "#urlMethodInputDisplay") (.val ($ "#urlMethodInput"))))
 
+(defn- update-http-status
+  "Change the HTTP status in the generated URL when the user changes the selection."
+  []
+  (let [status (.val ($ "#urlStatusInput"))]
+    (if (= status "200")
+      (.text ($ "#urlStatusInputDisplay") "")
+      (.text ($ "#urlStatusInputDisplay") (str "?status=" status)))))
+  
 ;; ----- Data manipulation functions for presented results -----
 
 (defn- html-escape 
@@ -61,7 +71,7 @@
     ;; It just mean clocks are out of sync between our server
     ;; and the user's browser. Change future relative times, marked
     ;; by the presence of "in ", to "just now".
-    (if (re-find #"in " relative-time)
+    (if (re-find #"^in " relative-time)
       "just now"
       relative-time)))
 
@@ -161,9 +171,10 @@
 ;; ----- Exported function for the home page -----
 
 (defn ^:export init []
-    (set-base-uuid)
-    (bind ($ "#urlUUIDInput") :keyup (fn [] (this-as this (update-uuid-value this))))
-    (bind ($ "#urlMethodInput") :change (fn [] (this-as this (update-selected-http-method this)))))
+  (set-base-uuid)
+  (bind ($ "#urlUUIDInput") :keyup update-uuid-value)
+  (bind ($ "#urlMethodInput") :change update-http-scheme)
+  (bind ($ "#urlStatusInput") :change update-http-status))
 
 ;; ----- Exported function for the results page -----
 
