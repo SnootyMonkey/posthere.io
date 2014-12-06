@@ -5,10 +5,7 @@
                 [clojure.string :as s]
                 [hiccups.runtime :as hiccupsrt]))
 
-; index page
-(defn- update-uuid-value
-    [selector]
-    (.text ($ "#urlUUIDInputDisplay") (.val ($ selector))))
+;; ----- Unique UUID generation -----
 
 (defn- uuid
   "
@@ -34,6 +31,10 @@
   "
   (s/join "-" (take 3 (rest (s/split (uuid) #"-")))))
 
+(defn- update-uuid-value
+    [selector]
+    (.text ($ "#urlUUIDInputDisplay") (.val ($ selector))))
+
 (defn- set-base-uuid []
   "Generate and set a base UUID view for our page"
   (def base_uuid (short-uuid))
@@ -44,6 +45,8 @@
     [selector]
     (.text ($ "#urlMethodInputDisplay") (.val ($ selector))))
 
+;; ----- Data manipulation functions for presented results -----
+
 (defn- html-escape 
   "Make a string possibly containing HTML display literally rather than as intepreted HTML."
   [string]
@@ -52,9 +55,17 @@
 (defn- time-ago
   "Use the momemnt.js library to return a human readable English string describing how long ago the request was made."
   [result]
-  (.fromNow (js/moment. (aget result "timestamp"))))
+  (let [timestamp (aget result "timestamp")
+        relative-time (.fromNow (js/moment. timestamp))]
+    ;; Relative times in the future make no sense for our case.
+    ;; It just mean clocks are out of sync between our server
+    ;; and the user's browser. Change future relative times, marked
+    ;; by the presence of "from", to "just now".
+    (if (re-find #"from" relative-time)
+      "just now"
+      relative-time)))
 
-;; ----- Result Table Building Functions -----
+;; ----- Result table building functions -----
 
 (defn- table-header [label]
   [:tr [:th.text-center {:colspan 2} label]])
