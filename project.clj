@@ -28,7 +28,7 @@
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.3.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
-    ;; Web Client-side
+    ;; Client-side
     [org.clojure/clojurescript "0.0-2411"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups

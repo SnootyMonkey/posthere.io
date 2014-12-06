@@ -97,7 +97,7 @@
         request-headers => (contains {header-name (get header-values header-name)}))))
 
   (facts "query-string is saved"
-    
+
     (fact "without a body"
       (let [url-uuid (uuid)
             query-string (form-encode params)
@@ -105,7 +105,7 @@
             request (request :post url)
             response (app request)]
         (:query-string (first (requests-for url-uuid))) => query-string))
-    
+
     (fact "with a body"
       (let [url-uuid (uuid)
             query-string (form-encode params)
@@ -131,7 +131,7 @@
         (not (:invalid-body stored-request)) => true))
 
     (facts "when the body is URL encoded"
-     
+
       (fact "as parsed when the content-type indicaties it's URL encoded"
         (let [url-uuid (uuid)
               url (url-for url-uuid)
@@ -190,7 +190,7 @@
             (:body stored-request) => pretty-json
             (not (:body-overflow stored-request)) => true
             (not (:invalid-body stored-request)) => true)))
-      
+
       (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
               url (url-for url-uuid)
@@ -203,7 +203,7 @@
           (:body stored-request) => pretty-json
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
-      
+
       (fact "as a string when the content-type says it's JSON but it's not"
         (doseq [mime-type pretty-print/json-mime-types]
           (let [url-uuid (uuid)
@@ -251,7 +251,7 @@
           )
 
         )
-      
+
       (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
               url (url-for url-uuid)
@@ -264,7 +264,7 @@
           (:body stored-request) => pretty-xml
           (not (:body-overflow stored-request)) => true
           (not (:invalid-body stored-request)) => true))
-      
+
       (fact "as a string when the content-type says it's XML but it's not"
         (doseq [mime-type pretty-print/xml-mime-types]
           (let [url-uuid (uuid)

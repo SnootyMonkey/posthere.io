@@ -6,12 +6,12 @@
 
 (defn- template-for [template-name] (str "posthere/templates/" template-name))
 
-(deftemplate results-page (template-for "results.html") [results uuid] 
+(deftemplate results-page (template-for "results.html") [results uuid]
 
   ;; unhide the results div if we DO have some results
-  [:#results] (if (not-empty results) 
+  [:#results] (if (not-empty results)
                   (enl/remove-attr :style))
-  
+
   ;; keep the empty-results div only if we DON'T have any results
   [:#empty-results] (if (empty? results)
                       (enl/append "")) ; append a blank string (do nothing), otherwise returning nil wipes it out

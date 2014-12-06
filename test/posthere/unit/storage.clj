@@ -15,7 +15,7 @@
       (storage/wcar*
         (car/exists (storage/url-key-for url-uuid))) => true
         (car/llen (storage/url-key-for url-uuid)) => 1))
-  
+
   (fact "stored request lists expire"
     (let [url-uuid (uuid)]
       (storage/save-request url-uuid {})

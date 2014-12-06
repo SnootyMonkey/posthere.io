@@ -43,16 +43,16 @@
 (defun- json?
   "Generously determine if this mime-type is possibly JSON."
   ([nil] false)
-  ([content-type] 
+  ([content-type]
     (let [base (first (s/split content-type #";"))]
       (or
         (contains? json-mime-types base) ; is a JSON mime-type seen out in the wild
         (re-find #"\+json" base))))) ; is some custom mime-type that uses JSON
-  
+
 (defun- xml?
   "Generously determine if this mime-type is possibly XML."
   ([nil] false)
-  ([content-type] 
+  ([content-type]
     (let [base (first (s/split content-type #";"))]
       (or
         (contains? xml-mime-types base) ; is an XML mime-type seen out in the wild
@@ -101,7 +101,7 @@
             (and (s/blank? content-type) (s/blank? (:derived-content-type request))))
       (try
         ; pretty-print the body and set the derived content type
-        (-> request 
+        (-> request
           (assoc :body (pretty-printer))
           (assoc :derived-content-type derived-content-type))
         (catch Exception e ; pretty printing failed
@@ -125,7 +125,7 @@
     xml?
     (fn [] (pretty-print-xml-and-declaration (:body request)))
     xml-encoded))
- 
+
  (defn pretty-print-urlencoded
   [request]
   (let [content-type (content-type-for request)
@@ -135,7 +135,7 @@
     ;; they indicate it's form-urlencoded by content-type, or there's
     ;; no content-type. The pretty-print attempt won't do anything if
     ;; its already been handled as JSON or XML.
-    (if (and 
+    (if (and
           (re-find #"=" body)
           (or (= content-type form-urlencoded)
               (s/blank? content-type)))

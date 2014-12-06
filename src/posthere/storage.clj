@@ -55,7 +55,7 @@
         request-entry (request-entry-for request-uuid)
         request-key (request-key-for request-uuid)
         clean-request (dissoc request :async-channel)]
-    
+
     ;; Save the POST request to the list for this URL UUID
     (wcar*
       (car/multi) ; transaction
@@ -68,7 +68,7 @@
     ;; trim the request list if needed
     (if (> (wcar* (car/llen url-key)) request-storage-count)
       (wcar* (car/rpop url-key)))) ; trim the request list
-  
+
   true)
 
 (defn requests-for
