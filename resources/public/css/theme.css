@@ -10,13 +10,9 @@ body {
   margin-bottom: 60px;
   min-width: 1000px;
   font-size: 1.6em;
-  background: url('../images/gray_jean.png');
+  background: url('/images/gray_jean.png');
   font-family: 'Quattrocento Sans', sans-serif;
   /* font-family: 'Oswald', sans-serif; */
-}
-
-h2 {
-  margin-top: 80px;
 }
 
 hr {

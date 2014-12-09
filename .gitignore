@@ -10,4 +10,5 @@ pom.xml.asc
 /.nrepl-port
 .DS_Store
 posthere.js
-resources/public/*.html
+resources/public/index
+resources/public/_/**

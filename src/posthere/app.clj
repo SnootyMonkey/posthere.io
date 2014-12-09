@@ -14,7 +14,7 @@
 (defroutes approutes
 
   ; GET requests
-  (GET "/" [] (slurp "./resources/public/index.html")) ; This is for development, should be handled by nginx
+  (GET "/" [] (slurp "./resources/public/index")) ; This is for development, should be handled by nginx in production
   (GET "/:uuid" [uuid] (results-view uuid)) ; Show them the results of their requests
 
   ; POST requests
