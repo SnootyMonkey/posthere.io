@@ -95,6 +95,7 @@
   }
 
   :aliases {
+    "build-pages" ["run" "-m" "posthere.static-templating/export"] ; build the static HTML pages
     "midje!" ["with-profile" "qa" "midje"] ; run all tests
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings

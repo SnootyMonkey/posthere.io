@@ -63,29 +63,31 @@ Since POSThere.io as a free, shared resource, there are some limits. You can cer
 
 ## Run it Yourself
 
-Don’t trust us with your test data? No need to, it’s open source! Check the code and verify we don’t do anything nefarious, or run it yourself [internally](internal-hosting), or on [Heroku](#run-it-on-heroku).
+Don’t trust us with your test data? No need to, it’s open source! Check the code and verify we don’t do anything nefarious, or run it yourself [internally](internal-hosting).
 
 ### Internal Hosting
 
 To host it yourself, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
-Then you can build the ClojureScript code:
+Then you can create the static HTML:
+
+```console
+lein build-pages
+```
+
+And you can build the ClojureScript code:
 
 ```console
 lein cljsbuild once
 ```
 
-And start a server:
+Finally, start a server:
 
 ```console
 lein run!
 ```
 
 Then you can visit your very own POSThere.io in your browser at: [http://localhost:3000/](http://localhost:3000/).
-
-### Run it on Heroku
-
-TBD.
 
 
 ## Testing

@@ -1,0 +1,154 @@
+<div class="starter-template home-template">
+  <h2>Not sure what's getting POSTed?</h2>
+  <p class="lead">
+    Simply point your code or web-hook to a unique POSThere.io URL,<br>
+    then open it in your browser to see exactly what was POSTed!</p>
+
+  <div id='form-group' class='container-group'>
+    <form role='form' class='form-inline'>
+      <div class='upper-form-group'>
+        <div class='form-group'>
+          <label class='sr-only' for='url-scheme-input'>URL Method</label>
+          <select class='form-control' id='url-scheme-input'>
+            <option>https</option>
+            <option>http</option>
+          </select>
+        </div>
+
+        <span class='text-muted'>://posthere.io/</span>
+
+        <div class='form-group'>
+          <label class='sr-only' for='url-uuid-input'>UUID</label>
+          <input type='text' class='form-control' id='url-uuid-input' value='1234-AB-5678'>
+        </div>
+      </div>
+
+      <div class='lower-form-group'>
+        <span class='text-muted'>returning an HTTP status of:</span>
+        <br>
+        <div class='form-group'>
+          <label class='sr-only' for='url-status-input'>Response Status</label>
+          <select class='form-control' id='url-status-input'>
+            <option value="100">100 - Continue</option>
+            <option value="101">101 - Switching Protocols</option>
+            <option value="102">102 - Processing</option>
+            <option value="200" selected>200 - OK</option>
+            <option value="201">201 - Created</option>
+            <option value="202">202 - Accepted</option>
+            <option value="203">203 - Non-Authoritative Information</option>
+            <option value="204">204 - No Content</option>
+            <option value="205">205 - Reset Content</option>
+            <option value="206">206 - Partial Content</option>
+            <option value="207">207 - Multi-Status</option>
+            <option value="208">208 - Already Reported</option>
+            <option value="226">226 - IM Used</option>
+            <option value="300">300 - Multiple Choices</option>
+            <option value="301">301 - Moved Permanently</option>
+            <option value="302">302 - Found</option>
+            <option value="303">303 - See Other</option>
+            <option value="304">304 - Not Modified</option>
+            <option value="305">305 - Use Proxy</option>
+            <option value="306">306 - Switch Proxy</option>
+            <option value="307">307 - Temporary Redirect</option>
+            <option value="308">308 - Permanent Redirect</option>
+            <option value="400">400 - Bad Request</option>
+            <option value="401">401 - Unauthorized</option>
+            <option value="402">402 - Payment Required</option>
+            <option value="403">403 - Forbidden</option>
+            <option value="404">404 - Not Found</option>
+            <option value="405">405 - Method Not Allowed</option>
+            <option value="406">406 - Not Acceptable</option>
+            <option value="407">407 - Proxy Authentication Required</option>
+            <option value="408">408 - Request Timeout</option>
+            <option value="409">409 - Conflict</option>
+            <option value="410">410 - Gone</option>
+            <option value="411">411 - Length Required</option>
+            <option value="412">412 - Procondition Failed</option>
+            <option value="413">413 - Request Entity Too Large</option>
+            <option value="414">414 - Request URI Too Long</option>
+            <option value="415">415 - Unsupported Media Type</option>
+            <option value="416">416 - Requested Range Not Satisfiable</option>
+            <option value="417">417 - Expectation Failed</option>
+            <option value="418">418 - I'm a teapot</option>
+            <option value="419">419 - Authentication Timeout</option>
+            <option value="420">420</option>
+            <option value="422">422 - Unprocessable Entity</option>
+            <option value="423">423 - Locked</option>
+            <option value="424">424 - Failed Dependency</option>
+            <option value="426">426 - Upgrade Required</option>
+            <option value="428">428 - Precondition Required</option>
+            <option value="429">429 - Too Many Requests</option>
+            <option value="431">431 - Request Header Fields Too Large</option>
+            <option value="440">440 - Login Timeout</option>
+            <option value="444">444 - No Response</option>
+            <option value="449">449 - Retry With</option>
+            <option value="450">450 - Blocked By Parental Controls</option>
+            <option value="451">451 - Redirect</option>
+            <option value="494">494 - Request Header Too Large</option>
+            <option value="495">495 - Cert Error</option>
+            <option value="496">496 - No Cert</option>
+            <option value="497">497 - HTTP to HTTPS</option>
+            <option value="498">498 - Token Expired/Invalid</option>
+            <option value="499">499</option>
+            <option value="500">500 - Internal Server Error</option>
+            <option value="501">501 - Not Implemented</option>
+            <option value="502">502 - Bad Gateway</option>
+            <option value="503">503 - Service Unavailable</option>
+            <option value="504">504 - Gateway Timeout</option>
+            <option value="505">505 - HTTP Version Not Supported</option>
+            <option value="506">506 - Variant Also Negotiates</option>
+            <option value="507">507 - Insufficient Storage</option>
+            <option value="508">508 - Loop Detected</option>
+            <option value="509">509 - Bandwidth Limit Exceeded</option>
+            <option value="510">510 - Not Extended</option>
+            <option value="511">511 - Network Authentication Required</option>
+            <option value="520">520 - Origin Error</option>
+            <option value="521">521 - Web Server Is Down</option>
+            <option value="522">522 - Connection Timed Out</option>
+            <option value="523">523 - Proxy Declined Request</option>
+            <option value="524">524 - A Timeout Occurred</option>
+            <option value="598">598 - Network Read Timeout Error</option>
+            <option value="599">599 - Network Connect Timeout Error</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <p class='post-url'><a id='post-url' href='https://posthere.io/1234-AB-5678'>https://posthere.io/1234-AB-5678<a></p>
+  </div>
+
+<div id='learn-group' class='container-group'>
+  <a href='.'>Example results</a>
+  <a href='.'>What can I POST?</a>
+  <a href='.'>Learn more</a>
+</div>
+
+  <div id='testimonial-group' class='container-group'>
+    <table class='table borderless'>
+        <tr>
+          <th class='text-center'><img src='./images/erik_estrada.png'/></th>
+          <th class='text-center'><img src='./images/gary_coleman.png'/></th>
+          <th class='text-center'><img src='./images/that_guy.png'/></th>
+        </tr>
+        <tr>
+          <td class='text-center'><p>"The only development tool with as much style as my hair? POSThere.io."<br>- Erik Estrada</p></td>
+          <td class='text-center'><p>"What'chu talkin' 'bout, Willis? My web-hook's not broken!<br>I checked it with POSThere.io."<br>- Gary Coleman</p></td>
+          <td class='text-center'><p>"I don't always debug API calls, but when I do, I prefer POSThere.io.<br>Stay easy, my friends."<br>- That Guy</p></td>
+        </tr>
+    </table>
+  </div>
+
+  <div id='built-by-group' class='container-group'>
+    <p>Built in <a href='http://clojure.org/' target='_blank'><img src='images/clojure-icon.gif'></a> by the fine folks at <a href='https://path.com/' target='_blank'><img src='images/path-icon.png'></a></p>
+  </div>
+
+  <div id='cta-group' class='container-group'>
+    <p>Using POSThere.io to test your API calls and web hooks?  Then you probably want to <a href='https://path.com/about#jobs'>work for us!</a></p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    posthere.init();
+  });
+</script>
