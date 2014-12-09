@@ -14,7 +14,7 @@
   ["index" "faq" "terms" "privacy"])
 
 (defn partial-for [page-partial]
-  (slurp (str "src/" template-dir "_" page-partial ".html")))
+  (slurp (clojure.java.io/resource (str template-dir "_" page-partial ".html"))))
 
 (deftemplate layout-page layout [page-partial]
   ;; use Enlive to combine the layout and the page partial into a HTMl page
