@@ -72,9 +72,6 @@
 
 ;; ----- Result table building functions -----
 
-(defn- table-header [label]
-  [:tr [:th.text-center {:colspan 2} label]])
-
 (declare row-for) ; HTML snippet coming later in the namespace
 (defn- table-rows
   "Turn a cljs map into name/value rows in a table with hiccup."
@@ -104,42 +101,48 @@
 
 ;; ----- Hiccup HTML snippets for the results page -----
 
+(defhtml table-header
+  "HTML for a table header."
+  [label]
+  [:tr [:th.text-center {:colspan 2} label]])
+
 (defhtml row-for
-  "Hiccup HTML for a key/value row in a table."
+  "HTML for a key/value row in a table."
   [key val]
-  [:tr 
-    [:td key]
-    [:td val]])
+  [:tr [:td key] [:td val]])
 
-(defhtml body-table
-  "
-  HTML for a table, containing an optional query string row and the query string content
-  and a body label row and the body content that was POSTed.
-  "
+(defhtml request-query-string-table
+  "Optional HTML table containing query string label and the query string content."
   [result]
-  (let [query-string (aget result "parsed-query-string")
-        body (aget result "body")]
-    [:div.col-md-8
-      (if (or query-string body)
-        [:table.table.table-bordered.result-table
-          [:tbody
-            (if query-string (table-header "Query String"))
-            (if query-string (map-content query-string result))
-            (if body (table-header "Body"))
-            (if body (map-content body result))]])]))
+  (if-let [query-string (aget result "parsed-query-string")]
+    [:table.table.table-bordered.result-table
+      [:thead
+         (table-header "Query String")]
+      [:tbody
+        (map-content query-string result)]]))
 
-(defhtml headers-table
+(defhtml request-body-table
+  "Optional HTML for a table containing body label row and the body content that was POSTed."
+  [result]
+  (if-let [body (aget result "body")]
+    [:table.table.table-bordered.result-table
+      [:thead
+        (table-header "Body")]
+      [:tbody
+        (map-content body result)]]))
+
+(defhtml request-headers-table
   "HTML for a table with all the HTTP header name/value pairs."
   [result]
-  [:div.col-md-4
-    [:table.table.table-bordered.result-table
-      [:tbody
-        [:tr
-          [:th.text-center {:colspan 2} "Headers"]]
-        (table-rows (js->clj (.-headers result)))]]])
+  [:table.table.table-bordered.result-table
+    [:thead
+      [:tr
+        [:th.text-center {:colspan 2} "Headers"]]]
+    [:tbody
+      (table-rows (js->clj (.-headers result)))]])
 
-(defhtml result-table-header
-  "HTML for a table header with timestamp and status."
+(defhtml result-metadata
+  "HTML for timestamp and status."
   [result]
   [:div
     [:div.clearfix
@@ -156,14 +159,28 @@
   [result]
   ;; DIV container for the whole result
   [:div.result-group.clearfix
-    ;; Table header with general information about this request
-    (result-table-header result)
+    ;; General information about this request
+    (result-metadata result)
+    ;; Details about the request
     [:div.clearfix
-      (body-table result)
-      (headers-table result)]
+      [:div.col-md-8
+        (request-query-string-table result)
+        (request-body-table result)]
+      [:div.col-md-4
+        (request-headers-table result)]]
+    ;; Row divider
     [:div
       [:div.col-md-12
         [:hr]]]])
+
+;; ----- Exported function for the results page -----
+
+(defn ^:export setup-results []
+  ;; Render each result
+  (doseq [result js/resultData]
+    (.append ($ "#results") (result-template result)))
+  ;; Syntax highlight the results
+  (.initHighlightingOnLoad js/hljs))
 
 ;; ----- Exported function for the home page -----
 
@@ -174,10 +191,3 @@
   (bind ($ "#url-uuid-input") :keyup update-post-url)
   (bind ($ "#url-scheme-input") :change update-post-url)
   (bind ($ "#url-status-input") :change update-post-url))
-
-;; ----- Exported function for the results page -----
-
-(defn ^:export setup-results []
-  (doseq [result js/resultData]
-    (.append ($ "#results") (result-template result)))
-  (.initHighlightingOnLoad js/hljs)) ; syntax highlight the results
