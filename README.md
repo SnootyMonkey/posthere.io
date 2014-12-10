@@ -8,7 +8,7 @@
 
 When your code is POSTing, either to someone's API, or to their code via a web-hook you provide from your own API, it's hard to validate your code is doing the right things as you iterate. Mocking the POST request is tedious and not a complete test, and writing code to service your own POST requests is wasted code and effort.
 
-Wouldn’t it be nice to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
+Wouldn’t it be nice to instantly see what your code POSTed in an easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
 
 ## Usage
@@ -33,18 +33,10 @@ Need to simulate different HTTP responses to your POST to ensure your code can h
 
   **https**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
-If you need programmatic access to the results of your POST requests, make a GET request to the same URL.
-
-For JSON, do the programmatic equivalent of this cURL request:
+If you need programmatic access to the results of your POST requests, make a GET request to the same URL. Do the programmatic equivalent in your language of this cURL request:
 
 ```console
 curl -X GET --header "Accept: application/json" http://posthere.io/test-my-twitter-code
-```
-
-For XML, do the programmatic equivalent of this cURL request:
-
-```console
-curl -X GET --header "Accept: application/xml" http://posthere.io/test-my-twitter-code
 ```
 
 
