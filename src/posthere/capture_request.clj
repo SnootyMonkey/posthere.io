@@ -107,15 +107,20 @@
     (assoc request :parsed-query-string (form-decode query-string))
     request)) ; no query-string to parse
 
-;; ----- Data flow: Incoming Request -> Processed Request -> Storage -> HTTP Response -----
+;; ----- Request Capture -----
 
 (defn capture-request
-  "Save the processed request, respond to the POST."
+  "
+  Save the processed request, respond to the POST.
+
+  Data flow: Incoming Request -> Processed Request -> Storage -> HTTP Response
+  "
   [url-uuid request]
   ;; Process the request
   (let [processed-request
     (-> request
       (add-time-stamp) ; save the time of the request
+      (dissoc-in [:headers "host"]) ; remove host from headers
       (parse-query-string) ; handle any query string parameters
       (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
       (pretty-print-json) ; handle the body data if it's JSON

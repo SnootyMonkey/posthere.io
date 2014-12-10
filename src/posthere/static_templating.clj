@@ -9,7 +9,6 @@
 (def resources-dir "resources/public/")
 (def target-dir (str resources-dir "_/"))
 
-;; HTML page partials
 (def html-pages
   ["index" "faq" "terms" "privacy"])
 
