@@ -1,12 +1,12 @@
 [![Debug all the POST requests](./resources/public/images/x-all-the-y.png)](http://posthere.io/)  
 [![POSThere.io](./resources/public/images/POSThere.io.tagline.png)](http://posthere.io/)
 
-[![MPL License](http://img.shields.io/badge/license-MPL-green.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
+[![MPL License](http://img.shields.io/badge/license-MPL-blue.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
 [![Build Status](http://img.shields.io/travis/path/posthere.io.svg?style=flat)](https://travis-ci.org/path/posthere.io)
 
 [POSThere.io](http://posthere.io/) is a simple service for debugging API calls and web hooks. 
 
-When your code is POSTing to someone else’s, either to their API, or via a web-hook you provide from your own API, it's hard to iterate and validate your code. Mocking the request is tedious and not a complete test, and servicing your own POST requests is wasted code and effort.
+When your code is POSTing, either to someone's API, or to their code via a web-hook you provide from your own API, it's hard to validate your code is doing the right things as you iterate. Mocking the POST request is tedious and not a complete test, and writing code to service your own POST requests is wasted code and effort.
 
 Wouldn’t it be nice to instantly see what your code POSTed at any time in as easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
