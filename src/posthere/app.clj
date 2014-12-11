@@ -7,6 +7,7 @@
               [org.httpkit.server :refer (run-server)]
               [environ.core :refer (env)]
               [posthere.capture-request :refer (capture-request)]
+              [posthere.storage :refer (requests-for)]
               [posthere.results :refer (results-view)]))
 
 (defonce hot-reload (or (env :hot-reload) false))
@@ -15,9 +16,13 @@
 
   ; GET requests
   (GET "/" [] (slurp "./resources/public/index")) ; This is for development, should be handled by nginx in production
-  (GET "/:uuid" [uuid] (results-view uuid)) ; Show them the results of their requests
+  ;; TODO update the timestamps from the example so they won't grow old
+  (GET "/_/example" [] (results-view (read-string (slurp "example.edn")) "_/example"))
+  (GET "/:uuid" [uuid] (results-view (requests-for uuid) uuid)) ; Show them the results of their requests
 
   ; POST requests
+  ;; TODO return error status if they try to POST to the example
+  ;;(POST "/_/example" [] ()) ; return a status and a message
   (POST "/:uuid" [uuid :as request] (capture-request uuid request)) ; Capture their POST request
 
   ; Resource requests (in development only, otherwise handled by nginx)

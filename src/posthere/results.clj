@@ -2,7 +2,6 @@
   "Show the saved requests for a particular URL UUID."
   (:require [net.cgrand.enlive-html :as enl :refer (content html-snippet deftemplate)]
             [cheshire.core :refer (generate-string)]
-            [posthere.storage :refer (requests-for)]
             [posthere.static-templating :as st :refer (partial-for)]))
 
 (deftemplate results-page st/layout [results uuid]
@@ -28,6 +27,5 @@
 
 (defn results-view
   "Create our HTML page for results using the results HTML template and enlive."
-  [uuid]
-  (let [results (requests-for uuid)]
-    (apply str (results-page results uuid))))
+  [results uuid]
+  (apply str (results-page results uuid)))
