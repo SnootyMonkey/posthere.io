@@ -120,6 +120,7 @@
   (let [processed-request
     (-> request
       (add-time-stamp) ; save the time of the request
+      ;; TODO add this back in w/o the dissoc-in crash, maybe file a bug on it
       ;(dissoc-in [:headers "host"]) ; remove host from headers
       (parse-query-string) ; handle any query string parameters
       (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
