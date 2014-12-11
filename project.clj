@@ -15,7 +15,6 @@
   :dependencies [
     ;; Server-side
     [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
-    [org.clojure/core.incubator "0.1.3"] ; Functions proposed for inclusion in Clojure https://github.com/clojure/core.incubator
     [org.clojure/core.match "0.2.2"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring

@@ -3,8 +3,7 @@
   Capture the request to a particular URL in the storage so they can be retrieved later.
   Respond to the request.
   "
-  (:require [clojure.core.incubator :refer (dissoc-in)]
-            [clojure.core.match :refer (match)]
+  (:require [clojure.core.match :refer (match)]
             [defun :refer (defun-)]
             [ring.util.codec :refer (form-decode)]
             [ring.util.response :refer (header response status)]
@@ -63,7 +62,7 @@
         status (valid-status requested-status)] ; ensure the requested status is valid
     (-> request
       (assoc :status status)
-      (dissoc-in requested-status-path))))
+      (update-in [:parsed-query-string] dissoc "status"))))
 
 ;; ----- Limit Body Size -----
 
@@ -120,8 +119,7 @@
   (let [processed-request
     (-> request
       (add-time-stamp) ; save the time of the request
-      ;; TODO add this back in w/o the dissoc-in crash, maybe file a bug on it
-      ;(dissoc-in [:headers "host"]) ; remove host from headers
+      (update-in [:headers] dissoc "host") ; remove host from headers
       (parse-query-string) ; handle any query string parameters
       (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
       (pretty-print-json) ; handle the body data if it's JSON
