@@ -12,12 +12,14 @@
 
 (defonce hot-reload (or (env :hot-reload) false))
 
+(defn- example-results [] (read-string (slurp (clojure.java.io/resource "example.edn"))))
+
 (defroutes approutes
 
   ; GET requests
   (GET "/" [] (slurp "./resources/public/index")) ; This is for development, should be handled by nginx in production
   ;; TODO update the timestamps from the example so they won't grow old
-  (GET "/_/example" [] (results-view (read-string (slurp "example.edn")) "_/example"))
+  (GET "/_/example" [] (results-view (example-results) "_/example"))
   (GET "/:uuid" [uuid] (results-view (requests-for uuid) uuid)) ; Show them the results of their requests
 
   ; POST requests
