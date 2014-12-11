@@ -1,7 +1,6 @@
 (ns posthere.integration.post
   "Test POST request handling by the POSThere.io service."
   (:require [clojure.string :as s]
-            [clojure.core.incubator :refer (dissoc-in)]
             [midje.sweet :refer :all]
             [ring.util.codec :refer (form-encode)]
             [ring.mock.request :refer (request body content-type header content-length)]

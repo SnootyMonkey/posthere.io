@@ -20,7 +20,7 @@
           (g [] (.toString  (bit-or 0x8 (bit-and 0x3 (rand-int 15))) 16))]
     (UUID. (.toString
              (goog.string.StringBuffer.
-               (f) (f) (f) (f) (f) (f) (f) (f) "-" (f) (f) (f) (f) 
+               (f) (f) (f) (f) (f) (f) (f) (f) "-" (f) (f) (f) (f)
                "-4" (f) (f) (f) "-" (g) (f) (f) (f) "-"
                (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f))))))
 
@@ -49,10 +49,10 @@
   (let [base_uuid (short-uuid)]
     (.val ($ "#url-uuid-input") base_uuid)
     (update-post-url)))
-  
+
 ;; ----- Data manipulation functions for presented results -----
 
-(defn- html-escape 
+(defn- html-escape
   "Make a string possibly containing HTML display literally rather than as intepreted HTML."
   [string]
   (s/escape string {\< "&lt;", \> "&gt;" \& "&amp;"}))
@@ -78,7 +78,7 @@
   [entries]
   (reduce #(conj %1 (row-for %2 (get entries %2))) () (keys entries)))
 
-(defn- string-content 
+(defn- string-content
   "A hiccup table row with only one data element, the <pre> and <code> HTML escaped content."
   [content result]
   (let [derived-content-type (aget result "derived-content-type")
@@ -151,7 +151,7 @@
       [:div.col-md-6.text-right
         "Status: " [:strong (aget result "status")]]]
     [:div
-      [:div.col-md-12.text-left.text-muted 
+      [:div.col-md-12.text-left.text-muted
         [:span.result-timestamp (.-timestamp result)]]]])
 
 (defhtml result-template

@@ -120,7 +120,7 @@
   (let [processed-request
     (-> request
       (add-time-stamp) ; save the time of the request
-      (dissoc-in [:headers "host"]) ; remove host from headers
+      ;(dissoc-in [:headers "host"]) ; remove host from headers
       (parse-query-string) ; handle any query string parameters
       (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
       (pretty-print-json) ; handle the body data if it's JSON
