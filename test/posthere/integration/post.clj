@@ -7,7 +7,8 @@
             [clj-time.format :as f]
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
-            [posthere.app :as application :refer (app)]
+            [posthere.app :refer (app)]
+            [posthere.examples :as examples]
             [posthere.capture-request :as capture :refer (post-response-body)]
             [posthere.pretty-print :as pretty-print :refer (pretty-print-xml-and-declaration)]
             [posthere.storage :refer (requests-for)]
@@ -79,11 +80,11 @@
       (:body response) => (post-response-body url-uuid)))
 
   (fact "POSTing to the example URL is not allowed"
-    (let [url application/example-url
+    (let [url examples/example-url
           request (request :post url)
           response (app request)]
-      (:status response) => 403
-      (:body response) => application/post-to-example)))
+      (:status response) => examples/post-to-example-status
+      (:body response) => examples/post-to-example-body)))
 
 (facts "about POSTs getting saved"
 
