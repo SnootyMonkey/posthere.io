@@ -15,11 +15,11 @@
   :dependencies [
     ;; Server-side
     [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
-    [org.clojure/core.match "0.2.2"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
+    [org.clojure/core.match "0.3.0-alpha2"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.1.19"] ; Web Server http://http-kit.org/
+    [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
     [compojure "1.3.1"] ; Web routing https://github.com/weavejester/compojure
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.9.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine

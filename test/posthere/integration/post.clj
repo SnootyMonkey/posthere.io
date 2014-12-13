@@ -57,6 +57,13 @@
           response (app request)]
       (:status response) => capture/default-http-status-code))
 
+  (fact "default response status is provided for a URL with multiple segments"
+    (let [url-uuid "foo/bar/blat/bloo"
+          url (url-for url-uuid)
+          request (request :post url)
+          response (app request)]
+      (:status response) => capture/default-http-status-code))
+
   (fact "response content-type is text/plain"
     (let [url-uuid (uuid)
           url (url-for url-uuid)
