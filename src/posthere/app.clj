@@ -3,6 +3,7 @@
   (:gen-class)
     (:require [clojure.string :as s]
               [ring.middleware.reload :as reload]
+              [ring.util.response :refer (response status)]
               [compojure.core :refer (GET POST)]
               [compojure.route :as route]
               [org.httpkit.server :refer (run-server)]
@@ -10,6 +11,9 @@
               [posthere.capture-request :refer (capture-request)]
               [posthere.storage :refer (requests-for)]
               [posthere.results :refer (results-view)]))
+
+(def example-url "/_/example")
+(def post-to-example (str "The POSThere.io URL " example-url " is reserved for internal use."))
 
 (defonce hot-reload (or (env :hot-reload) false))
 
@@ -37,12 +41,11 @@
   ; GET requests
   (GET "/" [] (slurp "./resources/public/index")) ; This is for development, should be handled by nginx in production
   ;; TODO update the timestamps from the example so they won't grow old
-  (GET "/_/example" [] (results-view (example-results) "_/example"))
+  (GET example-url [] (results-view (example-results) "_/example"))
   (GET "*" [:as request] (results-for request)) ; Show them the results of their requests
 
   ; POST requests
-  ;; TODO return error status if they try to POST to the example
-  ;;(POST "/_/example" [] ()) ; return a status and a message
+  (POST example-url [] (status (response post-to-example) 403)) ; return a status and a message
   (POST "*" [:as request] (capture-request (uuid-for request) request)) ; Capture their POST request
 
   )
