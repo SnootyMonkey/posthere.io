@@ -18,8 +18,9 @@
 (defn- strip-prefix-slash [relative-url]
   (s/replace relative-url #"^\/" ""))
 
-(defn- uuid-for [request]
+(defn- uuid-for
   "Extract everything after the initial / in the request URL as the UUID, not including the /."
+  [request]
   (strip-prefix-slash (get-in request [:route-params :*])))
 
 (defroutes approutes
