@@ -20,7 +20,9 @@
   ;; add a JavaScript array with the POST results for this UUID from redis (or an empty array if there are none)
   [:#data] (if (empty? results)
             (enl/html-content "<script type='text/javascript'>var resultData = []; </script>")
-            (enl/html-content (str "<script type='text/javascript'>var resultData = " (generate-string results) "</script>")))
+            (enl/html-content (str  "<script type='text/javascript'>var resultData = "
+                                      (generate-string results) 
+                                    "</script>")))
 
   ;; replace the placeholder UUID in the HTML template with our actual UUID
   [:.uuid-value] (enl/html-content (str uuid)))

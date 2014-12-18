@@ -41,7 +41,7 @@
 
 (defn request-for [request-uuid]
   (if-let [request (wcar* (car/get (request-key-for request-uuid)))]
-    request
+    (update-in request [:headers] dissoc "host")
     false))
 
 ;; ----- Public -----
