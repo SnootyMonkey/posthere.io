@@ -41,9 +41,10 @@
   (not (t/before? (f/parse (time-stamp-from-entry request-entry)) (t/now))))
 
 (defn request-for [request-uuid]
-  (if-let [req (wcar* (car/get (request-key-for request-uuid)))]
-    (let [request (keywordize-keys req)]
-      (assoc request :headers (dissoc (:headers request) :host)))
+  (if-let [request (wcar* (car/get (request-key-for request-uuid)))]
+    (-> request
+      (assoc :headers (dissoc (:headers request) "host"))
+      (assoc :headers (dissoc (:headers request) "Host")))
     false))
 
 ;; ----- Public -----
