@@ -1,6 +1,7 @@
 (ns posthere.storage
   "Store and read POST requests to/from Redis."
   (:require [clojure.string :as s]
+            [clojure.walk :refer (keywordize-keys)]
             [taoensso.carmine :as car]
             [clj-time.core :as t]
             [clj-time.format :as f]
@@ -41,7 +42,9 @@
 
 (defn request-for [request-uuid]
   (if-let [request (wcar* (car/get (request-key-for request-uuid)))]
-    request
+    (-> request
+      (assoc :headers (dissoc (:headers request) "host"))
+      (assoc :headers (dissoc (:headers request) "Host")))
     false))
 
 ;; ----- Public -----

@@ -37,19 +37,21 @@
 
   (facts "stored requests can be retrieved"
     ;; store 1 request
-    (let [request {:cool :beans}
+    (let [request {:headers {} :cool :beans}
           url-uuid (uuid)]
       (storage/save-request url-uuid request)
       (storage/requests-for url-uuid) => [request])
     ;; store many requests
-    (let [requests [{:cool :beans}{:rotten :bananas}{:evolved :ferrets}]
+    (let [requests [{:headers {} :cool :beans}
+                    {:headers {} :rotten :bananas}
+                    {:headers {} :evolved :ferrets}]
           url-uuid (uuid)]
       (doseq [request requests]
         (storage/save-request url-uuid request))
       (storage/requests-for url-uuid) => (reverse requests)))
 
   (fact "only the last request-storage-count requests are stored"
-    (let [request {:cool :beans}
+    (let [request {:headers {} :cool :beans}
           url-uuid (uuid)]
       ;; store too many requests!
       (dotimes [n (+ request-storage-count 2)]
