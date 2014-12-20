@@ -3,7 +3,7 @@
   (:require [clj-time.core :refer (hours ago)]))
 
 (def example-url "/_/example")
-(def post-to-example-status 403)
+(def post-to-example-status 405)
 (def post-to-example-body (str "The POSThere.io URL " example-url " is reserved for internal use."))
 
 (defn- update-timestamps [examples]

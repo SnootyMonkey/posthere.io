@@ -15,7 +15,7 @@
   :dependencies [
     ;; Server-side
     [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
-    [org.clojure/core.match "0.3.0-alpha3"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
+    [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
@@ -28,7 +28,7 @@
     [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Client-side
-    [org.clojure/clojurescript "0.0-2411"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "0.0-2498"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
