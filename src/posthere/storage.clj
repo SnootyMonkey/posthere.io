@@ -78,6 +78,21 @@
   "Read the POST requests stored for a UUID from Redis."
   [url-uuid]
   (let [request-list (wcar*(car/lrange (url-key-for url-uuid) 0 request-storage-count)) ; Read list from Redis
-        unexpired-request-list (filter not-expired? request-list)
-        unexpired-requests (map uuid-from-entry unexpired-request-list)]
-    (vec (map request-for unexpired-requests))))
+        unexpired-request-list (filter not-expired? request-list) ; filter out requests that have already expired
+        unexpired-requests (map uuid-from-entry unexpired-request-list)] ; get the request keys for the remaining requests
+    (vec (map request-for unexpired-requests)))) ; turn the sequence of request keys into a vector of the requests themselves
+
+(defn delete-requests
+  "Remove any requests stored for a UUID from Redis."
+  [url-uuid]
+  (let [request-list (wcar*(car/lrange (url-key-for url-uuid) 0 request-storage-count)) ; Read list from Redis
+        unexpired-request-list (filter not-expired? request-list) ; filter out requests that have already expired
+        unexpired-requests (map uuid-from-entry unexpired-request-list)] ; get the request keys for the remaining requests
+    (wcar* 
+      (car/multi) ; transaction
+        ;; Delete the request list
+        (car/del (url-key-for url-uuid))
+        ;; Delete the stored requests
+        (doseq [unexpired-request unexpired-requests]
+          (wcar* (car/del unexpired-request)))
+      (car/exec)))) ; execute transaction

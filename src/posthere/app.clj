@@ -4,12 +4,12 @@
     (:require [clojure.string :as s]
               [ring.middleware.reload :as reload]
               [ring.util.response :refer (response status)]
-              [compojure.core :refer (GET POST defroutes)]
+              [compojure.core :refer (GET POST DELETE defroutes)]
               [compojure.route :as route]
               [org.httpkit.server :refer (run-server)]
               [environ.core :refer (env)]
               [posthere.capture-request :refer (capture-request)]
-              [posthere.storage :refer (requests-for)]
+              [posthere.storage :refer (requests-for delete-requests)]
               [posthere.examples :as examples :refer (example-results)]
               [posthere.results :refer (results-view)]))
 
@@ -38,7 +38,9 @@
   ;; Error if POST is to the example URL
   (POST examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))
   ;; Capture their POST request
-  (POST "*" [:as request] (capture-request (uuid-for request) request)))
+  (POST "*" [:as request] (capture-request (uuid-for request) request))
+  ;; Capture their POST request
+  (DELETE "*" [:as request] (do (delete-requests (uuid-for request))(status {} 204))))
 
 (def app
   (if hot-reload

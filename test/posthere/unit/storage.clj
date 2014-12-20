@@ -5,16 +5,17 @@
             [taoensso.carmine :as car]
             [clj-time.core :as t]
             [posthere.util.uuid :refer (uuid)]
-            [posthere.storage :as storage :refer (day request-separator request-storage-count)]))
+            [posthere.storage :as storage :refer (day request-separator request-storage-count delete-requests)]))
 
 (facts "about storing requests"
 
-  (future-fact "requests can be stored in the request list"
+  (fact "requests can be stored in the request list"
     (let [url-uuid (uuid)]
       (storage/save-request url-uuid {})
       (storage/wcar*
-        (car/exists (storage/url-key-for url-uuid))) => true
-        (car/llen (storage/url-key-for url-uuid)) => 1))
+        (car/exists (storage/url-key-for url-uuid))) => 1
+      (storage/wcar*
+        (car/llen (storage/url-key-for url-uuid))) => 1))
 
   (fact "stored request lists expire"
     (let [url-uuid (uuid)]
@@ -60,3 +61,14 @@
       (let [requests (storage/requests-for url-uuid)]
         (count requests) => request-storage-count
         requests => (repeat request-storage-count request)))))
+
+(facts "about deleting requests"
+
+  (fact "deleted requests can't be retrieved"
+    (let [url-uuid (uuid)]
+      (storage/save-request url-uuid {})
+      (storage/wcar*
+        (car/exists (storage/url-key-for url-uuid))) => 1
+      (storage/delete-requests url-uuid)
+      (storage/wcar*
+        (car/exists (storage/url-key-for url-uuid))) => 0)))
