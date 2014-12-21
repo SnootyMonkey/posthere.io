@@ -106,7 +106,10 @@
 
   :eastwood {
     :exclude-linters [:keyword-typos]
-    :exclude-namespaces [posthere.integration.post posthere.unit.storage]
+    :exclude-namespaces [
+      posthere.unit.storage
+      posthere.integration.post
+      posthere.integration.cors]
   }
 
   ;; ----- ClojureScript -----
