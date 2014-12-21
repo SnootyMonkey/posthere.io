@@ -1,6 +1,7 @@
 (ns posthere.results
   "Show the saved requests for a particular URL UUID."
   (:require [net.cgrand.enlive-html :as enl :refer (content html-snippet deftemplate)]
+            [ring.util.response :refer (response header)]
             [cheshire.core :refer (generate-string)]
             [posthere.static-templating :as st :refer (partial-for)]))
 
@@ -29,5 +30,11 @@
 
 (defn results-view
   "Create our HTML page for results using the results HTML template and enlive."
-  [results uuid]
-  (apply str (results-page results uuid)))
+  [results uuid headers]
+  (if (or 
+      (= (get headers "accept") "application/json") ; http-kit in development is lower-case
+      (= (get headers "Accept") "application/json")) ; nginx-clojure in production is camel-case
+    ;; Asked for JSON
+    (header (response (generate-string results)) "content-type" "application/json")
+    ;; Everything else gets HTML
+    (apply str (results-page results uuid))))

@@ -37,9 +37,16 @@
   (GET "/" [] (slurp "./resources/public/index"))
 
   ;; Show canned results as an example 
-  (GET examples/example-url [:as request] (results-view (example-results) (strip-prefix-slash examples/example-url)))
+  (GET examples/example-url [:as request] (results-view 
+                                            (example-results)
+                                            (strip-prefix-slash examples/example-url)
+                                            (:headers request)))
+
   ;; Show the results stored from their requests
-  (GET "*" [:as request] (let [uuid (uuid-for request)] (results-view (requests-for uuid) uuid)))
+  (GET "*" [:as request] (let [uuid (uuid-for request)] (results-view
+                                                          (requests-for uuid)
+                                                          uuid
+                                                          (:headers request))))
 
   ;; Error if POST is to the example URL
   (POST examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))

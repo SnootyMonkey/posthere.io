@@ -1,5 +1,5 @@
 (ns posthere.integration.delete
-  "Test DELETE request handling by the POSThere.io service."
+  "Test DELETE API request handling by the POSThere.io service."
   (:require [midje.sweet :refer :all]
             [ring.mock.request :refer (request)]
             [posthere.util.uuid :refer (uuid)]
@@ -9,7 +9,7 @@
 (defn- url-for [url-uuid]
   (str "/" url-uuid))
 
-(facts "about DELETE responses"
+(facts "about DELETE API responses"
 
   (fact "default response status is provided"
     (let [url-uuid (uuid)
@@ -25,7 +25,7 @@
           response (app request)]
       (:status response) => 204)))
 
-(fact "about the effect of a DELETE request"
+(fact "about the effect of a DELETE API request"
   (let [url-uuid (uuid)
         url (url-for url-uuid)]  
     ;; Store some requests
