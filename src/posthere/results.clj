@@ -3,12 +3,12 @@
   (:require [net.cgrand.enlive-html :as enl :refer (content html-snippet deftemplate)]
             [ring.util.response :refer (response header)]
             [cheshire.core :refer (generate-string)]
-            [posthere.static-templating :as st :refer (partial-for)]))
+            [posthere.static-templating :as st :refer (partial-content)]))
 
 (deftemplate results-page st/layout [results uuid]
 
   ;; use Enlive to combine the layout and the page partial into a HTMl page
-  [:#page-partial-container] (content (html-snippet (partial-for "results")))
+  [:#page-partial-container] (content (html-snippet (partial-content "results")))
 
   ;; unhide the results div if we DO have some results
   [:#results] (if (not-empty results)
