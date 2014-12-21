@@ -1,12 +1,9 @@
 (ns posthere.integration.cors
   "Test CORS responses from the POSThere.io service."
   (:require [midje.sweet :refer :all]
-            [ring.mock.request :refer (request body content-type header content-length)]
+            [ring.mock.request :refer (request header)]
             [posthere.util.uuid :refer (uuid)]
-            [posthere.app :refer (app)]
-            [posthere.examples :as examples]
-            [cheshire.core :refer (parse-string generate-string)]
-            [clojure.data.xml :refer (parse-str indent-str)]))
+            [posthere.app :refer (app)]))
 
 (def origins ["http://example.com:3000/" "https://example.com/" "null"])
 

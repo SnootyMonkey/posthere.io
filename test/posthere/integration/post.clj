@@ -45,7 +45,6 @@
 
 (def bad-status-codes [103 209 309 421 452 512 "foo"])
 
-
 (defn- url-for [url-uuid]
   (str "/" url-uuid))
 
@@ -260,11 +259,7 @@
             (get-in stored-request [:headers "content-type"]) => mime-type
             (:body stored-request) => pretty-xml-with-declaration
             (not (:body-overflow stored-request)) => true
-            (not (:invalid-body stored-request)) => true)
-
-          )
-
-        )
+            (not (:invalid-body stored-request)) => true)))
 
       (fact "as pretty-printed when they don't tell us the content-type"
         (let [url-uuid (uuid)
