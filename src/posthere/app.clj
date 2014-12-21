@@ -7,6 +7,7 @@
               [compojure.core :refer (GET POST DELETE defroutes)]
               [compojure.route :as route]
               [org.httpkit.server :refer (run-server)]
+              [ring.middleware.cors :refer [wrap-cors]]
               [environ.core :refer (env)]
               [posthere.capture-request :refer (capture-request)]
               [posthere.storage :refer (requests-for delete-requests)]
@@ -15,13 +16,17 @@
 
 (defonce hot-reload (or (env :hot-reload) false))
 
-(defn- strip-prefix-slash [relative-url]
-  (s/replace relative-url #"^\/" ""))
+(defn- route-for [request]
+  (get-in request [:route-params :*]))
+
+(defn- strip-prefix-slash
+  [relative-url]
+  (s/replace relative-url #"^/" ""))
 
 (defn- uuid-for
   "Extract everything after the initial / in the request URL as the UUID, not including the /."
   [request]
-  (strip-prefix-slash (get-in request [:route-params :*])))
+  (strip-prefix-slash (route-for request)))
 
 (defroutes approutes
 
@@ -30,22 +35,26 @@
   
   ;; Home page for development, handled by nginx in production
   (GET "/" [] (slurp "./resources/public/index"))
+
   ;; Show canned results as an example 
   (GET examples/example-url [:as request] (results-view (example-results) (strip-prefix-slash examples/example-url)))
-  ;; Show them the results stored from their requests
+  ;; Show the results stored from their requests
   (GET "*" [:as request] (let [uuid (uuid-for request)] (results-view (requests-for uuid) uuid)))
 
   ;; Error if POST is to the example URL
   (POST examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))
-  ;; Capture their POST request
+  ;; Capture the POST request
   (POST "*" [:as request] (capture-request (uuid-for request) request))
-  ;; Capture their POST request
+
+  ;; Delete the stored requests
   (DELETE "*" [:as request] (do (delete-requests (uuid-for request))(status {} 204))))
+
+(def cors-routes (wrap-cors approutes #".*"))
 
 (def app
   (if hot-reload
-    (reload/wrap-reload #'approutes)
-    approutes))
+    (reload/wrap-reload #'cors-routes)
+    cors-routes))
 
 (defn start [port]
   (run-server app {:port port :join? false})

@@ -21,6 +21,7 @@
     [ring/ring-core "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
     [compojure "1.3.1"] ; Web routing https://github.com/weavejester/compojure
+    [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.9.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.9.0-beta1"] ; Clojure date/time library https://github.com/clj-time/clj-time

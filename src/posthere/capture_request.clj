@@ -36,7 +36,7 @@
   (str "We got your POST request! View your results at: http://posthere.io/" url-uuid "\n"))
 
 (defn- post-response
-  ""
+  "Create the response to the stored POST request."
   [url-uuid request]
   (-> (post-response-body url-uuid) ; string with directions
     (response) ; make the string the body of our response

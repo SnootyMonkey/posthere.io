@@ -46,7 +46,7 @@
 (def bad-status-codes [103 209 309 421 452 512 "foo"])
 
 
-(defn url-for [url-uuid]
+(defn- url-for [url-uuid]
   (str "/" url-uuid))
 
 (facts "about POST responses"
