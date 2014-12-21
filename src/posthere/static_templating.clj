@@ -13,11 +13,14 @@
   ["index" "faq" "terms" "privacy"])
 
 (defn partial-for [page-partial]
-  (slurp (clojure.java.io/resource (str template-dir "_" page-partial ".html"))))
+  (str template-dir "_" page-partial ".html"))
+
+(defn partial-content [page-partial]
+  (slurp (clojure.java.io/resource (partial-for page-partial))))
 
 (deftemplate layout-page layout [page-partial]
   ;; use Enlive to combine the layout and the page partial into a HTMl page
-  [:#page-partial-container] (html-content (partial-for page-partial)))
+  [:#page-partial-container] (html-content (partial-content page-partial)))
 
 (defn- export-page
   "Combine the contents of the layout.html template and the page partial template
@@ -28,8 +31,10 @@
   URLs.
   "
   [page-partial]
-  (let [output-dir (if (= page-partial "index") resources-dir target-dir)]
-    (spit (str output-dir page-partial) (apply str (layout-page page-partial)))))
+  (let [output-dir (if (= page-partial "index") resources-dir target-dir)
+        output-file (str output-dir page-partial)]
+    (spit output-file (apply str (layout-page page-partial)))
+    (println "Rendered:" output-file "from layout:" layout "and page partial:" (partial-for page-partial))))
 
 (defn export
   "
