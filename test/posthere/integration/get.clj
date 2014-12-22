@@ -1,13 +1,19 @@
 (ns posthere.integration.get
   "Test GET API request handling by the POSThere.io service."
-  (:require [midje.sweet :refer :all]
+  (:require [clojure.walk :refer (keywordize-keys)]
+            [midje.sweet :refer :all]
             [ring.mock.request :refer (request header)]
+            [cheshire.core :refer (parse-string)]
             [posthere.util.uuid :refer (uuid)]
             [posthere.app :refer (app)]
-            [posthere.storage :refer (save-request requests-for)]))
+            [posthere.storage :refer (save-request requests-for)]
+            [posthere.examples :as examples :refer (example-results)]))
 
 (defn- url-for [url-uuid]
   (str "/" url-uuid))
+
+(defn- remove-timestamp [result]
+  (dissoc result :timestamp))
 
 (facts "about GET API responses"
 
@@ -29,13 +35,18 @@
 
   (fact "an empty JSON array is returned when there are no matching requests"
     (let [url-uuid (uuid)
-      url (url-for url-uuid)
-      request (request :get url)
-      accept-header (header request "Accept" "application/json")
-      response (app accept-header)]
+          url (url-for url-uuid)
+          request (request :get url)
+          accept-header (header request "Accept" "application/json")
+          response (app accept-header)]
       (:body response) => "[]"))
 
-  (future-fact "a JSON representation of the examples is returned for a request on the examples")
+  (fact "a JSON representation of the examples is returned for a request on the examples"
+    (let [request (request :get examples/example-url)
+          accept-header (header request "Accept" "application/json")
+          response (app accept-header)]
+      (map remove-timestamp (keywordize-keys (parse-string (:body response)))) => 
+        (map remove-timestamp (keywordize-keys (example-results)))))
 
   (fact "a JSON representation of the requests made is returned"
     (let [url-uuid (uuid)

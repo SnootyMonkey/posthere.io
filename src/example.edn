@@ -21,8 +21,8 @@
   :timestamp "2014-12-11T12:28:14.432Z",
   :body
   "{\n  \"title\" : \"L'Étranger\",\n  \"author\" : \"Albert Camus\"\n}",
-  :scheme :http,
-  :request-method :post}
+  :scheme "http",
+  :request-method "post"}
  {:parsed-query-string {"foo" "bar", "blat" "bloo"},
   :remote-addr "0:0:0:0:0:0:0:1",
   :params {:uuid "b2dc-4e28-9029"},
@@ -46,8 +46,8 @@
   :timestamp "2014-12-11T12:27:43.927Z",
   :body
   "<book>\n  <title>L'Étranger</title>\n  <author>Albert Camus</author>\n</book>\n",
-  :scheme :http,
-  :request-method :post}
+  :scheme "http",
+  :request-method "post"}
  {:parsed-query-string {"foo" "bar", "blat" "bloo"},
   :remote-addr "0:0:0:0:0:0:0:1",
   :params {:uuid "b2dc-4e28-9029"},
@@ -70,5 +70,5 @@
   :query-string "foo=bar&blat=bloo",
   :timestamp "2014-12-11T12:26:48.237Z",
   :body {"author" "Albert Camus", "title" "L'Étranger"},
-  :scheme :http,
-  :request-method :post}]
+  :scheme "http",
+  :request-method "post"}]
