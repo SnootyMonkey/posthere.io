@@ -32,12 +32,12 @@
 
   ; Resource requests (in development only, otherwise handled by nginx)
   (route/resources "/")
-  
+
   ;; Home page for development, handled by nginx in production
   (GET "/" [] (slurp "./resources/public/index"))
 
-  ;; Show canned results as an example 
-  (GET examples/example-url [:as request] (results-view 
+  ;; Show canned results as an example
+  (GET examples/example-url [:as request] (results-view
                                             (example-results)
                                             (strip-prefix-slash examples/example-url)
                                             (:headers request)))

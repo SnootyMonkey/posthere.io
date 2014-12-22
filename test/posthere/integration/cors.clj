@@ -19,7 +19,8 @@
             request (request :options url)
             origin-header (header request "Origin" origin)
             access-control-header (header origin-header "Access-Control-Method" "POST")
-            access-control-request-header (header access-control-header "Access-Control-Request-Headers" "X-Requested-With")
+            access-control-request-header (header access-control-header
+                                            "Access-Control-Request-Headers" "X-Requested-With")
             response (app access-control-request-header)]
       (:status response) => 200)))
 
@@ -30,7 +31,8 @@
             request (request :options url)
             origin-header (header request "Origin" origin)
             access-control-header (header origin-header "Access-Control-Method" "POST")
-            access-control-request-header (header access-control-header "Access-Control-Request-Headers" "X-Requested-With")
+            access-control-request-header (header access-control-header
+                                            "Access-Control-Request-Headers" "X-Requested-With")
             response (app access-control-request-header)
             response-headers (:headers response)]
         response-headers => (contains {

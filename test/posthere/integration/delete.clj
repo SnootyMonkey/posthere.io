@@ -27,7 +27,7 @@
 
 (fact "about the effect of a DELETE API request"
   (let [url-uuid (uuid)
-        url (url-for url-uuid)]  
+        url (url-for url-uuid)]
     ;; Store some requests
     (save-request url-uuid {:headers {:foo :bar}})
     (save-request url-uuid {:headers {:bar :foo}})

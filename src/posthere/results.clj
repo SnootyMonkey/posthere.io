@@ -22,7 +22,7 @@
   [:#data] (if (empty? results)
             (enl/html-content "<script type='text/javascript'>var resultData = []; </script>")
             (enl/html-content (str  "<script type='text/javascript'>var resultData = "
-                                      (generate-string results) 
+                                      (generate-string results)
                                     "</script>")))
 
   ;; replace the placeholder UUID in the HTML template with our actual UUID
@@ -31,7 +31,7 @@
 (defn results-view
   "Create our HTML page for results using the results HTML template and enlive."
   [results uuid headers]
-  (if (or 
+  (if (or
       (= (get headers "accept") "application/json") ; http-kit in development is lower-case
       (= (get headers "Accept") "application/json")) ; nginx-clojure in production is camel-case
     ;; Asked for JSON

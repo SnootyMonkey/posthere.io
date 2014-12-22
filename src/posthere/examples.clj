@@ -13,7 +13,7 @@
     (assoc 0 (assoc (first examples) :timestamp (str (-> 1 hours ago))))
     (assoc 1 (assoc (second examples) :timestamp (str (-> 2 hours ago))))
     (assoc 2 (assoc (last examples) :timestamp (str (-> 3 hours ago))))))
-  
+
 (defn example-results
   "Read in canned results as an example."
   []

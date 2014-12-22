@@ -45,18 +45,18 @@
     (let [request (request :get examples/example-url)
           accept-header (header request "Accept" "application/json")
           response (app accept-header)]
-      (map remove-timestamp (keywordize-keys (parse-string (:body response)))) => 
+      (map remove-timestamp (keywordize-keys (parse-string (:body response)))) =>
         (map remove-timestamp (keywordize-keys (example-results)))))
 
   (fact "a JSON representation of the requests made is returned"
     (let [url-uuid (uuid)
           url (url-for url-uuid)]
       ;; Store some requests
-      (save-request url-uuid {:body "<book><title>The Stranger</title></book>" :headers {:foo :bar}})
-      (save-request url-uuid {:body "{\"title\":\"The Stranger\"}" :headers {:bar :foo}})
+      (save-request url-uuid {:body "Foo" :headers {:foo :bar}})
+      (save-request url-uuid {:body "Bar" :headers {:bar :foo}})
       ;; GET the requests
       (let [request (request :get url)
             accept-header (header request "Accept" "application/json")
             response (app accept-header)]
         (:body response) =>
-          "[{\"headers\":{\"bar\":\"foo\"},\"body\":\"{\\\"title\\\":\\\"The Stranger\\\"}\"},{\"headers\":{\"foo\":\"bar\"},\"body\":\"<book><title>The Stranger</title></book>\"}]"))))
+          "[{\"headers\":{\"bar\":\"foo\"},\"body\":\"Bar\"},{\"headers\":{\"foo\":\"bar\"},\"body\":\"Foo\"}]"))))
