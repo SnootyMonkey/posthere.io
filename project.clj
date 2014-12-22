@@ -29,7 +29,7 @@
     [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Client-side
-    [org.clojure/clojurescript "0.0-2498"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "0.0-2505"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.2"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
@@ -40,7 +40,7 @@
     [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
     [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
     [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
-    [jonase/eastwood "0.2.0"] ; Clojure linter https://github.com/jonase/eastwood
+    [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
     [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
     [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
     [lein-ancient "0.5.5"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
