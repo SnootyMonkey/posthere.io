@@ -108,7 +108,6 @@
   And everything continues as before.
   "
   (:require [clojure.string :as s]
-            [clojure.walk :refer (keywordize-keys)]
             [taoensso.carmine :as car]
             [clj-time.core :as t]
             [clj-time.format :as f]

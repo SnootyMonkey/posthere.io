@@ -96,7 +96,7 @@
 
   :aliases {
     "build-pages" ["run" "-m" "posthere.static-templating/export"] ; build the static HTML pages
-    "midje!" ["with-profile" "qa" "midje"] ; run all tests
+    "midje" ["with-profile" "qa" "midje"] ; run all tests
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "bikeshed!" ["bikeshed" "-v" "-m" "120"] ; code check with max line length warning of 120 characters
@@ -106,11 +106,15 @@
   ;; ----- Code check configuration -----
 
   :eastwood {
-    :exclude-linters [:keyword-typos]
-    :exclude-namespaces [
-      posthere.unit.storage
-      posthere.integration.post
-      posthere.integration.cors]
+    ;; Enable some linters that are disabled by default
+    :add-linters [:unused-namespaces :unused-private-vars :unused-locals]
+
+    ;; More extensive lintering that will have a few false positives
+    ;; :add-linters [:unused-namespaces :unused-private-vars :unused-locals :unused-fn-args]
+
+    ;; Exclude testing namespaces
+    :tests-paths ["test"]
+    :exclude-namespaces [:test-paths]
   }
 
   ;; ----- ClojureScript -----

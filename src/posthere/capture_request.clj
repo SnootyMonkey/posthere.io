@@ -3,9 +3,7 @@
   Capture the request to a particular URL in the storage so they can be retrieved later.
   Respond to the request.
   "
-  (:require [clojure.core.match :refer (match)]
-            [defun :refer (defun-)]
-            [ring.util.codec :refer (form-decode)]
+  (:require [ring.util.codec :refer (form-decode)]
             [ring.util.response :refer (header response status)]
             [clj-time.core :as t]
             [posthere.storage :refer (save-request)]
@@ -65,11 +63,6 @@
       (update-in [:parsed-query-string] dissoc "status"))))
 
 ;; ----- Limit Body Size -----
-
-(defn- update-request-body-too-big [uuid request-hash]
-  (save-request
-    uuid
-    (assoc (dissoc request-hash :body) :body-overflow true)))
 
 (defn- content-length-OK?
   "Check if the content-length header is < max-body-size"

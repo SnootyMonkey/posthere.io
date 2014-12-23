@@ -1,7 +1,6 @@
 (ns posthere.static-templating
   "Use Enlive at design time to create static HTML pages from page partials and layout templates."
-  (:require [clojure.string :as s]
-            [net.cgrand.enlive-html :as enl :refer (deftemplate html-content)]))
+  (:require [net.cgrand.enlive-html :as enl :refer (deftemplate html-content)]))
 
 (def template-dir "posthere/templates/")
 (def layout (str template-dir "layout.html"))
