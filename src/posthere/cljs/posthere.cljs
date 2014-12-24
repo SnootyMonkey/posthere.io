@@ -1,7 +1,7 @@
 (ns posthere
   "POSThere.io Cljs"
     (:require-macros [hiccups.core :refer (defhtml)])
-    (:require   [jayq.core :refer ($ bind)]
+    (:require   [jayq.core :refer ($ bind ajax)]
                 [clojure.string :as s]
                 [hiccups.runtime :as hiccupsrt]))
 
@@ -173,7 +173,16 @@
       [:div.col-md-12
         [:hr]]]])
 
-;; ----- Exported function for the results page -----
+;; ----- Exported functions for the results page -----
+
+(defn ^:export delete-results []
+  ;; get the UUID
+  (let [uuid (.text ($ "#uuid-value"))]
+    ;; make AJAX call to delete the UUI
+    (ajax (str "/" uuid) {
+      :type :delete
+      :dataType :json
+      :success (fn [data] (.reload js/location))}))) ; if the delete works... reload the page
 
 (defn ^:export setup-results []
   ;; Render each result

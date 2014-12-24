@@ -10,8 +10,10 @@
   ;; use Enlive to combine the layout and the page partial into a HTMl page
   [:#page-partial-container] (content (html-snippet (partial-content "results")))
 
-  ;; unhide the results div if we DO have some results
+  ;; unhide the results and API divs if we DO have some results
   [:#results] (if (not-empty results)
+                  (enl/remove-attr :style))
+  [:#api] (if (not-empty results)
                   (enl/remove-attr :style))
 
   ;; keep the empty-results div only if we DON'T have any results
