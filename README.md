@@ -44,12 +44,12 @@ curl -X GET --header "Accept: application/json" http://posthere.io/test-my-twitt
 
 Since POSThere.io as a free, shared resource, there are some limits. You can certainly [host it yourself](#run-it-yourself) and remove any of these limits if they are problematic:
 
-* [POSThere.io](http://posthere.io/) captures the results of your POST requests, but does not capture GET, PUT, PATCH, DELETE or any other HTTP requests.
-* The POST body of the request is limited to 1MB or less, or the body value won't be shown.
+* [POSThere.io](http://posthere.io/) captures the results of your POST, PUT and PATCH requests, but does not capture GET, DELETE or any other HTTP requests.
+* The body of the request is limited to 1MB or less, or the body value won't be shown.
 * Up to the last 100 requests per unique URL are captured.
 * Captured requests are kept for up to 24 hours.
 * Single and multi-part file uploads are not supported.
-* The body of the response to the POST request is a fixed response and cannot be adjusted.
+* The body of the response to the request is a fixed response and cannot be adjusted.
 * You can't request a simulated timeout or delay to the request.
 
 
