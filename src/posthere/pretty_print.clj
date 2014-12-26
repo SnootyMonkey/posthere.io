@@ -115,7 +115,9 @@
   (pretty-print
     request
     json?
-    (fn [] (generate-string (parse-string (:body request)) {:pretty true}))
+    (fn [] (if (nil? (:body request))
+                  nil
+                  (generate-string (parse-string (:body request)) {:pretty true})))
     json-encoded))
 
 (defn pretty-print-xml
