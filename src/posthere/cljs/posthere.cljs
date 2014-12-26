@@ -36,11 +36,13 @@
   []
   (let [scheme (.val ($ "#url-scheme-input"))
         uuid (.val ($ "#url-uuid-input"))
-        partial-url (str scheme "://posthere.io/" uuid)
+        host (.-host (.-location js/window))
+        partial-url (str scheme "://" host "/" uuid)
         status-setting (.val ($ "#url-status-input"))
         status (if (= status-setting "200") "" (str "?status=" status-setting))
         new-url (str partial-url status)
         post-url-anchor ($ "#post-url")]
+    (.text ($ "#host") host)
     (.text post-url-anchor new-url)
     (.attr post-url-anchor "href" partial-url)))
 
