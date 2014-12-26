@@ -4,7 +4,7 @@
     (:require [clojure.string :as s]
               [ring.middleware.reload :as reload]
               [ring.util.response :refer (response status)]
-              [compojure.core :refer (GET POST DELETE defroutes)]
+              [compojure.core :refer (GET POST PUT PATCH DELETE defroutes)]
               [compojure.route :as route]
               [org.httpkit.server :refer (run-server)]
               [ring.middleware.cors :refer [wrap-cors]]
@@ -48,10 +48,15 @@
                                                           uuid
                                                           (:headers request))))
 
-  ;; Error if POST is to the example URL
+  ;; Error if request is to the example URL
   (POST examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))
-  ;; Capture the POST request
+  (PUT examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))
+  (PATCH examples/example-url [] (status (response examples/post-to-example-body) examples/post-to-example-status))
+
+  ;; Capture the PUT/PATCH/POST request
   (POST "*" [:as request] (capture-request (uuid-for request) request))
+  (PUT "*" [:as request] (capture-request (uuid-for request) request))
+  (PATCH "*" [:as request] (capture-request (uuid-for request) request))
 
   ;; Delete the stored requests
   (DELETE "*" [:as request] (do (delete-requests (uuid-for request))(status {} 204))))

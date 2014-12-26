@@ -31,7 +31,7 @@
 ;; ----- HTTP Response -----
 
 (defn post-response-body [url-uuid]
-  (str "We got your POST request! View your results at: http://posthere.io/" url-uuid "\n"))
+  (str "We got your request! View your results at: http://posthere.io/" url-uuid "\n"))
 
 (defn- post-response
   "Create the response to the stored POST request."

@@ -13,9 +13,9 @@ Wouldn’t it be nice to instantly see what your code POSTed in an easy, friendl
 
 ## Usage
 
-You use [POSThere.io](http://posthere.io/) by going to the [website](http://posthere.io/). The website provides you with a unique URL to POST to, or you can customize it.
+You use [POSThere.io](http://posthere.io/) by going to the [website](http://posthere.io/). The website provides you with a unique URL to POST, PUT or PATCH to, or you can customize it.
 
-Simply decide if you want to use HTTP or HTTPs, and use the unique default URL provided by the website or come up with a string that makes sense for the POST you’re attempting, and viola! 
+Simply decide if you want to use HTTP or HTTPs, and use the unique default URL provided by the website or come up with a string that makes sense for the request you’re attempting, and viola! 
 
   **http**://posthere.io/**test-my-twitter-code**
 
@@ -23,9 +23,9 @@ Simply decide if you want to use HTTP or HTTPs, and use the unique default URL p
 
   **https**://posthere.io/**another-webhook-callback-test/with/complexity?api=123**
 
-After POSTing your JSON, XML, or form fields, open the same URL in your web browser and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
+After POST/PUT/PATCHing your JSON, XML, or form fields, open the same URL in your web browser and you’ll see a clear history and details of all the POST requests you made. Neat, huh?
 
-Need to simulate different HTTP responses to your POST to ensure your code can handle them? It’s easy:
+Need to simulate different HTTP responses to your request to ensure your code can handle them? It’s easy:
 
   **http**://posthere.io/**test-my-twitter-code**?status=**201**
 
@@ -33,7 +33,7 @@ Need to simulate different HTTP responses to your POST to ensure your code can h
 
   **https**://posthere.io/**another/test/with/complexity?api=123**&status=**404**
 
-If you need programmatic access to the results of your POST requests, make a GET request to the same URL. Do the programmatic equivalent in your language of this cURL request:
+If you need programmatic access to the results of your requests, make a GET request to the same URL. Do the programmatic equivalent in your language of this cURL request:
 
 ```console
 curl -X GET --header "Accept: application/json" http://posthere.io/test-my-twitter-code
@@ -44,12 +44,12 @@ curl -X GET --header "Accept: application/json" http://posthere.io/test-my-twitt
 
 Since POSThere.io as a free, shared resource, there are some limits. You can certainly [host it yourself](#run-it-yourself) and remove any of these limits if they are problematic:
 
-* [POSThere.io](http://posthere.io/) captures the results of your POST requests, but does not capture GET, PUT, PATCH, DELETE or any other HTTP requests.
-* The POST body of the request is limited to 1MB or less, or the body value won't be shown.
+* [POSThere.io](http://posthere.io/) captures the results of your POST, PUT and PATCH requests, but does not capture GET, DELETE or any other HTTP requests.
+* The body of the request is limited to 1MB or less, or the body value won't be shown.
 * Up to the last 100 requests per unique URL are captured.
 * Captured requests are kept for up to 24 hours.
 * Single and multi-part file uploads are not supported.
-* The body of the response to the POST request is a fixed response and cannot be adjusted.
+* The body of the response to the request is a fixed response and cannot be adjusted.
 * You can't request a simulated timeout or delay to the request.
 
 

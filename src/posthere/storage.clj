@@ -1,24 +1,24 @@
 (ns posthere.storage
-  "Store and read POST requests to/from Redis.
+  "Store and read POST/PUT/PATCH requests to/from Redis.
 
   # Redis Schema
 
-  Up to a fixed number of POSTs. After that number, start deleting the oldest.
+  Up to a fixed number of requests. After that number, start deleting the oldest.
 
   Up to specified retention length. Requests go away after their retention expires.
 
   LRU eviction strategy (Redis setting) on the keys…. so if we are so popular that we are out
   of memory, we retain less requests.
 
-  Set of keys with 'url' as a prefix for each UUID we’ve gotten a POST to. URL key:
+  Set of keys with 'url' as a prefix for each UUID we’ve gotten a request to. URL key:
 
     url:{url-uuid}
 
   These keys expire in the retention period.
 
-  These are lists. Each new POST LPUSHes an entry into the list, up to 100 entries. At the max
-  number of POSTs we both LPUSH the new entry and RPOP the oldest off the list. The entries in the
-  list are UUID strings and timestamps separated by a |. The timestamp is when the POST entry
+  These are lists. Each new request LPUSHes an entry into the list, up to 100 entries. At the max
+  number of requests we both LPUSH the new entry and RPOP the oldest off the list. The entries in the
+  list are UUID strings and timestamps separated by a |. The timestamp is when the entry
   will expire.
 
   List entry:
@@ -40,7 +40,7 @@
     status-code: integer HTTP status code
     query-string: raw query string as provided in the request
     parsed-query-string: parsed query string as a hash map
-    body: the POST body, pretty-printed string for JSON/XML, hash map for form encoded
+    body: the body, pretty-printed string for JSON/XML, hash map for form encoded
     invalid-body: true/false boolean for if body didn't parse as its indicated content-type
     body-overflow: true/false boolean if we overflowed our body size limit
 
@@ -58,7 +58,7 @@
 
   User POSTs to: http://posthere.io/test-it
 
-  We generate a random UUID for the POST of abc-123.
+  We generate a random UUID for the request of abc-123.
 
   We push an entry to the URL UUID key:
 
@@ -95,7 +95,7 @@
 
   User again POSTs to: http://posthere.io/test-it
 
-  We generate a new random UUID for the POST of def-456.
+  We generate a new random UUID for the request of def-456.
 
   We push an new entry to the URL UUID key:
 
@@ -168,7 +168,7 @@
         request-key (request-key-for request-uuid)
         clean-request (dissoc request :async-channel)]
 
-    ;; Save the POST request to the list for this URL UUID
+    ;; Save the request to the list for this URL UUID
     (wcar*
       (car/multi) ; transaction
         (car/lpush url-key request-entry) ; push the request onto the list

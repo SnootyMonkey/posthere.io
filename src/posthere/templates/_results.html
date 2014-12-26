@@ -16,9 +16,9 @@
           <br>
           <p><code>curl -X POST -d "{\"title\": \"L'Étranger\", \"author\": \"Albert Camus\"}" -H "Content-Type: application/json" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span>?foo=bar\&amp;blat=bloo</code></p>
           <br>
-          <p><code>curl -X POST -d "&lt;book&gt;&lt;title&gt;L'Étranger&lt;/title&gt;&lt;author&gt;Albert Camus&lt;/author&gt;&lt;/book&gt;" -H "Content-Type: application/xml" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span>?foo=bar\&amp;blat=bloo</code></p>
+          <p><code>curl -X PUT -d "&lt;book&gt;&lt;title&gt;L'Étranger&lt;/title&gt;&lt;author&gt;Albert Camus&lt;/author&gt;&lt;/book&gt;" -H "Content-Type: application/xml" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span>?foo=bar\&amp;blat=bloo</code></p>
           <br>
-          <p><code>curl -X POST -d "title=L%27%C3%89tranger&amp;author=Albert+Camus" -H "Content-Type: application/x-www-form-urlencoded" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span>?foo=bar\&amp;blat=bloo</code></p>
+          <p><code>curl -X PATCH -d "title=L%27%C3%89tranger&amp;author=Albert+Camus" -H "Content-Type: application/x-www-form-urlencoded" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span>?foo=bar\&amp;blat=bloo</code></p>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
           <br>
           <p><code>curl -X GET -H "Accept: application/json" https://posthere.io/<span class='uuid-value'>1234-AB-5678</span></code></p>
           <br>
-          <p>To cleanup these results, click the link or make a request with the eqivalent of this cURL command:</p>
+          <p>To remove these results, click the link or make a request with the eqivalent of this cURL command:</p>
           <br>
           <p><a href="#" onclick="posthere.delete_results(); return false;"><code>curl -X DELETE https://posthere.io/<span id='uuid-value' class='uuid-value'>1234-AB-5678</span></code></a></p>
         </div>
