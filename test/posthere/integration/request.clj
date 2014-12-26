@@ -78,7 +78,7 @@
             url (url-for url-uuid)
             request (request method url)
             response (app request)]
-        (:body response) => (post-response-body url-uuid)))
+        (:body response) => (post-response-body url-uuid "localhost")))
 
     (fact "requesting to the example URL is not allowed"
       (let [url examples/example-url
