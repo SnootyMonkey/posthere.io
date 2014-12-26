@@ -146,15 +146,18 @@
 (defhtml result-metadata
   "HTML for timestamp and status."
   [result]
+  (let [method-name (s/upper-case (aget result "request-method"))
+        suffix (if (= method-name "PUT") "" "ed")
+        method [:span [:strong method-name] suffix]]
   [:div
     [:div.clearfix
       [:div.col-md-6.text-left
-        [:strong (time-ago result)]]
+        method "&nbsp;" (time-ago result)]
       [:div.col-md-6.text-right
         "Status: " [:strong (aget result "status")]]]
     [:div
       [:div.col-md-12.text-left.text-muted
-        [:span.result-timestamp (.-timestamp result)]]]])
+        [:span.result-timestamp (.-timestamp result)]]]]))
 
 (defhtml result-template
   "A block of HTML for each request that's been made to this URL."
