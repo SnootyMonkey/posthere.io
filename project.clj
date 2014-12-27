@@ -24,7 +24,7 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.9.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
-    [clj-time "0.9.0-beta1"] ; Clojure date/time library https://github.com/clj-time/clj-time
+    [clj-time "0.9.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml

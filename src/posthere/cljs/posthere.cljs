@@ -5,6 +5,14 @@
                 [clojure.string :as s]
                 [hiccups.runtime :as hiccupsrt]))
 
+;; ----- URL manipulation functions for presented results -----
+
+(defn- protocol []
+  (.-protocol (.-location js/window)))
+
+(defn- host-name []
+  (.-host (.-location js/window)))
+
 ;; ----- Unique UUID generation -----
 
 (defn- uuid
@@ -36,7 +44,7 @@
   []
   (let [scheme (.val ($ "#url-scheme-input"))
         uuid (.val ($ "#url-uuid-input"))
-        host (.-host (.-location js/window))
+        host (host-name)
         partial-url (str scheme "://" host "/" uuid)
         status-setting (.val ($ "#url-status-input"))
         status (if (= status-setting "200") "" (str "?status=" status-setting))
@@ -189,10 +197,22 @@
       :dataType :json
       :success (fn [data] (.reload js/location))}))) ; if the delete works... reload the page
 
+(defn- replace-span-html [span-class replacement-html]
+  (let [spans (js->clj ($ (str "span." span-class)))]
+    (doseq [span spans]
+      (set! (.-innerHTML span) replacement-html))))
+
 (defn ^:export setup-results []
+
+  ;; Set the protocol everywhere it appears
+  (replace-span-html "protocol" (protocol))  
+  ;; Set the host everywhere it appears
+  (replace-span-html "host" (host-name))
+
   ;; Render each result
   (doseq [result js/resultData]
     (.append ($ "#results") (result-template result)))
+  
   ;; Syntax highlight the results
   (.initHighlightingOnLoad js/hljs))
 
