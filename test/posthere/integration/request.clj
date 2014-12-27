@@ -113,7 +113,7 @@
         (doseq [header-name (keys header-values)]
           request-headers => (contains {header-name (get header-values header-name)}))))
 
-    (facts "query-string is saved"
+    (facts "parsed-query-string is saved"
 
       (fact "without a body"
         (let [url-uuid (uuid)
@@ -121,7 +121,7 @@
               url (url-for (str url-uuid "?" query-string))
               request (request method url)
               response (app request)]
-          (:query-string (first (requests-for url-uuid))) => query-string))
+          (:parsed-query-string (first (requests-for url-uuid))) => params))
 
       (fact "with a body"
         (let [url-uuid (uuid)
@@ -130,7 +130,7 @@
               request (request method url)
               body (body request string-body)
               response (app body)]
-          (:query-string (first (requests-for url-uuid))) => query-string)))))
+          (:parsed-query-string (first (requests-for url-uuid))) => params)))))
 
 (facts "about responses getting saved"
 

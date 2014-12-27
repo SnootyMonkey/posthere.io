@@ -151,9 +151,7 @@
   removing the host from the headers."
   [request-uuid]
   (if-let [request (wcar* (car/get (request-key-for request-uuid)))]
-    (-> request
-      (assoc :headers (dissoc (:headers request) "host")) ; http-kit in dev is lower-case
-      (assoc :headers (dissoc (:headers request) "Host"))) ; nginx-clojure in production is camel-case
+    request
     false))
 
 ;; ----- Public -----

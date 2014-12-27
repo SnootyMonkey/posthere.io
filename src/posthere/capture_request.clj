@@ -5,6 +5,7 @@
   "
   (:require [ring.util.codec :refer (form-decode)]
             [ring.util.response :refer (header response status)]
+            [clojure.string :as s]
             [clj-time.core :as t]
             [posthere.storage :refer (save-request)]
             [posthere.pretty-print :refer (pretty-print-json pretty-print-xml pretty-print-urlencoded)]))
@@ -101,16 +102,35 @@
 
 ;; ----- Request Capture -----
 
+(defn- host? [header]
+  (= (s/upper-case header) "HOST"))
+
+(defn- extract-request-parts
+  "Given a processed ring request, extract the pieces of it that we want to store into a new map."
+  [request]
+  (-> {}
+    ; don't store "host" in the headers
+    (assoc :headers (select-keys (:headers request) (filter #(not (host? %)) (keys (:headers request)))))
+    ; extract all the other pieces of the ring request that we need to store in redis
+    (assoc :timestamp (:timestamp request))
+    (assoc :parsed-query-string (:parsed-query-string request))
+    (assoc :derived-content-type (:derived-content-type request))    
+    (assoc :status (:status request))
+    (assoc :body (:body request))
+    (assoc :invalid-body (:invalid-body request))
+    (assoc :body-overflow (:body-overflow request))
+    (assoc :request-method (:request-method request))))
+
 (defn capture-request
   "
   Save the processed request, respond to the POST.
 
-  Data flow: Incoming Request -> Processed Request -> Storage -> HTTP Response
+  Data flow: Incoming Ring Request -> Processed Request -> Storage -> HTTP Response
   "
   [url-uuid request]
   ;; Process the request
   (let [processed-request
-    (-> request
+      (-> request
       (add-time-stamp) ; save the time of the request
       (parse-query-string) ; handle any query string parameters
       (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
@@ -119,6 +139,6 @@
       (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
       (handle-response-status))] ; handle the requested states
     ;; Save the request
-    (save-request url-uuid processed-request)
+    (save-request url-uuid (extract-request-parts processed-request))
     ;; Respond to the HTTP client
     (post-response url-uuid processed-request)))
