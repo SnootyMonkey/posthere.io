@@ -7,6 +7,7 @@
             [ring.util.response :refer (header response status)]
             [clojure.string :as s]
             [clj-time.core :as t]
+            [defun :refer (defun-)]
             [posthere.storage :refer (save-request)]
             [posthere.pretty-print :refer (pretty-print-json pretty-print-xml pretty-print-urlencoded)]))
 
@@ -66,30 +67,47 @@
 ;; ----- Limit Body Size -----
 
 (defn- content-length-OK?
-  "Check if the content-length header is < max-body-size"
+  "Check if the content-length header is <= max-body-size"
   [request]
   (let [content-length-header (read-string (get-in request [:headers "content-length"])) ; content-length header as int
         content-length (or content-length-header 0)] ; 0 if we have no content-length header
-    (< content-length max-body-size)))
+    (<= content-length max-body-size)))
 
-
-;; TODO slurp is naive and will run out of memory on a large input stream
-;; TODO placeholder code, refactor this
-(defn- limit-body-request-size
-  ""
+(defn- body-overflow 
+  "The body in the request was too big so remove it, and set the body overflow flag."
   [request]
-  (if (and (:body request) (content-length-OK? request))
-    (let [body (slurp (:body request))]
-      (if (< (count (.getBytes body "UTF-8")) max-body-size)
-        (assoc request :body body)
-      (-> request
-        (dissoc :body)
-        (assoc :derived-content-type too-big)
-        (assoc :body-overflow true))))
-    (-> request
-      (dissoc :body)
-      (assoc :derived-content-type too-big)
-      (assoc :body-overflow true))))
+  (-> request
+    (dissoc :body)
+    (assoc :derived-content-type too-big)
+    (assoc :body-overflow true)))
+
+(defn- read-body
+  "Read in from the body InputStream 1 byte more than the max body size."
+  [request]
+  (let [bis (java.io.BufferedInputStream. (:body request))
+        buffer (make-array Byte/TYPE (+ max-body-size 1))
+        size (.read bis buffer)] ; read up to 1 byte more than our max body size
+    (String. buffer 0 size "UTF-8"))) ; return a String of what we read
+
+(defn- body-length-OK?
+  "True if the body content that was read is <= the max body size."
+  [body]
+  (<= (count (.getBytes body "UTF-8")) max-body-size))
+
+(defun- limit-body-request-size
+  "
+  If there's a body in the request, read it in if it's less than the max size,
+  and set an overflow flag if it's bigger than the max size.
+  "
+  ([request :guard #(:body %)]
+    (if (content-length-OK? request) ; indicated content-length is small enough, so try reading in the body
+      (let [body (read-body request)] ; read the body from the input stream
+        (if (body-length-OK? body)
+          (assoc request :body body) ; body was indeed small enough so keep it
+          (body-overflow request))) ; they lied! the body was actually too big
+      (body-overflow request))) ; content-length indicateds the body is too big
+
+  ([request] request)) ; there is no body, so nothing to do
 
 ;; ----- Parse URL Encoding -----
 
@@ -130,10 +148,10 @@
   [url-uuid request]
   ;; Process the request
   (let [processed-request
-      (-> request
+    (-> request
       (add-time-stamp) ; save the time of the request
       (parse-query-string) ; handle any query string parameters
-      (limit-body-request-size) ; deal with bodies that are bigger than the maximum allowed
+      (limit-body-request-size) ; read in the body and deal with bodies that are bigger than the max allowed
       (pretty-print-json) ; handle the body data if it's JSON
       (pretty-print-xml) ; handle the body data if it's XML
       (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
