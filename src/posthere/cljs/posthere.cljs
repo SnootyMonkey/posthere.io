@@ -118,7 +118,7 @@
   [headers result]
   (if (aget result "invalid-body")
     (let [header-keys (keys headers)
-          header-map (zipmap (map lower-case header-keys) header-keys) ; mapping of lower-case header to mixed-case header
+          header-map (zipmap (map s/lower-case header-keys) header-keys) ; mapping of lower-case header to mixed-case header
           mixed-case-content-type (get header-map "content-type")]
       (assoc headers mixed-case-content-type
         [:span 
