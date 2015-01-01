@@ -7,6 +7,7 @@
 
 ; If you change this sentence, also change max-body-size in capture-request.cljs
 (def too-big "The body was larger than POSThere.io's maximum of 1 megabyte.")
+(def invalid-body-warning "This content-type does not appear to match the body.")
 
 ;; ----- URL manipulation functions for presented results -----
 
@@ -156,7 +157,9 @@
       [:tr
         [:th.text-center {:colspan 2} "Headers"]]]
     [:tbody
-      (table-rows (js->clj (.-headers result)))]])
+      (let [headers (js->clj (.-headers result))
+            warning-headers (if (aget result "invalid-body") (assoc headers "content-type" [:span [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}](get headers "content-type")]) headers)]
+        (table-rows warning-headers))]])
 
 (defhtml result-metadata
   "HTML for timestamp and status."

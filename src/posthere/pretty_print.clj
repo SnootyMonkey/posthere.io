@@ -11,12 +11,8 @@
 (def json-mime-types #{
   "application/json"
   "application/x-json"
-  "application/javascript"
-  "application/x-javascript"
   "text/json"
   "text/x-json"
-  "text/javascript"
-  "text/x-javascript"
   })
 
 (def xml-mime-types #{

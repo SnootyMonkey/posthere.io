@@ -187,3 +187,8 @@ p.post-url a {text-decoration: underline;}
 .result-timestamp {
   font-size: 0.8em;
 }
+
+span.glyphicon-warning-sign {
+  color: #a90000;
+  padding-right: 5px
+}
