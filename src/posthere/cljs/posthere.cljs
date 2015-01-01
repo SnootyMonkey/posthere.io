@@ -114,11 +114,18 @@
       (string-content content result))))
 
 (defn- warn-of-invalid-body
-  ""
+  "If the body invalid flag is set, rewrite the content-type header value to include a warning glyph."
   [headers result]
-  (if (aget result "invalid-body") 
-    (assoc headers "content-type" [:span [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}](get headers "content-type")]) 
-    headers))
+  (if (aget result "invalid-body")
+    (let [header-keys (keys headers)
+          header-map (zipmap (map lower-case header-keys) header-keys) ; mapping of lower-case header to mixed-case header
+          mixed-case-content-type (get header-map "content-type")]
+      (assoc headers mixed-case-content-type
+        [:span 
+          [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}]
+          (get headers mixed-case-content-type)]))
+    headers)) ; the body isn't invalid, so no warning needed
+
 ;; ----- Hiccup HTML snippets for the results page -----
 
 (defhtml table-header
