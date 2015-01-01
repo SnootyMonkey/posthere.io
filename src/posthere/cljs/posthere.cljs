@@ -113,6 +113,12 @@
       (table-rows cljs-content)
       (string-content content result))))
 
+(defn- warn-of-invalid-body
+  ""
+  [headers result]
+  (if (aget result "invalid-body") 
+    (assoc headers "content-type" [:span [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}](get headers "content-type")]) 
+    headers))
 ;; ----- Hiccup HTML snippets for the results page -----
 
 (defhtml table-header
@@ -158,7 +164,7 @@
         [:th.text-center {:colspan 2} "Headers"]]]
     [:tbody
       (let [headers (js->clj (.-headers result))
-            warning-headers (if (aget result "invalid-body") (assoc headers "content-type" [:span [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}](get headers "content-type")]) headers)]
+            warning-headers (warn-of-invalid-body headers result)]
         (table-rows warning-headers))]])
 
 (defhtml result-metadata
