@@ -5,6 +5,9 @@
                 [clojure.string :as s]
                 [hiccups.runtime :as hiccupsrt]))
 
+; If you change this sentence, also change max-body-size in capture-request.cljs
+(def too-big "The body was larger than POSThere.io's maximum of 1 megabyte.")
+
 ;; ----- URL manipulation functions for presented results -----
 
 (defn- protocol []
@@ -134,12 +137,16 @@
 (defhtml request-body-table
   "Optional HTML for a table containing body label row and the body content that was POSTed."
   [result]
-  (if-let [body (aget result "body")]
-    [:table.table.table-bordered.result-table
-      [:thead
-        (table-header "Body")]
-      [:tbody
-        (map-content body result)]]))
+  (let [body-overflow (aget result "body-overflow") ; flag indicating the body was too big
+        body (or (aget result "body") (if body-overflow true nil))] ; 3 cases: body, body overflow or no body
+    (if body
+      [:table.table.table-bordered.result-table
+        [:thead
+          (table-header "Body")]
+        [:tbody
+          (if body-overflow
+            [:tr [:td [:span.text-muted too-big]]]
+            (map-content body result))]])))
 
 (defhtml request-headers-table
   "HTML for a table with all the HTTP header name/value pairs."

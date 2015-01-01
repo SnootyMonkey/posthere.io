@@ -11,6 +11,7 @@
             [posthere.storage :refer (save-request)]
             [posthere.pretty-print :refer (pretty-print-json pretty-print-xml pretty-print-urlencoded)]))
 
+; If you change this max-body-size, also change the too-big def in posthere.cljs
 (def max-body-size 1000000) ; number of bytes in 1 megabyte for content-length header
 
 (def default-http-status-code 200)
