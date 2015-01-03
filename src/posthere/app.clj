@@ -7,7 +7,7 @@
               [compojure.core :refer (GET POST PUT PATCH DELETE defroutes)]
               [compojure.route :as route]
               [org.httpkit.server :refer (run-server)]
-              [ring.middleware.cors :refer [wrap-cors]]
+              [ring.middleware.cors :refer (wrap-cors)]
               [environ.core :refer (env)]
               [posthere.capture-request :refer (capture-request)]
               [posthere.storage :refer (requests-for delete-requests)]
