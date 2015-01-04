@@ -116,4 +116,4 @@ If you'd like to contribute back your enhancements (awesome!), please submit you
 
 POSThere.io is distributed under the [Mozilla Public License v2.0](http://www.mozilla.org/MPL/2.0/).
 
-Copyright © 2014 Path, Inc.
+Copyright © 2014-2015 Path, Inc.
