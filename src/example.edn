@@ -27,7 +27,7 @@
   "<book>\n  <title>L'Étranger</title>\n  <author>Albert Camus</author>\n</book>\n"
   :body-overflow false
   :invalid-body false
-  :request-method "post"}
+  :request-method "put"}
  {:parsed-query-string {"foo" "bar" "blat" "bloo"}
   :derived-content-type "url-encoded"
   :headers
@@ -41,4 +41,4 @@
   :body {"author" "Albert Camus" "title" "L'Étranger"}
   :body-overflow false
   :invalid-body false
-  :request-method "post"}]
+  :request-method "patch"}]
