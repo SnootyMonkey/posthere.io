@@ -1,5 +1,6 @@
 User-agent: *
 Sitemap: http://posthere.io/sitemap.xml
+Allow: /sitemap.xml
 Allow: /index
 Allow: /_/faq
 Allow: /_/privacy
