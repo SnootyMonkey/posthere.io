@@ -1,0 +1,9 @@
+User-agent: *
+Sitemap: http://posthere.io/sitemap.xml
+Allow: /index
+Allow: /_/faq
+Allow: /_/privacy
+Allow: /_/terms
+Allow: /_/example
+Allow: /_/
+Disallow: /
