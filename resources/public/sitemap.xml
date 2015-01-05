@@ -7,25 +7,32 @@
 <url>
   <loc>http://posthere.io/</loc>
   <changefreq>weekly</changefreq>
+  <priorty>1.0</priorty>
 </url>
 <url>
   <loc>http://posthere.io/index</loc>
   <changefreq>weekly</changefreq>
+  <priorty>1.0</priorty>
 </url>
 <url>
   <loc>http://posthere.io/_/example</loc>
   <changefreq>weekly</changefreq>
+  <priorty>0.5</priorty>
 </url>
 <url>
   <loc>http://posthere.io/_/faq</loc>
   <changefreq>weekly</changefreq>
+  <priorty>0.8</priorty>
 </url>
 <url>
   <loc>http://posthere.io/_/privacy</loc>
   <changefreq>weekly</changefreq>
+    <priorty>0.1</priorty>
+
 </url>
 <url>
   <loc>http://posthere.io/_/terms</loc>
   <changefreq>weekly</changefreq>
+  <priorty>0.1</priorty>
 </url>
 </urlset>
