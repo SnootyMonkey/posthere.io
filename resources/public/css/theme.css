@@ -192,3 +192,8 @@ span.glyphicon-warning-sign {
   color: #a90000;
   padding-right: 5px
 }
+
+#doorbell-button {
+  background: none repeat scroll 0 0 #a90000 !important;
+  padding: 5px 10px !important;
+}
