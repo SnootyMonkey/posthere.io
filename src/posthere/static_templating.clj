@@ -9,7 +9,7 @@
 (def target-dir (str resources-dir "_/"))
 
 (def html-pages
-  ["index" "faq" "terms" "privacy"])
+  ["index" "faq" "terms" "privacy" "500"])
 
 (defn partial-for [page-partial]
   (str template-dir "_" page-partial ".html"))
