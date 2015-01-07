@@ -1,12 +1,19 @@
 <h1>FAQ</h1>
 <div class="faq">
-  <p><strong>What the heck is this thing?</strong></p>
+  <p><strong>What the heck is POSThere.io?</strong></p>
   <p>POSThere.io is a simple service for developers to help debug API calls and web hooks.</p>
   <p>When your code POSTs to someone else's code (using their web API, or if you're acting as a web hook) it can be hard to iterate, debug and validate your code without the burden of mocking your POSTs or temporarily servicing your own POST requests.</p>
   <p>Wouldn’t it be nice to be able to instantly see exactly what your code POSTed at any time in as easy, clear browser interface? Now you can with POSThere.io. After POSTing your JSON, XML, or form fields, point your web browser at the same URL and you’ll see a clear history and details of all the POST requests you made. Neat, huh?</p>
   <p>Another great use for POSThere.io is when you're using someone else's web hook for the first time. Point it at POSThere.io first so you can see exactly what will be POSTed, then you can write your own code to process the request.</p>
 
-  <p><strong>How does POSThere.io work?</strong></p>
+  <p><strong>Who created this treasure?</strong></p>
+  <p>I'm glad you asked. It sounds like you want to buy us a gift. POSThere.io was created by the [Path](http://path.com/) Engineering team during one of their Hackathons. In particular, Sean Johnson and Eric Musgrove did the development work.</p>
+
+  <p><strong>You guys sound great. Can I work with you guys?</strong></p>
+  <p>You sure can! Come [work for us](https://path.com/about#jobs).</p>
+
+
+  <p><strong>How do I use POSThere.io?</strong></p>
   <p>Simply decide if you want to use HTTP or HTTPs, then come up with a string that makes sense for the POST you’re attempting, append it to <strong>posthere.io</strong>, and POST away.</p>
   <p><strong>http</strong>://posthere.io/<strong>test-my-twitter-code</strong></p>
   <p><strong>https</strong>://posthere.io/<strong>a-webhook-callback-test</strong></p>
@@ -23,6 +30,17 @@
 
   <p><strong>Can I change the HTTP status that’s returned when I POST?</strong></p>
   <p>Yes. Just add ?status=xxx to the end of your request, such as ?status=404.</p>
+
+  <p><strong>Can I use POSThere.io from JavaScript in the browser?</strong></p>
+  <p>What do we look like? Amateurs? We got this puppy all [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)'d up. You can POST/PUT/PATCH to your heart's content from JavaScript in the browser.</p>
+
+  <p><strong>Are there any URLs I can’t POST to?</strong></p>
+  <p>The URL name space of http://posthere.io/_/... is reserved for the POSThere.io website. You also can't use http://posthere.io/index. Any other URL should be fair game... POST away!</p>
+
+  <p><strong>How come POSThere.io doesn't butter my bread in the morning and tuck me in at night?</strong></p>
+  <p>I don't know. Maybe it should. If you need more features then you should fork the [repo on GitHub](https://github.com/path/posthere.io) and add in a bread buttering feature. Use it on your own private instance and enjoy, or send us a pull request and we promise to look at it.</p>
+  <p>If you're not quite up to building the tuck me into bed feature yourself, you can request it with the Feedback widget at the bottom of the page. If it's a brilliant feature idea, we just might build it for you.</p>
+
 
   <p><strong>How long will my requests stay visible?</strong></p>
   <p>Your requests are available for up to 24 hours. In case we are super busy and run out of storage space, we might remove your older requests earlier than that.</p>
@@ -41,22 +59,10 @@
   <p>No! It's ours forever!</p>
   <p>Not really. Just click the delete link on the result page for the URL in your browser, or hit the URL you posted to with a DELETE request from your programming language or cURL. It's all good.</p>
 
+
   <p><strong>Can I get the results of my POST requests with an API?</strong></p>
-  <p>Why, of course you can. Just change your POST/PUT or PATCH to a GET and access the same URL. Make sure you include an 'Accept' header of 'application/json'. You'll get back a JSON array of all your requests. The contents of which should be fairly self-explanatory.</p>
+  <p>Why, of course you can. Just change your POST, PUT or PATCH to a GET and request the same URL. Also make sure you include an 'Accept' header of 'application/json' or you'll get the HTML! With the right 'Accept' header you'll get back a JSON array of all your requests, the contents of which should be fairly self-explanatory.</p>
+  <p><strong>Can I delete the results of my POST requests with an API?</strong></p>
+  <p>Mmmhmm. Just change your POST, PUT or PATCH to a DELETE and request the same URL.</p>
 
-  <p><strong>Can I use POSThere.io from JavaScript in the browser?</strong></p>
-  <p>What do we look like? Amateurs? We got this puppy all [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)'d up. You can POST/PUT/PATCH to your heart's content from JavaScript in the browser.</p>
-
-  <p><strong>Are there any URLs I can’t POST to?</strong></p>
-  <p>The URL name space of http://posthere.io/_/... is reserved for the POSThere.io website. You also can't use http://posthere.io/index. Any other URL should be fair game... POST away!</p>
-
-  <p><strong>How come POSThere.io doesn't butter my bread in the morning and tuck me in at night?</strong></p>
-  <p>I don't know. Maybe it should. If you need more features then you should fork the [repo on GitHub](https://github.com/path/posthere.io) and add in a bread buttering feature. Use it on your own private instance and enjoy, or send us a pull request and we promise to look at it.</p>
-  <p>If you're not quite up to building the tuck me into bed feature yourself, you can request it with the Feedback widget at the bottom of the page. If it's a brilliant feature idea, we just might build it for you.</p>
-
-  <p><strong>Who created this treasure?</strong></p>
-  <p>I'm glad you asked. It sounds like you want to buy us a gift. POSThere.io was created by the [Path](http://path.com/) Engineering team during one of their Hackathons. In particular, Sean Johnson and Eric Musgrove did the development work.</p>
-
-  <p><strong>You guys sound great. Can I work with you guys?</strong></p>
-  <p>You sure can! Come [work for us](https://path.com/about#jobs).</p>
 </div>
