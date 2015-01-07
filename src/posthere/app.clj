@@ -21,8 +21,9 @@
 ;; Reload code dynamically with each web request in development
 (defonce hot-reload (or (env :hot-reload) false))
 
-(defn- route-for [request]
+(defn- route-for
   "Get the URL for the request from a ring request map."
+  [request]
   (get-in request [:route-params :*]))
 
 (defn- strip-prefix-slash
