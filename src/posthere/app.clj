@@ -2,7 +2,8 @@
   "PostHere.io web application."
   (:gen-class)
     (:require [clojure.string :as s]
-              [ring.middleware.reload :as reload]
+              [ring.middleware.reload :refer (wrap-reload)]
+              [raven-clj.ring :refer (wrap-sentry)]
               [ring.util.response :refer (response status)]
               [compojure.core :refer (GET POST PUT PATCH DELETE defroutes)]
               [compojure.route :as route]
@@ -14,12 +15,18 @@
               [posthere.examples :as examples :refer (example-results)]
               [posthere.results :refer (results-view)]))
 
+;; DSN for error reporting to Sentry
+(defonce dsn (or (env :raven-dsn) false))
+
+;; Reload code dynamically with each web request in development
 (defonce hot-reload (or (env :hot-reload) false))
 
 (defn- route-for [request]
+  "Get the URL for the request from a ring request map."
   (get-in request [:route-params :*]))
 
 (defn- strip-prefix-slash
+  "Remove the / from the start of a URL."
   [relative-url]
   (s/replace relative-url #"^/" ""))
 
@@ -58,15 +65,20 @@
   (PUT "*" [:as request] (capture-request (uuid-for request) request))
   (PATCH "*" [:as request] (capture-request (uuid-for request) request))
 
-  ;; Delete the stored requests
+  ;; Delete a stored requests
   (DELETE "*" [:as request] (do (delete-requests (uuid-for request))(status {} 204))))
 
-(def cors-routes (wrap-cors approutes #".*"))
+(defonce cors-routes (wrap-cors approutes #".*"))
+
+(defonce hot-reload-routes
+  (if hot-reload
+      (wrap-reload #'cors-routes)
+      cors-routes))
 
 (def app
-  (if hot-reload
-    (reload/wrap-reload #'cors-routes)
-    cors-routes))
+  (if dsn
+    (wrap-sentry hot-reload-routes dsn)
+    hot-reload-routes))
 
 (defn start [port]
   (run-server app {:port port :join? false})
