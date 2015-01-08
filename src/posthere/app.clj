@@ -79,10 +79,18 @@
       (wrap-reload #'cors-routes)
       cors-routes))
 
-(def app
+(defonce app
   (if dsn
     (wrap-sentry hot-reload-routes dsn)
     hot-reload-routes))
+
+(defn no-exception-app
+  "App wrapper to use for nginx-clojure that returns a 500/nil when an exception occurs."
+  [request]
+  (try
+    (app request)
+    (catch Throwable e
+      {:status 500})))
 
 (defn start [port]
   (run-server app {:port port :join? false})
