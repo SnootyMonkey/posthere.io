@@ -41,9 +41,6 @@
   ; Resource requests (in development only, otherwise handled by nginx)
   (route/resources "/")
 
-  ;; Force an error for testing Sentry error reporting
-  (GET "/_/force_error" [] (/ 42 0))
-
   ;; Home page for development, handled by nginx in production
   (GET "/" [] (slurp "./resources/public/index"))
 
