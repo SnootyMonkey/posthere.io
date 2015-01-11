@@ -61,6 +61,8 @@ Don’t trust us with your test data? No need to, it’s open source! Check the 
 
 To host it yourself, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
+First, put your own [Google Analytics tracking code](https://support.google.com/analytics/answer/1008080?hl=en) and [doorbell.io](https://doorbell.io/) app key in the `src/config.edn` configuration file if you want usage analytics and user feedback respectively. If you don't care about these features, you can leave the configuration entries blank.
+
 Then you can create the static HTML:
 
 ```console

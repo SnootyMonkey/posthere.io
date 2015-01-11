@@ -1,0 +1,4 @@
+{
+  :google-analytics-tracking-code "" ; put your GA tracking code here (ex: UA-58773824-1)
+  :doorbell-io-app-key "" ; put your doorbell.io app key here (ex: INqwgBSOEVTg5CCsAwDpJXH65fHSbH6pQ2JdC2zI7qPC5plUehlKaOCkTIU0p4fI)
+}
