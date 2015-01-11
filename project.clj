@@ -36,7 +36,7 @@
   ]
 
   :plugins [
-    [lein-ring "0.8.13"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.0"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-cljsbuild "1.0.4"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
     [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
