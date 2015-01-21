@@ -36,7 +36,7 @@
   ]
 
   :plugins [
-    [lein-ring "0.9.0"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.1"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-cljsbuild "1.0.4"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
     [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
@@ -44,7 +44,7 @@
     [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
     [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
     [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
-    [lein-ancient "0.5.5"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
+    [lein-ancient "0.6.1"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
     [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
     [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
     [lein-environ "1.0.0"] ; ; Get environment settings from lein project https://github.com/weavejester/environ
