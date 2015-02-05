@@ -1,19 +1,19 @@
 (ns posthere.app
   "PostHere.io web application."
   (:gen-class)
-    (:require [clojure.string :as s]
-              [ring.middleware.reload :refer (wrap-reload)]
-              [raven-clj.ring :refer (wrap-sentry)]
-              [ring.util.response :refer (response status)]
-              [compojure.core :refer (GET POST PUT PATCH DELETE defroutes)]
-              [compojure.route :as route]
-              [org.httpkit.server :refer (run-server)]
-              [ring.middleware.cors :refer (wrap-cors)]
-              [environ.core :refer (env)]
-              [posthere.capture-request :refer (capture-request)]
-              [posthere.storage :refer (requests-for delete-requests)]
-              [posthere.examples :as examples :refer (example-results)]
-              [posthere.results :refer (results-view)]))
+  (:require [clojure.string :as s]
+            [ring.middleware.reload :refer (wrap-reload)]
+            [raven-clj.ring :refer (wrap-sentry)]
+            [ring.util.response :refer (response status)]
+            [compojure.core :refer (GET POST PUT PATCH DELETE defroutes)]
+            [compojure.route :as route]
+            [org.httpkit.server :refer (run-server)]
+            [ring.middleware.cors :refer (wrap-cors)]
+            [environ.core :refer (env)]
+            [posthere.capture-request :refer (capture-request)]
+            [posthere.storage :refer (requests-for delete-requests)]
+            [posthere.examples :as examples :refer (example-results)]
+            [posthere.results :refer (results-view)]))
 
 ;; DSN for error reporting to Sentry
 (defonce dsn (or (env :raven-dsn) false))
@@ -67,14 +67,14 @@
   (PATCH "*" [:as request] (capture-request (uuid-for request) request))
 
   ;; Delete a stored requests
-  (DELETE "*" [:as request] (do (delete-requests (uuid-for request))(status {} 204))))
+  (DELETE "*" [:as request] (do (delete-requests (uuid-for request)) (status {} 204))))
 
 (defonce cors-routes (wrap-cors approutes #".*"))
 
 (defonce hot-reload-routes
   (if hot-reload
-      (wrap-reload #'cors-routes)
-      cors-routes))
+    (wrap-reload #'cors-routes)
+    cors-routes))
 
 (defonce app
   (if dsn

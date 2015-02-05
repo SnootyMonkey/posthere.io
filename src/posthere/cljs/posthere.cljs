@@ -1,9 +1,9 @@
 (ns posthere
   "POSThere.io Cljs"
-    (:require-macros [hiccups.core :refer (defhtml)])
-    (:require   [jayq.core :refer ($ bind ajax)]
-                [clojure.string :as s]
-                [hiccups.runtime :as hiccupsrt]))
+  (:require-macros [hiccups.core :refer (defhtml)])
+  (:require   [jayq.core :refer ($ bind ajax)]
+              [clojure.string :as s]
+              [hiccups.runtime :as hiccupsrt]))
 
 ; If you change this sentence, also change max-body-size in capture-request.cljs
 (def too-big "The body was larger than POSThere.io's maximum of 1 megabyte.")

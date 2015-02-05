@@ -40,9 +40,9 @@
   "Create the response to the stored POST request."
   [url-uuid request]
   (-> (post-response-body url-uuid (get-in request [:headers "host"])) ; string with directions
-    (response) ; make the string the body of our response
-    (header "Content-Type" "text/plain") ; add a content type header
-    (status (:status request)))) ; add the HTTP status of the response
+      (response) ; make the string the body of our response
+      (header "Content-Type" "text/plain") ; add a content type header
+      (status (:status request)))) ; add the HTTP status of the response
 
 ;; ----- HTTP Status -----
 
@@ -62,8 +62,8 @@
         requested-status (get-in request requested-status-path)
         status (valid-status requested-status)] ; ensure the requested status is valid
     (-> request
-      (assoc :status status)
-      (update-in [:parsed-query-string] dissoc "status"))))
+        (assoc :status status)
+        (update-in [:parsed-query-string] dissoc "status"))))
 
 ;; ----- Limit Body Size -----
 
@@ -78,9 +78,9 @@
   "The body in the request was too big so remove it, and set the body overflow flag."
   [request]
   (-> request
-    (dissoc :body)
-    (assoc :derived-content-type too-big)
-    (assoc :body-overflow true)))
+      (dissoc :body)
+      (assoc :derived-content-type too-big)
+      (assoc :body-overflow true)))
 
 (defn- read-body
   "Read in from the body InputStream 1 byte more than the max body size."
@@ -128,17 +128,17 @@
   "Given a processed ring request, extract the pieces of it that we want to store into a new map."
   [request]
   (-> {}
-    ; don't store "host" in the headers
-    (assoc :headers (select-keys (:headers request) (filter #(not (host? %)) (keys (:headers request)))))
-    ; extract all the other pieces of the ring request that we need to store in redis
-    (assoc :timestamp (:timestamp request))
-    (assoc :parsed-query-string (:parsed-query-string request))
-    (assoc :derived-content-type (:derived-content-type request))    
-    (assoc :status (:status request))
-    (assoc :body (:body request))
-    (assoc :invalid-body (:invalid-body request))
-    (assoc :body-overflow (:body-overflow request))
-    (assoc :request-method (:request-method request))))
+      ; don't store "host" in the headers
+      (assoc :headers (select-keys (:headers request) (filter #(not (host? %)) (keys (:headers request)))))
+      ; extract all the other pieces of the ring request that we need to store in redis
+      (assoc :timestamp (:timestamp request))
+      (assoc :parsed-query-string (:parsed-query-string request))
+      (assoc :derived-content-type (:derived-content-type request))    
+      (assoc :status (:status request))
+      (assoc :body (:body request))
+      (assoc :invalid-body (:invalid-body request))
+      (assoc :body-overflow (:body-overflow request))
+      (assoc :request-method (:request-method request))))
 
 (defn capture-request
   "
@@ -150,13 +150,13 @@
   ;; Process the request
   (let [processed-request
     (-> request
-      (add-time-stamp) ; save the time of the request
-      (parse-query-string) ; handle any query string parameters
-      (limit-body-request-size) ; read in the body and deal with bodies that are bigger than the max allowed
-      (pretty-print-json) ; handle the body data if it's JSON
-      (pretty-print-xml) ; handle the body data if it's XML
-      (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
-      (handle-response-status))] ; handle the requested states
+        (add-time-stamp) ; save the time of the request
+        (parse-query-string) ; handle any query string parameters
+        (limit-body-request-size) ; read in the body and deal with bodies that are bigger than the max allowed
+        (pretty-print-json) ; handle the body data if it's JSON
+        (pretty-print-xml) ; handle the body data if it's XML
+        (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
+        (handle-response-status))] ; handle the requested states
     ;; Save the request
     (save-request url-uuid (extract-request-parts processed-request))
     ;; Respond to the HTTP client
