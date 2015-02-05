@@ -98,8 +98,8 @@
       (try
         ; pretty-print the body and set the derived content type
         (-> request
-          (assoc :body (pretty-printer))
-          (assoc :derived-content-type derived-content-type))
+            (assoc :body (pretty-printer))
+            (assoc :derived-content-type derived-content-type))
         (catch Exception e ; pretty printing failed
           (if (s/blank? content-type) ; did they tell us it was this content-type?
             request ; we were only guessing it might be, so leave it as is
@@ -112,8 +112,8 @@
     request
     json?
     (fn [] (if (nil? (:body request))
-                  nil
-                  (generate-string (parse-string (:body request)) {:pretty true})))
+              nil
+              (generate-string (parse-string (:body request)) {:pretty true})))
     json-encoded))
 
 (defn pretty-print-xml
