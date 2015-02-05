@@ -124,7 +124,7 @@
     (fn [] (pretty-print-xml-and-declaration (:body request)))
     xml-encoded))
 
- (defn pretty-print-urlencoded
+(defn pretty-print-urlencoded
   [request]
   (let [content-type (content-type-for request)
         body-value (:body request)
