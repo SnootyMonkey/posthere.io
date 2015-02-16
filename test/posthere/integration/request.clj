@@ -51,7 +51,7 @@
 (facts "about responses"
 
   (doseq [method [:post :put :patch]]
-  
+
     (fact "default response status is provided"
       (let [url-uuid (uuid)
             url (url-for url-uuid)

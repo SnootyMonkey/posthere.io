@@ -74,7 +74,7 @@
         content-length (or content-length-header 0)] ; 0 if we have no content-length header
     (<= content-length max-body-size)))
 
-(defn- body-overflow 
+(defn- body-overflow
   "The body in the request was too big so remove it, and set the body overflow flag."
   [request]
   (-> request
@@ -133,7 +133,7 @@
       ; extract all the other pieces of the ring request that we need to store in redis
       (assoc :timestamp (:timestamp request))
       (assoc :parsed-query-string (:parsed-query-string request))
-      (assoc :derived-content-type (:derived-content-type request))    
+      (assoc :derived-content-type (:derived-content-type request))
       (assoc :status (:status request))
       (assoc :body (:body request))
       (assoc :invalid-body (:invalid-body request))

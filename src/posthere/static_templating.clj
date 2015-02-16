@@ -22,7 +22,7 @@
 (defn partial-content [page-partial]
   (slurp (clojure.java.io/resource (partial-for page-partial))))
 
-(defn- remove-js 
+(defn- remove-js
   "If the setting is blank, remove the JavaScript, otherwise do nothing."
   [config-setting]
   (if (s/blank? config-setting)
@@ -37,16 +37,16 @@
     (html-content config-key))) ;; add the key as the value of the DOM element
 
 (deftemplate layout-page layout [page-partial]
-  
+
   ;; use Enlive to combine the layout and the page partial into a HTMl page
   [:#page-partial-container] (html-content (partial-content page-partial))
-  
+
   [:#doorbell-io-app-key] (add-key doorbell-io-app-key) ;; insert the config'd  doorbell.io app key
   [:#doorbell-js] (remove-js doorbell-io-app-key) ;; remove the doorbell.io JS if there's no config
-  
+
   [:#ga-tracking-code] (add-key ga-tracking-code) ;; insert the doorbell.io app key
   [:#ga-js] (remove-js ga-tracking-code)) ;; remove the doorbell.io JS
-  
+
 (defn- export-page
   "Combine the contents of the layout.html template and the page partial template
   to create a static HTML file, handling the configuration settings for Google Analytics

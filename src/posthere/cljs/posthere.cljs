@@ -1,4 +1,4 @@
-(ns posthere
+(ns posthere.core
   "POSThere.io Cljs"
   (:require-macros [hiccups.core :refer (defhtml)])
   (:require   [jayq.core :refer ($ bind ajax)]
@@ -118,10 +118,11 @@
   [headers result]
   (if (aget result "invalid-body")
     (let [header-keys (keys headers)
-          header-map (zipmap (map s/lower-case header-keys) header-keys) ; mapping of lower-case header to mixed-case header
+          ; mapping of lower-case header to mixed-case header
+          header-map (zipmap (map s/lower-case header-keys) header-keys)
           mixed-case-content-type (get header-map "content-type")]
       (assoc headers mixed-case-content-type
-        [:span 
+        [:span
           [:span.glyphicon.glyphicon-warning-sign {:title invalid-body-warning}]
           (get headers mixed-case-content-type)]))
     headers)) ; the body isn't invalid, so no warning needed
@@ -228,14 +229,14 @@
 (defn ^:export setup-results []
 
   ;; Set the protocol everywhere it appears
-  (replace-span-html "protocol" (protocol))  
+  (replace-span-html "protocol" (protocol))
   ;; Set the host everywhere it appears
   (replace-span-html "host" (host-name))
 
   ;; Render each result
   (doseq [result js/resultData]
     (.append ($ "#results") (result-template result)))
-  
+
   ;; Syntax highlight the results
   (.initHighlightingOnLoad js/hljs))
 

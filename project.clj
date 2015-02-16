@@ -30,7 +30,7 @@
     [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Client-side
-    [org.clojure/clojurescript "0.0-2760"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "0.0-2850"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
@@ -38,17 +38,7 @@
   :plugins [
     [lein-ring "0.9.1"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-cljsbuild "1.0.4"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
-    [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
-    [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
-    [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
-    [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
-    [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
-    [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
-    [lein-ancient "0.6.2"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
-    [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
-    [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
-    [lein-cljfmt "0.1.9"] ; Code formatting https://github.com/weavejester/cljfmt
   ]
 
   :profiles {
@@ -65,6 +55,10 @@
         [midje "1.6.3"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
+      :plugins [
+        [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
+        [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
+      ]
     }
 
     :dev [:qa {
@@ -76,6 +70,19 @@
         [aprint "0.1.0"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
         [org.clojure/tools.trace "0.7.6"] ; Tracing macros/fns https://github.com/clojure/tools.trace
       ]
+      :plugins [
+        [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
+        [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
+        [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
+        [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
+        [lein-ancient "0.6.2"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
+        [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
+        [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
+        [lein-cljfmt "0.1.9"] ; Code formatting https://github.com/weavejester/cljfmt
+        [venantius/ultra "0.2.0"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
+      ]
+      ;; Lein REPL colors
+      :ultra {:color-scheme :solarized_dark}
       ;; REPL injections
       :injections [
         (require '[aprint.core :refer (aprint ap)]
