@@ -10,11 +10,11 @@
     :email "sean@path.com"
   }
 
-  :min-lein-version "2.5.0" ; highest version supported by Travis-CI as of 10/28/2014
+  :min-lein-version "2.5.1" ; highest version supported by Travis-CI as of 2/17/2015
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.6.0"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/clojure "1.7.0-alpha5"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
@@ -52,7 +52,7 @@
         :hot-reload false
       }
       :dependencies [
-        [midje "1.6.3"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.7.0-SNAPSHOT"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
