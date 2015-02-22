@@ -20,7 +20,7 @@
     [ring/ring-devel "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.3.2"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
-    [compojure "1.3.1"] ; Web routing https://github.com/weavejester/compojure
+    [compojure "1.3.2"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
@@ -30,14 +30,14 @@
     [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Client-side
-    [org.clojure/clojurescript "0.0-2850"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "0.0-2913"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
 
   :plugins [
     [lein-ring "0.9.1"] ; common ring tasks https://github.com/weavejester/lein-ring
-    [lein-cljsbuild "1.0.4"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
+    [lein-cljsbuild "1.0.5"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
