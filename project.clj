@@ -37,7 +37,6 @@
 
   :plugins [
     [lein-ring "0.9.2"] ; common ring tasks https://github.com/weavejester/lein-ring
-    [lein-cljsbuild "1.0.5"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
@@ -71,6 +70,7 @@
         [org.clojure/tools.trace "0.7.6"] ; Tracing macros/fns https://github.com/clojure/tools.trace
       ]
       :plugins [
+        [lein-cljsbuild "1.0.5"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
         [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
@@ -81,7 +81,7 @@
         [lein-cljfmt "0.1.9"] ; Code formatting https://github.com/weavejester/cljfmt
         [venantius/ultra "0.3.2"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
       ]
-      ;; Lein REPL colors
+      ;; REPL colors
       :ultra {:color-scheme :solarized_dark}
       ;; REPL injections
       :injections [
