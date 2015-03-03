@@ -36,7 +36,7 @@
   ]
 
   :plugins [
-    [lein-ring "0.9.1"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.2"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-cljsbuild "1.0.5"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
@@ -79,7 +79,7 @@
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
         [lein-cljfmt "0.1.9"] ; Code formatting https://github.com/weavejester/cljfmt
-        [venantius/ultra "0.2.0"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
+        [venantius/ultra "0.3.2"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
       ]
       ;; Lein REPL colors
       :ultra {:color-scheme :solarized_dark}
