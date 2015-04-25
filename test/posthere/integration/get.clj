@@ -58,5 +58,5 @@
       (let [request (request :get url)
             accept-header (header request "Accept" "application/json")
             response (app accept-header)]
-        (:body response) =>
-          "[{\"headers\":{\"bar\":\"foo\"},\"body\":\"Bar\"},{\"headers\":{\"foo\":\"bar\"},\"body\":\"Foo\"}]"))))
+        (parse-string (:body response)) =>
+          (parse-string "[{\"headers\":{\"bar\":\"foo\"},\"body\":\"Bar\"},{\"headers\":{\"foo\":\"bar\"},\"body\":\"Foo\"}]")))))
