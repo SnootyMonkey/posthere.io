@@ -115,7 +115,7 @@ If you'd like to contribute back your enhancements (awesome!), please submit you
 
 ## Acknowledgements
 
-The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jamesward.com/2014/06/11/testing-webhooks-was-a-pain-so-i-fixed-the-glitch) created in June of 2014. We used echo-webhook internally at Path and were big fans, but it didn't really do everything it needed to, so we build POSThere.io. Thanks for the great idea James and for taking the first step.
+The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jamesward.com/2014/06/11/testing-webhooks-was-a-pain-so-i-fixed-the-glitch) created in June of 2014. We used echo-webhook internally at Path and were big fans, but it didn't really do everything it needed to, so we built POSThere.io. Thanks for the great idea James and for taking the first step.
 
 ## License
 
