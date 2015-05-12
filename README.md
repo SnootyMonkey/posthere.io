@@ -8,7 +8,7 @@
 
 When your code is POSTing, either to someone's API, or to their code via a web-hook you provide from your own API, it's hard to validate your code is doing the right things as you iterate. Mocking the POST request is tedious and not a complete test, and writing code to service your own POST requests is wasted code and effort.
 
-Wouldn’t it be nice to instantly see what your code POSTed in an easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
+Wouldn’t it be nice to instantly see what your code POSTed (or PUT or PATCHed) in an easy, friendly browser interface? Now you can. Just remember one URL: [posthere.io](http://posthere.io/). 
 
 
 ## Usage
