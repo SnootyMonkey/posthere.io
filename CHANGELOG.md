@@ -9,6 +9,7 @@ v1.0.1
 
 * Added Trello project roadmap
 
+* Fixed Doorbell.io and Google Analytics includes on the results page
 
 v1.0.0
 ====
