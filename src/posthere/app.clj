@@ -37,8 +37,9 @@
   (strip-prefix-slash (route-for request)))
 
 (defroutes approutes
+  "Compojure routes to map incoming requests to resources and functions."
 
-  ; Resource requests (in development only, otherwise handled by nginx)
+  ; Resource requests (used in development only, otherwise handled by nginx)
   (route/resources "/")
 
   ;; Home page for development, handled by nginx in production
@@ -69,14 +70,18 @@
   ;; Delete a stored requests
   (DELETE "*" [:as request] (do (delete-requests (uuid-for request)) (status {} 204))))
 
-(defonce cors-routes (wrap-cors approutes #".*"))
+(defonce cors-routes
+  ;; Use CORS middleware to support in-browser JavaScript requests.
+  (wrap-cors approutes #".*"))
 
 (defonce hot-reload-routes
+  ;; Use reload middleware for development so the server doesn't need bounced on code changes.
   (if hot-reload
     (wrap-reload #'cors-routes)
     cors-routes))
 
 (defonce app
+  ;; Use sentry middleware to report runtime errors if we have a raven DSN.
   (if dsn
     (wrap-sentry hot-reload-routes dsn)
     hot-reload-routes))

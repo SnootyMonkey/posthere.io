@@ -1,4 +1,7 @@
+analytics
 cljsbuild
 enlive
 midje
+nginx
+sitemap
 über
