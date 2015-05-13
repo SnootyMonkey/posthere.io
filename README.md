@@ -3,6 +3,7 @@
 
 [![MPL License](http://img.shields.io/badge/license-MPL-blue.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
 [![Build Status](http://img.shields.io/travis/path/posthere.io.svg?style=flat)](https://travis-ci.org/path/posthere.io)
+[![Roadmap on Trello](http://img.shields.io/badge/roadmap-trello-blue.svg?style=flat)](https://trello.com/b/Mzjmz7jg/posthere-io-https-github-com-path-posthere-io)
 
 [POSThere.io](http://posthere.io/) is a simple service for debugging API calls and web hooks. 
 
