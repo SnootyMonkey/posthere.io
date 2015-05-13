@@ -4,12 +4,18 @@
             [ring.util.response :refer (response header)]
             [cheshire.core :refer (generate-string)]
             [posthere.examples :as examples]
-            [posthere.static-templating :as st :refer (partial-content)]))
+            [posthere.static-templating :as st :refer (partial-content add-key remove-js)]))
 
 (deftemplate results-page st/layout [results uuid]
 
   ;; use Enlive to combine the layout and the page partial into a HTMl page
   [:#page-partial-container] (content (html-snippet (partial-content "results")))
+
+  [:#doorbell-io-app-key] (add-key st/doorbell-io-app-key) ;; insert the config'd doorbell.io app key
+  [:#doorbell-js] (remove-js st/doorbell-io-app-key) ;; remove the doorbell.io JS if there's no app key
+
+  [:#ga-tracking-code] (add-key st/ga-tracking-code) ;; insert the config'd Google Analytics tracking code
+  [:#ga-js] (remove-js st/ga-tracking-code) ;; remove the Google Analytics JS if there's no tracking code
 
   ;; unhide the results div if we DO have some results
   [:#results] (if-not (empty? results)

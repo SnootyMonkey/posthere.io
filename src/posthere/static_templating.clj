@@ -3,7 +3,7 @@
   (:require [clojure.string :as s]
             [net.cgrand.enlive-html :as enl :refer (deftemplate html-content substitute append)]))
 
-(def config-file (read-string (slurp (clojure.java.io/resource "config.edn"))))
+(defonce config-file (read-string (slurp (clojure.java.io/resource "config.edn"))))
 (def doorbell-io-app-key (:doorbell-io-app-key config-file))
 (def ga-tracking-code (:google-analytics-tracking-code config-file))
 
@@ -22,14 +22,14 @@
 (defn partial-content [page-partial]
   (slurp (clojure.java.io/resource (partial-for page-partial))))
 
-(defn- remove-js
+(defn remove-js
   "If the setting is blank, remove the JavaScript, otherwise do nothing."
   [config-setting]
   (if (s/blank? config-setting)
     (substitute nil) ;; remove the element from the DOM
     (append ""))) ;; do nothing
 
-(defn- add-key
+(defn add-key
   "If the key is blank, do nothing, otherwise add it to the DOM element."
   [config-key]
   (if (s/blank? config-key)
@@ -41,11 +41,11 @@
   ;; use Enlive to combine the layout and the page partial into a HTMl page
   [:#page-partial-container] (html-content (partial-content page-partial))
 
-  [:#doorbell-io-app-key] (add-key doorbell-io-app-key) ;; insert the config'd  doorbell.io app key
-  [:#doorbell-js] (remove-js doorbell-io-app-key) ;; remove the doorbell.io JS if there's no config
+  [:#doorbell-io-app-key] (add-key doorbell-io-app-key) ;; insert the config'd doorbell.io app key
+  [:#doorbell-js] (remove-js doorbell-io-app-key) ;; remove the doorbell.io JS if there's no app key
 
-  [:#ga-tracking-code] (add-key ga-tracking-code) ;; insert the doorbell.io app key
-  [:#ga-js] (remove-js ga-tracking-code)) ;; remove the doorbell.io JS
+  [:#ga-tracking-code] (add-key ga-tracking-code) ;; insert the config'd Google Analytics tracking code
+  [:#ga-js] (remove-js ga-tracking-code)) ;; remove the Google Analytics JS if there's no tracking code
 
 (defn- export-page
   "Combine the contents of the layout.html template and the page partial template
