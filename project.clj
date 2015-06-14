@@ -1,4 +1,4 @@
-(defproject posthere.io "1.0.1-SNAPSHOT"
+(defproject posthere.io "1.0.2"
   :description "Debug all the POST Requests."
   :url "http://posthere.io/"
   :license {
@@ -7,7 +7,7 @@
   }
   :support {
     :name "Sean Johnson"
-    :email "sean@path.com"
+    :email "sean@snootymonkey.com"
   }
 
   :min-lein-version "2.5.1" ; highest version supported by Travis-CI as of 2/17/2015
@@ -24,19 +24,19 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.5"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.10.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.11.1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.9.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [cheshire "5.4.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     ;; Client-side
-    [org.clojure/clojurescript "0.0-3297"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "0.0-3308"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
   ]
 
   :plugins [
-    [lein-ring "0.9.4"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.5"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
@@ -65,21 +65,21 @@
         :hot-reload true ; reload code when changed on the file system
       }
       :dependencies [
-        [print-foo "0.4.6"] ; Old school print debugging https://github.com/danielribeiro/print-foo
-        [aprint "0.1.0"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
-        [org.clojure/tools.trace "0.7.6"] ; Tracing macros/fns https://github.com/clojure/tools.trace
+        [print-foo "1.0.2"] ; Old school print debugging https://github.com/danielribeiro/print-foo
+        [aprint "0.1.3"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
+        [org.clojure/tools.trace "0.7.8"] ; Tracing macros/fns https://github.com/clojure/tools.trace
       ]
       :plugins [
-        [lein-cljsbuild "1.0.5"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
+        [lein-cljsbuild "1.0.6"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
         [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
-        [lein-kibit "0.0.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
+        [lein-kibit "0.1.2"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
         [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
-        [lein-ancient "0.6.2"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
+        [lein-ancient "0.6.7"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.1.9"] ; Code formatting https://github.com/weavejester/cljfmt
-        [venantius/ultra "0.3.2"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
+        [lein-cljfmt "0.1.10"] ; Code formatting https://github.com/weavejester/cljfmt
+        [venantius/ultra "0.3.3"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
       ]
       ;; REPL colors
       :ultra {:color-scheme :solarized_dark}

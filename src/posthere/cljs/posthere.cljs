@@ -19,7 +19,7 @@
 
 ;; ----- Unique UUID generation -----
 
-(defn- uuid
+(defn- uuid-string
   "
   Modified from https://github.com/davesann/cljs-uuid
   Returns a new randomly generated (version 4) cljs.core/UUID,
@@ -41,7 +41,7 @@
 
   Ex: f6f7-499f-b805
   "
-  (s/join "-" (take 3 (rest (s/split (uuid) #"-")))))
+  (s/join "-" (take 3 (rest (s/split (uuid-string) #"-")))))
 
 (defn- update-post-url
   "Change the generated URL when any of the parts that make up the URL change."

@@ -28,9 +28,7 @@
 (def pretty-xml-with-declaration (str xml-declaration "\n" (pretty-print-xml-and-declaration xml-body)))
 
 (def params {
-  "email" "jobs@path.com"
   "password" "This1sMySup3rS3cr3tPassw0rdAndY0uCanN0tGuess1t"
-  "work-at" "Path"
   "most-evolved" "ferrets"
   "super-bowl" "Buccaneers"
 })

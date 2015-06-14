@@ -2,8 +2,8 @@
 [![POSThere.io](./resources/public/images/POSThere.io.tagline.png)](http://posthere.io/)
 
 [![MPL License](http://img.shields.io/badge/license-MPL-blue.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
-[![Build Status](http://img.shields.io/travis/path/posthere.io.svg?style=flat)](https://travis-ci.org/path/posthere.io)
-[![Roadmap on Trello](http://img.shields.io/badge/roadmap-trello-blue.svg?style=flat)](https://trello.com/b/Mzjmz7jg/posthere-io-https-github-com-path-posthere-io)
+[![Build Status](http://img.shields.io/travis/SnootyMonkey/posthere.io.svg?style=flat)](https://travis-ci.org/SnootyMonkey/posthere.io)
+[![Roadmap on Trello](http://img.shields.io/badge/roadmap-trello-blue.svg?style=flat)](https://trello.com/b/Mzjmz7jg/posthere-io-https-github-com-snootymonkey-posthere-io)
 
 [POSThere.io](http://posthere.io/) is a simple service for debugging API calls and web hooks. 
 
@@ -87,9 +87,9 @@ Then you can visit your very own POSThere.io in your browser at: [http://localho
 
 ## Testing
 
-Tests are run in continuous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/path/posthere.io):
+Tests are run in continuous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/SnootyMonkey/posthere.io):
 
-[![Build Status](http://img.shields.io/travis/path/posthere.io.svg?style=flat)](https://travis-ci.org/path/posthere.io)
+[![Build Status](http://img.shields.io/travis/SnootyMonkey/posthere.io.svg?style=flat)](https://travis-ci.org/SnootyMonkey/posthere.io)
 
 To run the tests locally:
 
@@ -100,7 +100,7 @@ lein midje
 
 ## Development and Contributing
 
-Need more features? [Fork it!](https://github.com/path/posthere.io/fork) It’s [well-tested](https://travis-ci.org/path/posthere.io) Clojure and ClojureScript.
+Need more features? [Fork it!](https://github.com/SnootyMonkey/posthere.io/fork) It’s [well-tested](https://travis-ci.org/SnootyMonkey/posthere.io) Clojure and ClojureScript.
 
 If you'd like to contribute back your enhancements (awesome!), please submit your pull requests to the `dev` branch. We promise to look at every pull request and incorporate it, or at least provide feedback on why if we won't.
 
@@ -116,10 +116,10 @@ If you'd like to contribute back your enhancements (awesome!), please submit you
 
 ## Acknowledgements
 
-The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jamesward.com/2014/06/11/testing-webhooks-was-a-pain-so-i-fixed-the-glitch) created in June of 2014. We used echo-webhook internally at Path and were big fans, but it didn't really do everything it needed to, so we built POSThere.io. Thanks for the great idea James and for taking the first step.
+The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jamesward.com/2014/06/11/testing-webhooks-was-a-pain-so-i-fixed-the-glitch) created in June of 2014. I used echo-webhook, but it didn't really do everything it needed to, so I built POSThere.io. Thanks for the great idea James and for taking the first step.
 
 ## License
 
 POSThere.io is distributed under the [Mozilla Public License v2.0](http://www.mozilla.org/MPL/2.0/).
 
-Copyright © 2014-2015 Path, Inc.
+Copyright © 2014-2015 Snooty Monkey, LLC.

@@ -1,3 +1,10 @@
+v1.0.2
+====
+
+* Updated dependencies
+
+* Updated branding
+
 v1.0.1
 ====
 
