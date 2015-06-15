@@ -127,6 +127,11 @@
           (get headers mixed-case-content-type)]))
     headers)) ; the body isn't invalid, so no warning needed
 
+(defn- replace-span-html [span-class replacement-html]
+  (let [spans (js->clj ($ (str "span." span-class)))]
+    (doseq [span spans]
+      (set! (.-innerHTML span) replacement-html))))
+
 ;; ----- Hiccup HTML snippets for the results page -----
 
 (defhtml table-header
@@ -220,11 +225,6 @@
       :type :delete
       :dataType :json
       :success (fn [data] (.reload js/location))}))) ; if the delete works... reload the page
-
-(defn- replace-span-html [span-class replacement-html]
-  (let [spans (js->clj ($ (str "span." span-class)))]
-    (doseq [span spans]
-      (set! (.-innerHTML span) replacement-html))))
 
 (defn ^:export setup-results []
 

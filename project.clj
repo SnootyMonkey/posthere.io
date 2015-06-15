@@ -1,4 +1,4 @@
-(defproject posthere.io "1.0.2"
+(defproject posthere.io "1.0.3-SNAPSHOT"
   :description "Debug all the POST Requests."
   :url "http://posthere.io/"
   :license {
