@@ -14,7 +14,7 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.7.0-RC1"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/clojure "1.7.0-RC2"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.4.0-RC1"] ; Web application library https://github.com/ring-clojure/ring
@@ -36,7 +36,7 @@
   ]
 
   :plugins [
-    [lein-ring "0.9.5"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.6"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-environ "1.0.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
