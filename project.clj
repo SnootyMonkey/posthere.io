@@ -33,6 +33,7 @@
     [org.clojure/clojurescript "0.0-3308"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
+    [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
   ]
 
   :plugins [
@@ -105,11 +106,12 @@
 
   :aliases {
     "build-pages" ["run" "-m" "posthere.static-templating/export"] ; build the static HTML pages
+    "build" ["with-profile" "prod" "do" "clean" ["cljsbuild" "once"] "build-pages," "uberjar"]
     "midje" ["with-profile" "qa" "midje"] ; run all tests
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "bikeshed!" ["bikeshed" "-v" "-m" "120"] ; code check with max line length warning of 120 characters
-    "ancient" ["with-profile" "dev" "do" "ancient" ":allow-qualified," "ancient" ":plugins" ":allow-qualified"] ; check for out of date dependencies
+    "ancient" ["with-profile" "dev" "do" ["ancient" ":allow-qualified"] ["ancient" ":plugins" ":allow-qualified"]] ; check for out of date dependencies
   }
 
   ;; ----- Code check configuration -----

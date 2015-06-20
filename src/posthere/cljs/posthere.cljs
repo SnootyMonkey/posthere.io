@@ -3,7 +3,8 @@
   (:require-macros [hiccups.core :refer (defhtml)])
   (:require   [jayq.core :refer ($ bind ajax)]
               [clojure.string :as s]
-              [hiccups.runtime :as hiccupsrt]))
+              [hiccups.runtime :as hiccupsrt]
+              [cljs-uuid.core :as uuid]))
 
 ; If you change this sentence, also change max-body-size in capture-request.cljs
 (def too-big "The body was larger than POSThere.io's maximum of 1 megabyte.")
@@ -19,29 +20,12 @@
 
 ;; ----- Unique UUID generation -----
 
-(defn- uuid-string
-  "
-  Modified from https://github.com/davesann/cljs-uuid
-  Returns a new randomly generated (version 4) cljs.core/UUID,
-  like: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
-  as per http://www.ietf.org/rfc/rfc4122.txt.
-  Usage:
-  (uuid)  =>  #uuid \"305e764d-b451-47ae-a90d-5db782ac1f2e\""
-  []
-  (letfn [(f [] (.toString (rand-int 16) 16))
-          (g [] (.toString  (bit-or 0x8 (bit-and 0x3 (rand-int 15))) 16))]
-    (UUID. (.toString
-             (goog.string.StringBuffer.
-               (f) (f) (f) (f) (f) (f) (f) (f) "-" (f) (f) (f) (f)
-               "-4" (f) (f) (f) "-" (g) (f) (f) (f) "-"
-               (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f) (f))))))
-
 (defn- short-uuid []
   "Take the middle 3 sections of a UUID to make a shorter UUID.
 
   Ex: f6f7-499f-b805
   "
-  (s/join "-" (take 3 (rest (s/split (uuid-string) #"-")))))
+  (s/join "-" (take 3 (rest (s/split (uuid/make-random) #"-")))))
 
 (defn- update-post-url
   "Change the generated URL when any of the parts that make up the URL change."

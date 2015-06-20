@@ -64,16 +64,10 @@ To host it yourself, you'll need to install [Java](http://www.oracle.com/technet
 
 First, put your own [Google Analytics tracking code](https://support.google.com/analytics/answer/1008080?hl=en) and [doorbell.io](https://doorbell.io/) app key in the `src/config.edn` configuration file if you want usage analytics and user feedback respectively. If you don't care about these features, you can leave the configuration entries blank.
 
-Then you can create the static HTML:
+Then you can create the static HTML and build the ClojureScript code:
 
 ```console
-lein build-pages
-```
-
-And you can build the ClojureScript code:
-
-```console
-lein cljsbuild once
+lein build
 ```
 
 Finally, start a server:
