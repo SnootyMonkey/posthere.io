@@ -1,6 +1,5 @@
 (ns posthere.util.uuid
-  "UUIDs and the heat death of the Universe..."
-  (:require [clojure.string :as s]))
+  "UUIDs and the heat death of the Universe...")
 
 (defn uuid
   "Simple wrapper for Java's UUID"
