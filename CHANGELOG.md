@@ -1,4 +1,4 @@
-v1.0.3
+MAINLINE
 ====
 
 * Updated dependencies
