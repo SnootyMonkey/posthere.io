@@ -4,6 +4,7 @@ v1.0.3
 * Updated dependencies
 * All in one "build" alias
 * Removed duplicated cljs-uuid code
+* Removed duplicate :: in DELETE link text
 
 v1.0.2
 ====
