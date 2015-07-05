@@ -17,8 +17,8 @@
     [org.clojure/clojure "1.7.0"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.2.0-RC"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
-    [ring/ring-devel "1.4.0-RC1"] ; Web application library https://github.com/ring-clojure/ring
-    [ring/ring-core "1.4.0-RC1"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-devel "1.4.0-RC2"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-core "1.4.0-RC2"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
     [compojure "1.3.4"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
