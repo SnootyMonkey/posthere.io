@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/). This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased][unreleased]
+## [Unreleased]
 
 ### Changed
 * Updated dependencies
@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 * All in one "build" alias
 
 ### Fixed
-* Removed duplicate :: in DELETE link text
+* Removed duplicate `::` in DELETE link
 
 ## [v1.0.2] - 2015-06-15
 
