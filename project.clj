@@ -20,7 +20,7 @@
     [ring/ring-devel "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
-    [compojure "1.3.4"] ; Web routing https://github.com/weavejester/compojure
+    [compojure "1.4.0"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
