@@ -60,7 +60,7 @@ Don’t trust us with your test data? No need to, it’s open source! Check the 
 
 ### Internal Hosting
 
-To host it yourself, you'll need to install [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
+To host it yourself, you'll need to install [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
 
 First, put your own [Google Analytics tracking code](https://support.google.com/analytics/answer/1008080?hl=en) and [doorbell.io](https://doorbell.io/) app key in the `src/config.edn` configuration file if you want usage analytics and user feedback respectively. If you don't care about these features, you can leave the configuration entries blank.
 
@@ -108,9 +108,11 @@ If you'd like to contribute back your enhancements (awesome!), please submit you
 * Submit pull requests to the `dev` branch.
 * Have fun!
 
+
 ## Acknowledgements
 
 The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jamesward.com/2014/06/11/testing-webhooks-was-a-pain-so-i-fixed-the-glitch) created in June of 2014. I used echo-webhook, but it didn't really do everything it needed to, so I built POSThere.io. Thanks for the great idea James and for taking the first step.
+
 
 ## License
 
