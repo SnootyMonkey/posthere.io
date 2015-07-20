@@ -29,6 +29,7 @@
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
+    [clj-http "2.0.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
     [org.clojure/clojurescript "0.0-3308"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
@@ -66,7 +67,6 @@
         :hot-reload true ; reload code when changed on the file system
       }
       :dependencies [
-        [print-foo "1.0.2"] ; Old school print debugging https://github.com/danielribeiro/print-foo
         [aprint "0.1.3"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
         [org.clojure/tools.trace "0.7.8"] ; Tracing macros/fns https://github.com/clojure/tools.trace
       ]
@@ -90,7 +90,6 @@
         (require '[aprint.core :refer (aprint ap)]
                  '[clojure.stacktrace :refer (print-stack-trace)]
                  '[clojure.test :refer :all]
-                 '[print.foo :refer :all]
                  '[clj-time.core :as t]
                  '[clj-time.format :as f]
                  '[clojure.string :as s])

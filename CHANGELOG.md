@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/). This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased]
+## Mainline - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.2...HEAD)
 
 ### Changed
 * Updated dependencies
@@ -13,14 +13,15 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Fixed
 * Removed duplicate `::` in DELETE link
+* Removed Clojure 1.7 related warnings
 
-## [v1.0.2] - 2015-06-15
+## [v1.0.2](https://github.com/SnootyMonkey/posthere.io/releases/tag/v1.0.2) - 2015-06-15 - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.0...v1.0.2)
 
 ### Changed
 * Updated dependencies
 * Updated branding
 
-## [v1.0.1] - [YANKED]
+## v1.0.1 - YANKED
 
 ### Changed
 * Updated dependencies
@@ -33,6 +34,6 @@ All notable changes to this project will be documented in this file. This projec
 ### Added
 * Added Trello project roadmap
 
-## [v1.0.0] - 2015-01-11
+## [v1.0.0](https://github.com/SnootyMonkey/posthere.io/releases/tag/v1.0.0) - 2015-01-11
 
 Initial release.
