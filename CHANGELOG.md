@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/). This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com).
 
-## Mainline - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.2...HEAD)
+## Unreleased - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.2...HEAD)
 
 ### Changed
 * Updated dependencies
