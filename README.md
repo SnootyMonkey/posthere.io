@@ -88,7 +88,7 @@ Tests are run in continuous integration of the `master` and `dev` branches on [T
 To run the tests locally:
 
 ```console
-lein midje
+lein test!
 ```
 
 

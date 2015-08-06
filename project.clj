@@ -31,7 +31,7 @@
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "2.0.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.7.28"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.7.58"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
@@ -53,11 +53,11 @@
         :hot-reload false
       }
       :dependencies [
-        [midje "1.7.0"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.8-alpha1"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
-        [lein-midje "3.1.3"] ; Example-based testing https://github.com/marick/lein-midje
+        [lein-midje "3.2-RC4"] ; Example-based testing https://github.com/marick/lein-midje
         [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
       ]
     }
@@ -107,7 +107,7 @@
   :aliases {
     "build-pages" ["run" "-m" "posthere.static-templating/export"] ; build the static HTML pages
     "build" ["with-profile" "prod" "do" "clean" ["cljsbuild" "once"] "build-pages," "uberjar"]
-    "midje" ["with-profile" "qa" "midje"] ; run all tests
+    "test!" ["with-profile" "qa" "midje"] ; run all tests
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "bikeshed!" ["bikeshed" "-v" "-m" "120"] ; code check with max line length warning of 120 characters
