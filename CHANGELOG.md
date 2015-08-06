@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file. This projec
 * All in one "build" alias
 
 ### Fixed
-* Removed duplicate `::` in DELETE link
+* Removed duplicate `::` in DELETE link [issue #3](https://github.com/SnootyMonkey/posthere.io/issues/3)
 * Removed Clojure 1.7 related warnings
 
 ## [v1.0.2](https://github.com/SnootyMonkey/posthere.io/releases/tag/v1.0.2) - 2015-06-15 - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.0...v1.0.2)
