@@ -24,7 +24,7 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.12.0-alpha2"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.12.0-alpha5"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
@@ -71,7 +71,7 @@
         [org.clojure/tools.trace "0.7.8"] ; Tracing macros/fns https://github.com/clojure/tools.trace
       ]
       :plugins [
-        [lein-cljsbuild "1.0.6"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
+        [lein-cljsbuild "1.1.0"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
         [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-kibit "0.1.2"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
@@ -79,9 +79,9 @@
         [lein-ancient "0.6.7"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.1.10"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.3.0"] ; Code formatting https://github.com/weavejester/cljfmt
         [venantius/ultra "0.3.4"] ; Enhancement's to Leiningen's REPL https://github.com/venantius/ultra
-        [venantius/yagni "0.1.1"] ; Dead code finder https://github.com/venantius/yagni
+        [venantius/yagni "0.1.4"] ; Dead code finder https://github.com/venantius/yagni
       ]
       ;; REPL colors
       :ultra {:color-scheme :solarized_dark}
