@@ -31,7 +31,7 @@
     [org.clojure/data.xml "0.0.8"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "2.0.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.7.107"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.7.122"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
