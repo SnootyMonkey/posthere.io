@@ -76,7 +76,7 @@
         [lein-kibit "0.1.2"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
         [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
-        [lein-ancient "0.6.7"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
+        [lein-ancient "0.6.8-SNAPSHOT"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
         [lein-cljfmt "0.3.0"] ; Code formatting https://github.com/weavejester/cljfmt
@@ -106,12 +106,12 @@
 
   :aliases {
     "build-pages" ["run" "-m" "posthere.static-templating/export"] ; build the static HTML pages
-    "build" ["with-profile" "prod" "do" "clean" ["cljsbuild" "once"] "build-pages," "uberjar"]
+    "build" ["with-profile" "prod" "do" "clean," "cljsbuild" "once," "build-pages," "uberjar"]
     "test!" ["with-profile" "qa" "midje"] ; run all tests
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "bikeshed!" ["bikeshed" "-v" "-m" "120"] ; code check with max line length warning of 120 characters
-    "ancient" ["with-profile" "dev" "do" ["ancient" ":allow-qualified"] ["ancient" ":plugins" ":allow-qualified"]] ; check for out of date dependencies
+    "ancient!" ["do" "ancient" ":allow-qualified," "ancient" ":plugins" ":allow-qualified"] ; check for out of date dependencies
   }
 
   ;; ----- Code check configuration -----
