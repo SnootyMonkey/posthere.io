@@ -111,7 +111,7 @@
     "run!" ["with-profile" "prod" "run"] ; start a POSThere.io server in production
     "spell!" ["spell" "-n"] ; check spelling in docs and docstrings
     "bikeshed!" ["bikeshed" "-v" "-m" "120"] ; code check with max line length warning of 120 characters
-    "ancient!" ["do" "ancient" ":allow-qualified," "ancient" ":plugins" ":allow-qualified"] ; check for out of date dependencies
+    "ancient" ["ancient" ":all" ":allow-qualified"] ; check for out of date dependencies
   }
 
   ;; ----- Code check configuration -----
