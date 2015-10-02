@@ -24,7 +24,7 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.12.0-beta3"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.12.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.1"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
@@ -38,7 +38,7 @@
   ]
 
   :plugins [
-    [lein-ring "0.9.6"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.9.7"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-environ "1.0.1"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
