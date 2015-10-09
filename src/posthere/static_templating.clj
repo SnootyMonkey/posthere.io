@@ -59,7 +59,7 @@
   [page-partial]
   (let [output-dir (if (= page-partial "index") resources-dir target-dir)
         output-file (str output-dir page-partial)]
-    (spit output-file (apply str (layout-page page-partial)))
+    (spit output-file (s/join (layout-page page-partial)))
     (println "Rendered:" output-file "from layout:" layout "and page partial:" (partial-for page-partial))))
 
 (defn export

@@ -86,7 +86,7 @@
   "Read in from the body InputStream 1 byte more than the max body size."
   [request]
   (let [bis (java.io.BufferedInputStream. (:body request))
-        buffer (make-array Byte/TYPE (+ max-body-size 1))
+        buffer (make-array Byte/TYPE (inc max-body-size))
         size (.read bis buffer)] ; read up to 1 byte more than our max body size
     (String. buffer 0 size "UTF-8"))) ; return a String of what we read
 
@@ -100,7 +100,7 @@
   If there's a body in the request, read it in if it's less than the max size,
   and set an overflow flag if it's bigger than the max size.
   "
-  ([request :guard #(:body %)]
+  ([request :guard :body]
     (if (content-length-OK? request) ; indicated content-length is small enough, so try reading in the body
       (let [body (read-body request)] ; read the body from the input stream
         (if (body-length-OK? body)
@@ -129,7 +129,7 @@
   [request]
   (-> {}
       ; don't store "host" in the headers
-      (assoc :headers (select-keys (:headers request) (filter #(not (host? %)) (keys (:headers request)))))
+      (assoc :headers (select-keys (:headers request) (remove host? (keys (:headers request)))))
       ; extract all the other pieces of the ring request that we need to store in redis
       (assoc :timestamp (:timestamp request))
       (assoc :parsed-query-string (:parsed-query-string request))

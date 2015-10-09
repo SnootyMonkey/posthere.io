@@ -80,7 +80,7 @@
   "A hiccup table row with only one data element, the <pre> and <code> HTML escaped content."
   [content result]
   (let [derived-content-type (aget result "derived-content-type")
-        syntax-highlight (if derived-content-type derived-content-type "nohighlight")]
+        syntax-highlight (or derived-content-type "nohighlight")]
     [:tr
       [:td.text-left {:colspan 2}
         [:pre
@@ -142,7 +142,7 @@
   "Optional HTML for a table containing body label row and the body content that was POSTed."
   [result]
   (let [body-overflow (aget result "body-overflow") ; flag indicating the body was too big
-        body (or (aget result "body") (if body-overflow true nil))] ; 3 cases: body, body overflow or no body
+        body (or (aget result "body") (when body-overflow true))] ; 3 cases: body, body overflow or no body
     (if body
       [:table.table.table-bordered.result-table
         [:thead

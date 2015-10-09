@@ -1,6 +1,7 @@
 (ns posthere.results
   "Show the saved requests for a particular URL UUID."
-  (:require [net.cgrand.enlive-html :as enl :refer (content html-snippet deftemplate)]
+  (:require [clojure.string :as s]
+            [net.cgrand.enlive-html :as enl :refer (content html-snippet deftemplate)]
             [ring.util.response :refer (response header)]
             [cheshire.core :refer (generate-string)]
             [posthere.examples :as examples]
@@ -48,4 +49,4 @@
     ;; Asked for JSON
     (header (response (generate-string results)) "content-type" "application/json")
     ;; Everything else gets HTML
-    (apply str (results-page results uuid))))
+    (s/join (results-page results uuid))))

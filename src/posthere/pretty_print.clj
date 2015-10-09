@@ -111,9 +111,7 @@
   (pretty-print
     request
     json?
-    (fn [] (if (nil? (:body request))
-              nil
-              (generate-string (parse-string (:body request)) {:pretty true})))
+    (fn [] (if-let [body (:body request)] (generate-string (parse-string body) {:pretty true})))
     json-encoded))
 
 (defn pretty-print-xml
@@ -128,7 +126,7 @@
   [request]
   (let [content-type (content-type-for request)
         body-value (:body request)
-        body (if body-value body-value "")]
+        body (or body-value "")]
     ;; Attempt form-urlencoded parsing if the body has an = and
     ;; they indicate it's form-urlencoded by content-type, or there's
     ;; no content-type. The pretty-print attempt won't do anything if
