@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. This projec
 ### Changed
 * Updated dependencies
 * Removed duplicated cljs-uuid code
+* Use Clojure 1.8
 
 ### Added
 * All in one "build" alias
