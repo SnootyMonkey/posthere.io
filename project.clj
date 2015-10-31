@@ -16,7 +16,7 @@
     ;; Server-side
     [org.clojure/clojure "1.7.0"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
-    [defun "0.2.0"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
+    [defun "0.3.0-alapha"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.1.19"] ; Development Web server http://http-kit.org/
@@ -53,11 +53,11 @@
         :hot-reload false
       }
       :dependencies [
-        [midje "1.8-alpha1"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.8.1"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
-        [lein-midje "3.2-RC4"] ; Example-based testing https://github.com/marick/lein-midje
+        [lein-midje "3.2"] ; Example-based testing https://github.com/marick/lein-midje
         [jonase/eastwood "0.2.1"] ; Clojure linter https://github.com/jonase/eastwood
         [lein-kibit "0.1.2"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
       ]
