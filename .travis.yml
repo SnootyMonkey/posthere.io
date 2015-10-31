@@ -3,20 +3,19 @@ language: clojure
 lein: lein2
 cache:
   directories:
-    - $HOME/.m2
+  - "$HOME/.m2"
 script:
-  - lein2 test!
-  - lein2 eastwood
-  - lein2 kibit
+- lein2 test!
+- lein2 eastwood
+- lein2 kibit
 branches:
   only:
-    - master
-    - dev
+  - master
+  - dev
 jdk:
-  - oraclejdk8
+- oraclejdk8
 services:
-  - redis
+- redis
 notifications:
-  hipchat:
-    rooms:
-      - ec1ead2b384476ea5bcb232b5bb9b6@Snooty Monkey
+  slack:
+    secure: u8j3U565A02gjnMVLIcYe3azoxO0JHlhevhmoCwl6Fx77QDP9mIx0qLYJqkrBnWbNFiVII4YqddQ8POamSyiMSY9wrgnonDd2lDaJudkMMTHNX+m2keHEV4txaT0MKSs5DdEz2feb0n9hKMH6Soin0PxZt7GMGB6yjyaGR+koWY=
