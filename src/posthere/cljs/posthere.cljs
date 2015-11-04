@@ -20,11 +20,12 @@
 
 ;; ----- Unique UUID generation -----
 
-(defn- short-uuid []
+(defn- short-uuid
   "Take the middle 3 sections of a UUID to make a shorter UUID.
 
   Ex: f6f7-499f-b805
   "
+  []
   (s/join "-" (take 3 (rest (s/split (uuid/make-random) #"-")))))
 
 (defn- update-post-url
