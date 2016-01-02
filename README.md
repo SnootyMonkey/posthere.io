@@ -118,4 +118,4 @@ The initial idea for POSThere.io was James Ward's [echo-webhook](http://www.jame
 
 POSThere.io is distributed under the [Mozilla Public License v2.0](http://www.mozilla.org/MPL/2.0/).
 
-Copyright © 2014-2015 Snooty Monkey, LLC.
+Copyright © 2014-2016 Snooty Monkey, LLC.
