@@ -29,7 +29,7 @@
     [environ "1.0.1"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
-    [clj-http "2.0.0"] ; HTTP client https://github.com/dakrone/clj-http
+    [clj-http "2.0.1"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
     [org.clojure/clojurescript "1.7.228"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
