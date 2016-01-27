@@ -83,7 +83,7 @@ Then you can visit your very own POSThere.io in your browser at: [http://localho
 
 Tests are run in continuous integration of the `master` and `dev` branches on [Travis CI](https://travis-ci.org/SnootyMonkey/posthere.io):
 
-[![Build Status](http://img.shields.io/travis/SnootyMonkey/posthere.io.svg?style=flat)](https://travis-ci.org/SnootyMonkey/posthere.io)
+[![Build Status](https://travis-ci.org/SnootyMonkey/posthere.io.svg?branch=master)](https://travis-ci.org/SnootyMonkey/posthere.io)
 
 To run the tests locally:
 
