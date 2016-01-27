@@ -41,7 +41,7 @@
   "super-bowl" "Buccaneers"
 })
 
-(def bad-status-codes [103 209 309 421 452 512 "foo"])
+(def bad-status-codes [103 209 309 435 452 512 "foo"])
 
 (defn- url-for [url-uuid]
   (str "/" url-uuid))
