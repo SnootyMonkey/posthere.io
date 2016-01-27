@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ### Added
 * All in one "build" alias
+* 421 and 451 status codes per https://httpstatuses.com/
 
 ### Fixed
 * Removed duplicate `::` in DELETE link ([issue #3](https://github.com/SnootyMonkey/posthere.io/issues/3))
