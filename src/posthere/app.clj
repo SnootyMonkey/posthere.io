@@ -19,7 +19,7 @@
 (defonce dsn (or (env :raven-dsn) false))
 
 ;; Reload code dynamically with each web request in development
-(defonce hot-reload (or (env :hot-reload) false))
+(defonce hot-reload (boolean (Boolean/valueOf (or (env :hot-reload) false))))
 
 (defn- route-for
   "Get the URL for the request from a ring request map."

@@ -39,7 +39,7 @@
 
   :plugins [
     [lein-ring "0.9.7"] ; common ring tasks https://github.com/weavejester/lein-ring
-    [lein-environ "1.0.1"] ; Get environment settings from lein project https://github.com/weavejester/environ
+    [lein-environ "1.0.2"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
   :profiles {
@@ -50,7 +50,7 @@
     
     :qa {
       :env {
-        :hot-reload false
+        :hot-reload "false"
       }
       :dependencies [
         [midje "1.8.3"] ; Example-based testing https://github.com/marick/Midje
@@ -65,7 +65,7 @@
 
     :dev [:qa {
       :env ^:replace {
-        :hot-reload true ; reload code when changed on the file system
+        :hot-reload "true" ; reload code when changed on the file system
       }
       :dependencies [
         [aprint "0.1.3"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
@@ -93,7 +93,7 @@
 
     :prod {
       :env {
-        :hot-reload false
+        :hot-reload "false"
       }
     }
 
