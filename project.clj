@@ -26,7 +26,7 @@
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.12.2"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
-    [environ "1.0.1"] ; Get environment settings from different sources https://github.com/weavejester/environ
+    [environ "1.0.2"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "2.0.1"] ; HTTP client https://github.com/dakrone/clj-http
