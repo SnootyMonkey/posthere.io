@@ -19,12 +19,12 @@
     [defun "0.3.0-alapha"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.4.0"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.1.21-alpha2"] ; Development Web server http://http-kit.org/
-    [compojure "1.4.0"] ; Web routing https://github.com/weavejester/compojure
+    [http-kit "2.2.0-alpha1"] ; Development Web server http://http-kit.org/
+    [compojure "1.5.0"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.12.2"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.13.0-alpha3"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.2"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
@@ -71,14 +71,14 @@
         [aprint "0.1.3"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
       ]
       :plugins [
-        [lein-cljsbuild "1.1.2"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
-        [lein-bikeshed "0.2.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
+        [lein-cljsbuild "1.1.3"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
+        [lein-bikeshed "0.3.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
         [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
         [lein-ancient "0.6.8"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.3.0"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.4.1"] ; Code formatting https://github.com/weavejester/cljfmt
       ]
       ;; REPL injections
       :injections [
