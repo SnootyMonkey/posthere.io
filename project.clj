@@ -27,11 +27,11 @@
     [com.taoensso/carmine "2.13.0-alpha3"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.2"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [cheshire "5.5.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [cheshire "5.6.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
-    [clj-http "2.1.0"] ; HTTP client https://github.com/dakrone/clj-http
+    [clj-http "3.0.1"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.7.228"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.8.40"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
@@ -75,10 +75,10 @@
         [lein-bikeshed "0.3.0"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
         [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
-        [lein-ancient "0.6.8"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
+        [lein-ancient "0.6.10"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.4.1"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.5.1"] ; Code formatting https://github.com/weavejester/cljfmt
       ]
       ;; REPL injections
       :injections [
