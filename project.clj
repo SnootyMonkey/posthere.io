@@ -24,14 +24,14 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.3.1"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.13.0-alpha3"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.13.0-RC1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
-    [environ "1.0.2"] ; Get environment settings from different sources https://github.com/weavejester/environ
+    [environ "1.0.3"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.6.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "3.0.1"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.8.40"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.8.51"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
@@ -39,7 +39,7 @@
 
   :plugins [
     [lein-ring "0.9.7"] ; common ring tasks https://github.com/weavejester/lein-ring
-    [lein-environ "1.0.2"] ; Get environment settings from lein project https://github.com/weavejester/environ
+    [lein-environ "1.0.3"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
   :profiles {
@@ -78,7 +78,7 @@
         [lein-ancient "0.6.10"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.5.1"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.5.3"] ; Code formatting https://github.com/weavejester/cljfmt
       ]
       ;; REPL injections
       :injections [
