@@ -14,18 +14,18 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.9.0-alpha4"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/clojure "1.9.0-alpha5"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.0-alapha"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
-    [ring/ring-devel "1.5.0-RC1"] ; Web application library https://github.com/ring-clojure/ring
-    [ring/ring-core "1.5.0-RC1"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.2.0-alpha1"] ; Development Web server http://http-kit.org/
+    [ring/ring-devel "1.5.0"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-core "1.5.0"] ; Web application library https://github.com/ring-clojure/ring
+    [http-kit "2.2.0-alpha2"] ; Development Web server http://http-kit.org/
     [compojure "1.5.0"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.4.2"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.13.0-RC1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
-    [clj-time "0.11.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
+    [clj-time "0.12.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.3"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.6.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
