@@ -14,24 +14,24 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.9.0-alpha5"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/clojure "1.9.0-alpha7"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.0-alapha"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.5.0"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.5.0"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.2.0-alpha2"] ; Development Web server http://http-kit.org/
-    [compojure "1.5.0"] ; Web routing https://github.com/weavejester/compojure
+    [compojure "1.5.1"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.4.2"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.13.0-RC1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.13.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.12.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.3"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.6.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "3.1.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.9.36"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.9.76"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
@@ -53,7 +53,7 @@
         :hot-reload "false"
       }
       :dependencies [
-        [midje "1.8.3"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.9.0-alpha2"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
