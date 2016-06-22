@@ -24,14 +24,14 @@
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.4.2"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.13.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.14.0-alpha1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.12.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.3"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [cheshire "5.6.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [cheshire "5.6.2"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.1.0-beta1"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "3.1.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.9.76"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.9.88"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
