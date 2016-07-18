@@ -14,12 +14,12 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.9.0-alpha7"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/clojure "1.9.0-alpha10"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.0-alapha"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
-    [ring/ring-devel "1.6.0-beta1"] ; Web application library https://github.com/ring-clojure/ring
-    [ring/ring-core "1.6.0-beta1"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.2.0-beta1"] ; Development Web server http://http-kit.org/
+    [ring/ring-devel "1.6.0-beta4"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-core "1.6.0-beta4"] ; Web application library https://github.com/ring-clojure/ring
+    [http-kit "2.2.0"] ; Development Web server http://http-kit.org/
     [compojure "1.5.1"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.4.2"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
@@ -53,7 +53,7 @@
         :hot-reload "false"
       }
       :dependencies [
-        [midje "1.9.0-alpha2"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.9.0-alpha3"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
