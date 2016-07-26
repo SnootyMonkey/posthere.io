@@ -20,11 +20,11 @@
     [ring/ring-devel "1.6.0-beta4"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.6.0-beta4"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.2.0"] ; Development Web server http://http-kit.org/
-    [compojure "1.5.1"] ; Web routing https://github.com/weavejester/compojure
+    [compojure "1.6.0-beta1"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.4.2"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.14.0-alpha1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.14.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.12.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.0.3"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.6.3"] ; JSON de/encoding https://github.com/dakrone/cheshire
