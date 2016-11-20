@@ -1,7 +1,7 @@
 (ns posthere.pretty-print
   "Parse and pretty print JSON, XML and URL encoded content."
   (:require [clojure.string :as s]
-            [defun :refer (defun-)]
+            [defun.core :refer (defun-)]
             [ring.util.codec :refer (form-decode)]
             [cheshire.core :refer (parse-string generate-string)]
             [clojure.data.xml :refer (parse-str indent-str)]))

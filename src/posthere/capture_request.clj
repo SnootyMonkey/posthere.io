@@ -7,7 +7,7 @@
             [ring.util.response :refer (header response status)]
             [clojure.string :as s]
             [clj-time.core :as t]
-            [defun :refer (defun-)]
+            [defun.core :refer (defun-)]
             [posthere.storage :refer (save-request)]
             [posthere.pretty-print :refer (pretty-print-json pretty-print-xml pretty-print-urlencoded)]))
 
