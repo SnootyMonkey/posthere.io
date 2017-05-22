@@ -60,9 +60,11 @@ Don’t trust us with your test data? No need to, it’s open source! Check the 
 
 ### Internal Hosting
 
-To host it yourself, you'll need to install [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Leiningen](http://leiningen.org/).
+To host it yourself, you'll need to install [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html), [Leiningen](http://leiningen.org/), and [redis](https://redis.io/download).
 
 First, put your own [Google Analytics tracking code](https://support.google.com/analytics/answer/1008080?hl=en) and [doorbell.io](https://doorbell.io/) app key in the `src/config.edn` configuration file if you want usage analytics and user feedback respectively. If you don't care about these features, you can leave the configuration entries blank.
+
+First, start redis.
 
 Then you can create the static HTML and build the ClojureScript code:
 
