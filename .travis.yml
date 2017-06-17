@@ -1,6 +1,10 @@
 sudo: false
 language: clojure
-lein: lein2
+jdk:
+- oraclejdk8
+lein: 2.7.1
+services:
+- redis
 cache:
   directories:
   - "$HOME/.m2"
@@ -12,10 +16,6 @@ branches:
   only:
   - master
   - dev
-jdk:
-- oraclejdk8
-services:
-- redis
 notifications:
   slack:
     secure: u8j3U565A02gjnMVLIcYe3azoxO0JHlhevhmoCwl6Fx77QDP9mIx0qLYJqkrBnWbNFiVII4YqddQ8POamSyiMSY9wrgnonDd2lDaJudkMMTHNX+m2keHEV4txaT0MKSs5DdEz2feb0n9hKMH6Soin0PxZt7GMGB6yjyaGR+koWY=
