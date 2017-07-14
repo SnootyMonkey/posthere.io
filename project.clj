@@ -25,7 +25,7 @@
     [raven-clj "1.5.0"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.16.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
-    [clj-time "0.13.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
+    [clj-time "0.14.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.1.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.7.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.2.0-alpha2"] ; XML parser/encoder https://github.com/clojure/data.xml
