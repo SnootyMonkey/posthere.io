@@ -17,8 +17,8 @@
     [org.clojure/clojure "1.9.0-alpha17"] ; Lisp on the JVM http://clojure.org/documentation
     [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.0-RC1"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
-    [ring/ring-devel "1.6.1"] ; Web application library https://github.com/ring-clojure/ring
-    [ring/ring-core "1.6.1"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-devel "1.6.2"] ; Web application library https://github.com/ring-clojure/ring
+    [ring/ring-core "1.6.2"] ; Web application library https://github.com/ring-clojure/ring
     [http-kit "2.3.0-alpha2"] ; Development Web server http://http-kit.org/
     [compojure "1.6.0"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
@@ -53,7 +53,7 @@
         :hot-reload "false"
       }
       :dependencies [
-        [midje "1.9.0-alpha6"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.9.0-alpha8"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
