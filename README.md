@@ -3,7 +3,7 @@
 
 [![MPL License](http://img.shields.io/badge/license-MPL-blue.svg?style=flat)](https://www.mozilla.org/MPL/2.0/)
 [![Build Status](https://travis-ci.org/SnootyMonkey/posthere.io.svg?branch=master)](https://travis-ci.org/SnootyMonkey/posthere.io)
-[![Dependency Status](https://www.versioneye.com/user/projects/5589769a306662001e00022b/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5589769a306662001e00022b)
+[![Dependency Status](https://www.versioneye.com/user/projects/596f33676725bd0050029399/badge.svg?style=flat)](https://www.versioneye.com/user/projects/596f33676725bd0050029399)
 [![Roadmap on Trello](http://img.shields.io/badge/roadmap-trello-blue.svg?style=flat)](https://trello.com/b/Mzjmz7jg/posthere-io-https-github-com-snootymonkey-posthere-io)
 
 [POSThere.io](http://posthere.io/) is a simple service for debugging API calls and web hooks. 
