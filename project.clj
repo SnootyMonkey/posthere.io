@@ -14,12 +14,12 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.9.0-alpha17"] ; Lisp on the JVM http://clojure.org/documentation
-    [org.clojure/core.match "0.3.0-alpha4"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
+    [org.clojure/clojure "1.9.0-alpha19"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/core.match "0.3.0-alpha5"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.0-RC1"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.6.2"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.6.2"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.3.0-alpha2"] ; Development Web server http://http-kit.org/
+    [http-kit "2.3.0-alpha3"] ; Development Web server http://http-kit.org/
     [compojure "1.6.0"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
     [raven-clj "1.5.0"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
@@ -27,18 +27,18 @@
     [com.taoensso/carmine "2.16.0"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.14.0"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.1.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [cheshire "5.7.1"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [cheshire "5.8.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.2.0-alpha2"] ; XML parser/encoder https://github.com/clojure/data.xml
-    [clj-http "3.6.1"] ; HTTP client https://github.com/dakrone/clj-http
+    [clj-http "3.7.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
-    [org.clojure/clojurescript "1.9.671"] ; ClojureScript compiler https://github.com/clojure/clojurescript
+    [org.clojure/clojurescript "1.9.908"] ; ClojureScript compiler https://github.com/clojure/clojurescript
     [jayq "2.5.4"] ; ClojureScript wrapper for jQuery https://github.com/ibdknox/jayq
     [hiccups "0.3.0"] ; ClojureScript implementation of Hiccup https://github.com/teropa/hiccups
     [cljs-uuid "0.0.4"] ; ClojureScript UUID https://github.com/davesann/cljs-uuid
   ]
 
   :plugins [
-    [lein-ring "0.12.0"] ; common ring tasks https://github.com/weavejester/lein-ring
+    [lein-ring "0.12.1"] ; common ring tasks https://github.com/weavejester/lein-ring
     [lein-environ "1.1.0"] ; Get environment settings from lein project https://github.com/weavejester/environ
   ]
 
@@ -53,13 +53,13 @@
         :hot-reload "false"
       }
       :dependencies [
-        [midje "1.9.0-alpha8"] ; Example-based testing https://github.com/marick/Midje
+        [midje "1.9.0-alpha9"] ; Example-based testing https://github.com/marick/Midje
         [ring-mock "0.1.5"] ; Test Ring requests https://github.com/weavejester/ring-mock
       ]
       :plugins [
         [lein-midje "3.2.1"] ; Example-based testing https://github.com/marick/lein-midje
         [jonase/eastwood "0.2.4"] ; Clojure linter https://github.com/jonase/eastwood
-        [lein-kibit "0.1.5"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
+        [lein-kibit "0.1.6-beta2"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
       ]
     }
 
@@ -71,14 +71,14 @@
         [aprint "0.1.3"] ; Pretty printing in the REPL (aprint thing) https://github.com/razum2um/aprint
       ]
       :plugins [
-        [lein-cljsbuild "1.1.6"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
+        [lein-cljsbuild "1.1.7"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
         [lein-bikeshed "0.4.1"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
         [lein-pprint "1.1.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
         [lein-ancient "0.6.10"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.5.6"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.5.7"] ; Code formatting https://github.com/weavejester/cljfmt
       ]
       ;; REPL injections
       :injections [
