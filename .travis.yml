@@ -9,9 +9,9 @@ cache:
   directories:
   - "$HOME/.m2"
 script:
-- lein2 test!
-- lein2 eastwood
-- lein2 kibit
+- lein test!
+- lein eastwood
+- lein kibit
 branches:
   only:
   - master
