@@ -3,6 +3,7 @@ cljsbuild
 enlive
 midje
 nginx
+redis
 roadmap
 sitemap
 über
