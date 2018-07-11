@@ -2,12 +2,18 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/). This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com).
 
-## v1.0.3-SNAPSHOT - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.2...HEAD)
+## v1.0.4-SNAPSHOT - [code](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.3...HEAD)
+
+### Changed
+* Updated dependencies
+* Upgrade to Clojure 1.10
+
+## [v1.0.3](https://github.com/SnootyMonkey/posthere.io/compare/v1.0.2...v1.0.3) - 2018-07-10
 
 ### Changed
 * Updated dependencies
 * Removed duplicated cljs-uuid code
-* Upgrade to Clojure 1.8
+* Upgrade to Clojure 1.8 / 1.9
 
 ### Added
 * All in one "build" alias
