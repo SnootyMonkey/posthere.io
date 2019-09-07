@@ -1,8 +1,8 @@
 sudo: false
 language: clojure
 jdk:
-- oraclejdk8
-lein: 2.7.1
+- openjdk8
+lein: 2.9.1
 services:
 - redis
 cache:

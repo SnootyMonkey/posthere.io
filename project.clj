@@ -10,7 +10,7 @@
     :email "sean@snootymonkey.com"
   }
 
-  :min-lein-version "2.7.1"
+  :min-lein-version "2.9.1"
 
   :dependencies [
     ;; Server-side
