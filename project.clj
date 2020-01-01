@@ -22,9 +22,9 @@
     [http-kit "2.4.0-alpha4"] ; Development Web server http://http-kit.org/
     [compojure "1.6.1"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
-    [raven-clj "1.6.0-alpha3"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
+    [raven-clj "1.6.0-alpha4"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
-    [com.taoensso/carmine "2.20.0-beta2"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
+    [com.taoensso/carmine "2.20.0-RC1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.15.2"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.1.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
     [cheshire "5.9.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
