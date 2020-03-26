@@ -14,20 +14,20 @@
 
   :dependencies [
     ;; Server-side
-    [org.clojure/clojure "1.10.1"] ; Lisp on the JVM http://clojure.org/documentation
-    [org.clojure/core.match "0.3.0"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
+    [org.clojure/clojure "1.10.2-alpha1"] ; Lisp on the JVM http://clojure.org/documentation
+    [org.clojure/core.match "1.0.0"] ; Erlang-esque pattern matching https://github.com/clojure/core.match
     [defun "0.3.1"] ; Erlang-esque pattern matching for Clojure functions https://github.com/killme2008/defun
     [ring/ring-devel "1.8.0"] ; Web application library https://github.com/ring-clojure/ring
     [ring/ring-core "1.8.0"] ; Web application library https://github.com/ring-clojure/ring
-    [http-kit "2.4.0-alpha4"] ; Development Web server http://http-kit.org/
+    [http-kit "2.4.0-alpha6"] ; Development Web server http://http-kit.org/
     [compojure "1.6.1"] ; Web routing https://github.com/weavejester/compojure
     [jumblerg/ring.middleware.cors "1.0.1"] ; CORS library https://github.com/jumblerg/ring.middleware.cors
-    [raven-clj "1.6.0-alpha4"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
+    [raven-clj "1.6.0"] ; Clojure interface to Sentry error reporting https://github.com/sethtrain/raven-clj
     [enlive "1.1.6"] ; HTML Templating system for Clojure https://github.com/cgrand/enlive
     [com.taoensso/carmine "2.20.0-RC1"] ; Redis client for Clojure https://github.com/ptaoussanis/carmine
     [clj-time "0.15.2"] ; Clojure date/time library https://github.com/clj-time/clj-time
     [environ "1.1.0"] ; Get environment settings from different sources https://github.com/weavejester/environ
-    [cheshire "5.9.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
+    [cheshire "5.10.0"] ; JSON de/encoding https://github.com/dakrone/cheshire
     [org.clojure/data.xml "0.2.0-alpha6"] ; XML parser/encoder https://github.com/clojure/data.xml
     [clj-http "3.10.0"] ; HTTP client https://github.com/dakrone/clj-http
     ;; Client-side
@@ -58,7 +58,7 @@
       ]
       :plugins [
         [lein-midje "3.2.2"] ; Example-based testing https://github.com/marick/lein-midje
-        [jonase/eastwood "0.3.6"] ; Clojure linter https://github.com/jonase/eastwood
+        [jonase/eastwood "0.3.11"] ; Clojure linter https://github.com/jonase/eastwood
         [lein-kibit "0.1.8"] ; Static code search for non-idiomatic code https://github.com/jonase/kibit
       ]
     }
@@ -74,11 +74,11 @@
         [lein-cljsbuild "1.1.7"] ; ClojureScript compiler https://github.com/emezeske/lein-cljsbuild
         [lein-bikeshed "0.5.2"] ; Check for code smells https://github.com/dakrone/lein-bikeshed
         [lein-checkall "0.1.1"] ; Runs bikeshed, kibit and eastwood https://github.com/itang/lein-checkall
-        [lein-pprint "1.2.0"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
+        [lein-pprint "1.3.2"] ; pretty-print the lein project map https://github.com/technomancy/leiningen/tree/master/lein-pprint
         [lein-ancient "0.6.15"] ; Check for outdated dependencies https://github.com/xsc/lein-ancient
         [lein-spell "0.1.0"] ; Catch spelling mistakes in docs and docstrings https://github.com/cldwalker/lein-spell
         [lein-deps-tree "0.1.2"] ; Print a tree of project dependencies https://github.com/the-kenny/lein-deps-tree
-        [lein-cljfmt "0.6.6"] ; Code formatting https://github.com/weavejester/cljfmt
+        [lein-cljfmt "0.6.7"] ; Code formatting https://github.com/weavejester/cljfmt
       ]
       ;; REPL injections
       :injections [
