@@ -65,6 +65,31 @@
         (assoc :status status)
         (update-in [:parsed-query-string] dissoc "status"))))
 
+;; ----- Delayed answer -----
+
+(defn- valid-sleep
+  "Esure the requested sleep value is a positive integer "
+  [requested-sleep]
+  (let [sleepmillis (read-string (or requested-sleep "0"))]
+    (if (pos-int? sleepmillis) ; make sure it's positive integer
+      sleepmillis
+      0))) ; defalut value
+
+(defn- handle-sleep
+  "Get the delay value from the query string"
+  [request]
+  (let [requested-sleep-path [:parsed-query-string "sleepmillis"]
+        requested-sleep (get-in request requested-sleep-path)
+        sleepmillis (valid-sleep requested-sleep)]
+    (-> request
+        (assoc :sleepmillis sleepmillis)
+        (update-in [:parsed-query-string] dissoc "sleepmillis")))) ; remove from the query string, we will display with Status
+
+(defn- delaying
+  "Delay the answer"
+  [request]
+  (-> (Thread/sleep (:sleepmillis request))))
+
 ;; ----- Limit Body Size -----
 
 (defn- content-length-OK?
@@ -138,7 +163,8 @@
       (assoc :body (:body request))
       (assoc :invalid-body (:invalid-body request))
       (assoc :body-overflow (:body-overflow request))
-      (assoc :request-method (:request-method request))))
+      (assoc :request-method (:request-method request))
+      (assoc :sleepmillis (:sleepmillis request))))
 
 (defn capture-request
   "
@@ -156,8 +182,11 @@
         (pretty-print-json) ; handle the body data if it's JSON
         (pretty-print-xml) ; handle the body data if it's XML
         (pretty-print-urlencoded) ; handle the body data if it's URL encoded field data
+        (handle-sleep) ;
         (handle-response-status))] ; handle the requested states
     ;; Save the request
     (save-request url-uuid (extract-request-parts processed-request))
+    ;; Delay before answering
+    (delaying processed-request)
     ;; Respond to the HTTP client
     (post-response url-uuid processed-request)))
