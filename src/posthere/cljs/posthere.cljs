@@ -176,7 +176,8 @@
       [:div.col-md-6.text-left
         method "&nbsp;" (time-ago result)]
       [:div.col-md-6.text-right
-        "Status: " [:strong (aget result "status")]]]
+        "Status: " [:strong (aget result "status")]
+        "<br/>Delay: " [:strong (aget result "sleepmillis")]]]
     [:div
       [:div.col-md-12.text-left.text-muted
         [:span.result-timestamp (.-timestamp result)]]]]))
